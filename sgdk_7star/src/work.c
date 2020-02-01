@@ -13,7 +13,6 @@ int work() {
 	u16 pad1,pad0;
     // disable interrupt when accessing VDP
     SYS_disableInts();
-
     enum game_mode gm;
     gm = WORK;
     enum game_item iw,im;
