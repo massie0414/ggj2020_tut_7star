@@ -38,8 +38,6 @@ void chkSozais(struct sozai Sozai,fix32 cameraX);
 int game() {
 
     // disable interrupt when accessing VDP
-
-
     SYS_disableInts();
     struct playerScene PlayerData;
     PlayerData.x=100;
@@ -108,12 +106,32 @@ int game() {
 		}
 	}
 
+	int walk_count = 0;
 	int scroll_x = 0;
     while(TRUE)
    {
     	fix32 walkMode=playerMoveOn(&PlayerData.x,&PlayerData.y);
-    	if(walkMode==1) SPR_setAnim(sprites[0], 1);
-    	else SPR_setAnim(sprites[0], 0);
+    	if(walkMode==1) {
+    		SPR_setAnim(sprites[0], 1);
+
+    		if ( walk_count == 0 ) {
+				// Œø‰Ê‰¹‚ð–Â‚ç‚µ‚Ä‚Ý‚é
+				SND_startPlay_4PCM_ENV(
+						SE_Footstep_8,
+						sizeof(SE_Footstep_8),
+						SOUND_PCM_CH3,
+						FALSE
+				);
+    		}
+    	    walk_count++;
+    	    if ( walk_count > 30 ) {
+    	    	walk_count = 0;
+    	    }
+    	}
+    	else {
+    		SPR_setAnim(sprites[0], 0);
+    		walk_count = 0;
+    	}
     //	cameraScroll(&Camera.x,&PlayerData.x);
     	Camera.x += 500;
     	PlayerData.x -= 5;
