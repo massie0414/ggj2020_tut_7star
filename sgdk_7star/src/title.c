@@ -9,6 +9,10 @@ int title() {
     // VDPアクセス時の割り込みを無効にする
     SYS_disableInts();
 
+    // start music
+    SND_startPlay_XGM(testxgm);
+
+
     u16 palette[64];
 
     enum game_mode gm;
@@ -87,6 +91,9 @@ int title() {
                 //  SND_setPCM_XGM(64, se1_14k, sizeof(se1_14k));
                 //  SND_startPlayPCM_XGM(64, 10, SOUND_PCM_CH1);
 
+                	// BGMの停止
+					XGM_stopPlay();
+
                     VDP_fadeOut(0, (1 * 16) - 1, 20, FALSE); // @suppress("Symbol is not resolved")
 
                     VDP_clearPlan(PLAN_A, TRUE); // @suppress("Symbol is not resolved")
@@ -117,5 +124,6 @@ int title() {
 
         VDP_waitVSync();
     }
+
     return gm;
 }

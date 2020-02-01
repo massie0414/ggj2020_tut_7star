@@ -9,6 +9,9 @@ int logo(){
     // VDPアクセス時の割り込みを無効にする
     SYS_disableInts();
 
+    // 効果音
+	SND_startPlayPCM_XGM(64, 1, SOUND_PCM_CH2); // @suppress("Symbol is not resolved")
+
     u16 palette[64];
 
     enum game_mode gm;
@@ -54,9 +57,6 @@ int logo(){
          || count > START
         ) {
             gm = TITLE;
-
-            // 効果音
-        	SND_startPlayPCM_XGM(64, 1, SOUND_PCM_CH2); // @suppress("Symbol is not resolved")
 
             VDP_fadeOut(0, (1 * 16) - 1, 20, FALSE); // @suppress("Symbol is not resolved")
 
