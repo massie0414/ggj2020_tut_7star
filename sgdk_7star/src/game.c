@@ -5,7 +5,7 @@
 
 #include "main.h"
 
-#define TOP_HEIGHT 122-24
+#define TOP_HEIGHT 124
 #define BOTTOM_HEIGHT 224-48
 #define CAMERA_SCROLL
 #define SCROLL_DIFF 32
@@ -159,7 +159,7 @@ struct datas game(struct datas Data) {
     while(TRUE)
    {
 
-    	text(Camera.x,0,0);
+    	text(PlayerData.y,0,0);
     	bg_b_count += CAMERA_MOVE;
 
     	if ( bg_b_count >= 64 * 8 ) {
@@ -331,11 +331,12 @@ struct datas game(struct datas Data) {
         VDP_waitVSync();
 
         //依頼人はこのへん
-        if(Camera.x>=500 && Irainin_showed!=1){sprites[6] = SPR_addSprite(&NPC,500-Camera.x,160,TILE_ATTR(PAL0, TRUE, FALSE, FALSE));Irainin_showed=1;}
-        if(Irainin_showed==1) SPR_setPosition(sprites[6],500-Camera.x,160);
+        if(Camera.x+320>=660 && Irainin_showed!=1){sprites[6] = SPR_addSprite(&NPC,660-Camera.x,124,TILE_ATTR(PAL0, TRUE, FALSE, FALSE));Irainin_showed=1;}
+        if(Irainin_showed==1) SPR_setPosition(sprites[6],660-Camera.x,124);
 
 
         //プレイヤーの依頼人関係処理
+//        if(Data.explore_mode==1 && Camera.x+160>=500)
 
         // デバッグコマンド
         u16 pad1 =JOY_readJoypad(JOY_1);
