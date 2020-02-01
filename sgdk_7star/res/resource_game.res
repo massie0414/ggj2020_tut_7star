@@ -1,4 +1,4 @@
-SPRITE Player "Picture/bousample.png" 6 6 LZ4W 5 NONE SPRITE 100,BOX
+SPRITE Player "Picture/bouanim2.png" 6 6 LZ4W 5 NONE SPRITE 100,BOX
 SPRITE rock01 "Picture/rock01.png" 4 4 LZ4W 5 NONE SPRITE 100,BOX
 SPRITE rock02 "Picture/rock02.png" 4 4 LZ4W 5 NONE SPRITE 100,BOX
 SPRITE rock03 "Picture/rock03.png" 4 4 LZ4W 5 NONE SPRITE 100,BOX
