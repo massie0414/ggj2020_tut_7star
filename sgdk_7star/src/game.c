@@ -79,12 +79,17 @@ int game() {
 //  Sprite* sprites[6];
 //  Sprite* sozaiSprites[3];
     u16 palette[64];
+    SND_startPlay_4PCM_ENV(
+       		BGM_Sub_8,
+               sizeof(BGM_Sub_8),
+               SOUND_PCM_CH1,
+               FALSE
+       );
 
     SPR_init();
     memcpy(&palette[0], Player.palette->data, 16 * 2);
-    memcpy(&palette[16], SozaiProto.palette->data, 16 * 2);
     memcpy(&palette[32], soradesu_image.palette->data, 16 * 2);
-    memcpy(&palette[48], rock01.palette->data, 16 * 2);
+    memcpy(&palette[16], rock01.palette->data, 16 * 2);
     VDP_drawImageEx(PLAN_B, &soradesu_image, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, ind), 0, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æ
     ind += soradesu_image.tileset->numTile;
     VDP_drawImageEx(PLAN_A, &bga_image, TILE_ATTR_FULL(PAL1, FALSE, FALSE, FALSE, ind), 0, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æA
@@ -145,20 +150,14 @@ int game() {
 				{
 					SPR_setPosition(sprites[i+3],(Sozais[i].x-Camera.x/100)/10,Sozais[i].y/10);
 					u16 num=playerButton();
-					if(num &BUTTON_A)
+					if(playerButton()&BUTTON_A)
 					{
-						num2=0;
-						if(PlayerData.x+48>Sozais[i].x&&PlayerData.x+48<Sozais[i].x+48&&PlayerData.y>Sozais[i].y&&PlayerData.y<Sozais[i].y+48) num2=1;
-						if(PlayerData.x+72>Sozais[i].x&&PlayerData.x+72<Sozais[i].x+48&&PlayerData.y>Sozais[i].y&&PlayerData.y<Sozais[i].y+48) num2=1;
-						if(PlayerData.x+96>Sozais[i].x&&PlayerData.x+96<Sozais[i].x+48&&PlayerData.y>Sozais[i].y&&PlayerData.y<Sozais[i].y+48) num2=1;
-						if(PlayerData.x+48>Sozais[i].x&&PlayerData.x+48<Sozais[i].x+48&&PlayerData.y+24>Sozais[i].y&&PlayerData.y+24<Sozais[i].y+48) num2=1;
-						if(PlayerData.x+96>Sozais[i].x&&PlayerData.x+96<Sozais[i].x+48&&PlayerData.y+24>Sozais[i].y&&PlayerData.y+24<Sozais[i].y+48) num2=1;
-						if(PlayerData.x+48>Sozais[i].x&&PlayerData.x+48<Sozais[i].x+48&&PlayerData.y+48>Sozais[i].y&&PlayerData.y+48<Sozais[i].y+48) num2=1;
-						if(PlayerData.x+72>Sozais[i].x&&PlayerData.x+72<Sozais[i].x+48&&PlayerData.y+48>Sozais[i].y&&PlayerData.y+48<Sozais[i].y+48) num2=1;
-						if(PlayerData.x+96>Sozais[i].x&&PlayerData.x+96<Sozais[i].x+48&&PlayerData.y+48>Sozais[i].y&&PlayerData.y+48<Sozais[i].y+48) num2=1;
-//						text(fix32ToInt(num2),10,10);
-						if(num2==1) {SPR_releaseSprite(sprites[i+3]); Sozais[i].broke==1;}}
-
+						SND_startPlay_4PCM_ENV(
+							Punch_wav,
+							sizeof(Punch_wav),
+							SOUND_PCM_CH2,
+							FALSE
+						);}
 				}
 				else if(Sozais[i].x<=Camera.x+1600)
 					{

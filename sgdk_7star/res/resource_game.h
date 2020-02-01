@@ -1,6 +1,8 @@
 #ifndef _RES_RESOURCE_GAME_H_
 #define _RES_RESOURCE_GAME_H_
 
+extern const u8 Punch_wav[17664];
+extern const u8 Explosion_wav[133120];
 extern const SpriteDefinition Player;
 extern const SpriteDefinition rock01;
 extern const SpriteDefinition rock02;
