@@ -10,8 +10,6 @@ extern const SpriteDefinition numbers_8;
 extern const SpriteDefinition numbers_16;
 extern const Image logo16;
 extern const Image title16;
-extern const Image bga;
-extern const Image bgb;
 extern const Image test;
 extern const Image test2;
 
