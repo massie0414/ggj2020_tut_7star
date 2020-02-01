@@ -16,5 +16,29 @@ IMAGE zimensample_3_image "gfx/zimensample_3.png" BEST
 IMAGE zimensample_4_image "gfx/zimensample_4.png" BEST
 IMAGE zimensample_5_image "gfx/zimensample_5.png" BEST
 
+IMAGE soradoukutu_1_image "gfx/soradoukutu_1.png" BEST
+IMAGE soradoukutu_2_image "gfx/soradoukutu_2.png" BEST
+IMAGE soradoukutu_3_image "gfx/soradoukutu_3.png" BEST
+IMAGE soradoukutu_4_image "gfx/soradoukutu_4.png" BEST
+IMAGE soradoukutu_5_image "gfx/soradoukutu_5.png" BEST
+
+IMAGE doukutu_1_image "gfx/doukutu_1.png" BEST
+IMAGE doukutu_2_image "gfx/doukutu_2.png" BEST
+IMAGE doukutu_3_image "gfx/doukutu_3.png" BEST
+IMAGE doukutu_4_image "gfx/doukutu_4.png" BEST
+IMAGE doukutu_5_image "gfx/doukutu_5.png" BEST
+
+IMAGE zimenntodoukutu_1_image "gfx/zimenntodoukutu_1.png" BEST
+IMAGE zimenntodoukutu_2_image "gfx/zimenntodoukutu_2.png" BEST
+IMAGE zimenntodoukutu_3_image "gfx/zimenntodoukutu_3.png" BEST
+IMAGE zimenntodoukutu_4_image "gfx/zimenntodoukutu_4.png" BEST
+IMAGE zimenntodoukutu_5_image "gfx/zimenntodoukutu_5.png" BEST
+
+IMAGE doukutuzimen_1_image "gfx/doukutuzimen_1.png" BEST
+IMAGE doukutuzimen_2_image "gfx/doukutuzimen_2.png" BEST
+IMAGE doukutuzimen_3_image "gfx/doukutuzimen_3.png" BEST
+IMAGE doukutuzimen_4_image "gfx/doukutuzimen_4.png" BEST
+IMAGE doukutuzimen_5_image "gfx/doukutuzimen_5.png" BEST
+
 WAV Punch_wav "Sound/SE_Punch.wav" XGM
 WAV Explosion_wav "Sound/SE_Explosion.wav" XGM

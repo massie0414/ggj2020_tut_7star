@@ -110,17 +110,19 @@ int game() {
     ind_b = VDP_BG( PLAN_B, PAL2, ind_b, ++vdp_b_count, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image );	vdp_b_count %= 5;	vdp_b_x += 8; vdp_b_x %= 64;
     ind_b = VDP_BG( PLAN_B, PAL2, ind_b, ++vdp_b_count, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image );	vdp_b_count %= 5;	vdp_b_x += 8; vdp_b_x %= 64;
     ind_b = VDP_BG( PLAN_B, PAL2, ind_b, ++vdp_b_count, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image );	vdp_b_count %= 5;	vdp_b_x += 8; vdp_b_x %= 64;
+    ind_b = TILE_USERINDEX;
     ind_b = VDP_BG( PLAN_B, PAL2, ind_b, ++vdp_b_count, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image );	vdp_b_count %= 5;	vdp_b_x += 8; vdp_b_x %= 64;
 
     // ”wŒiA
     int vdp_a_count = 0;
     int vdp_a_x = 0;
-    u16 ind_a = 500;
+    u16 ind_a = 800;
     ind_a = VDP_BG( PLAN_A, PAL3, ind_a, ++vdp_a_count, vdp_a_x, 0, zimensample_1_image, zimensample_2_image, zimensample_3_image, zimensample_4_image, zimensample_5_image );	vdp_a_count %= 5;	vdp_a_x += 8; vdp_a_x %= 64;
     ind_a = VDP_BG( PLAN_A, PAL3, ind_a, ++vdp_a_count, vdp_a_x, 0, zimensample_1_image, zimensample_2_image, zimensample_3_image, zimensample_4_image, zimensample_5_image );	vdp_a_count %= 5;	vdp_a_x += 8; vdp_a_x %= 64;
     ind_a = VDP_BG( PLAN_A, PAL3, ind_a, ++vdp_a_count, vdp_a_x, 0, zimensample_1_image, zimensample_2_image, zimensample_3_image, zimensample_4_image, zimensample_5_image );	vdp_a_count %= 5;	vdp_a_x += 8; vdp_a_x %= 64;
     ind_a = VDP_BG( PLAN_A, PAL3, ind_a, ++vdp_a_count, vdp_a_x, 0, zimensample_1_image, zimensample_2_image, zimensample_3_image, zimensample_4_image, zimensample_5_image );	vdp_a_count %= 5;	vdp_a_x += 8; vdp_a_x %= 64;
     ind_a = VDP_BG( PLAN_A, PAL3, ind_a, ++vdp_a_count, vdp_a_x, 0, zimensample_1_image, zimensample_2_image, zimensample_3_image, zimensample_4_image, zimensample_5_image );	vdp_a_count %= 5;	vdp_a_x += 8; vdp_a_x %= 64;
+    ind_a = 800;
     ind_a = VDP_BG( PLAN_A, PAL3, ind_a, ++vdp_a_count, vdp_a_x, 0, zimensample_1_image, zimensample_2_image, zimensample_3_image, zimensample_4_image, zimensample_5_image );	vdp_a_count %= 5;	vdp_a_x += 8; vdp_a_x %= 64;
 
     SYS_enableInts();
@@ -138,24 +140,66 @@ int game() {
     int vdp_b_clean_x = 0;
     int vdp_a_clean_x = 0;
 
+    u16 ind_c = 450;
+    u16 ind_d = 1200;
+
     while(TRUE)
    {
+        text( ind_b, 0, 3 );
+        text( ind_c, 0, 4 );
+        text( ind_a, 0, 5 );
+        text( ind_d, 0, 6 );
+
     	bg_b_count += CAMERA_MOVE;
+
     	if ( bg_b_count >= 64 * 8 ) {
-    	    ind_b = VDP_BG( PLAN_B, PAL2, ind_b, ++vdp_b_count, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image );	vdp_b_count %= 5;	vdp_b_x += 8; vdp_b_x %= 64;
+    		if ( Camera.x < 500 ) {
+    			ind_b = VDP_BG( PLAN_B, PAL2, ind_b, ++vdp_b_count, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image );
+    		}
+       		else if ( Camera.x < 2500 ) {
+       			VDP_setPalette(2, soradoukutu_1_image.palette->data);
+       			ind_c = VDP_BG( PLAN_B, PAL2, ind_c, ++vdp_b_count, vdp_b_x, 0, soradoukutu_1_image, soradoukutu_2_image, soradoukutu_3_image, soradoukutu_4_image, soradoukutu_5_image );
+       		}
+       		else {
+       			VDP_setPalette(2, doukutu_1_image.palette->data);
+       			ind_b = VDP_BG( PLAN_B, PAL2, ind_b, ++vdp_b_count, vdp_b_x, 0, doukutu_1_image, doukutu_2_image, doukutu_3_image, doukutu_4_image, doukutu_5_image );
+       		}
+    		vdp_b_count %= 5;
+    		if ( vdp_b_count == 0 ) {
+    			ind_b = TILE_USERINDEX;
+    			ind_c = 450;
+    		}
+
+    		vdp_b_x += 8;
+    		vdp_b_x %= 64;
     	    bg_b_count -= 64 * 8;
     	}
 
     	bg_a_count += CAMERA_MOVE;
     	if ( bg_a_count >= 64 ) {
-    		ind_a = VDP_BG( PLAN_A, PAL3, ind_a, ++vdp_a_count, vdp_a_x, 0, zimensample_1_image, zimensample_2_image, zimensample_3_image, zimensample_4_image, zimensample_5_image );	vdp_a_count %= 5;	vdp_a_x += 8; vdp_a_x %= 64;
+    		if ( Camera.x < 2800 ) {
+    			ind_a = VDP_BG( PLAN_A, PAL3, ind_a, ++vdp_a_count, vdp_a_x, 0, zimensample_1_image, zimensample_2_image, zimensample_3_image, zimensample_4_image, zimensample_5_image );
+    		}
+       		else if ( Camera.x < 3000 ) {
+       			VDP_setPalette(3, zimenntodoukutu_1_image.palette->data);
+       			ind_d = VDP_BG( PLAN_A, PAL3, ind_d, ++vdp_a_count, vdp_a_x, 0, zimenntodoukutu_1_image, zimenntodoukutu_2_image, zimenntodoukutu_3_image, zimenntodoukutu_4_image, zimenntodoukutu_5_image );
+      		}
+    		else {
+       			VDP_setPalette(3, doukutuzimen_1_image.palette->data);
+    			ind_a = VDP_BG( PLAN_A, PAL3, ind_a, ++vdp_a_count, vdp_a_x, 0, doukutuzimen_1_image, doukutuzimen_2_image, doukutuzimen_3_image, doukutuzimen_4_image, doukutuzimen_5_image );
+    		}
+    		vdp_a_count %= 5;
+    		if ( vdp_a_count == 0 ) {
+    			ind_a = 800;
+    			ind_d = 1200;
+    		}
+    		vdp_a_x += 8;
+    		vdp_a_x %= 64;
     	    bg_a_count -= 64;
     	}
 
-    //	text( PlayerData.x, 0, 0 );
-    //	text( Camera.x, 0, 1 );
-
-
+    	text( PlayerData.x, 0, 0 );
+    	text( Camera.x, 0, 1 );
 
     	u16 num=playerButton();
     	if(num & BUTTON_A==1)
@@ -360,17 +404,17 @@ int VDP_BG(
 	);
 	ind += image.tileset->numTile;
 
-	if ( ind > 400 && ind < 500 ) {
-		ind = TILE_USERINDEX;
-	}
+//	if ( ind > 400 && ind < 500 ) {
+//		ind = TILE_USERINDEX;
+//	}
 
 	// ƒXƒvƒ‰ƒCƒg—Ìˆæ‚ð”ð‚¯‚é
 	if ( ind > 880 && ind < 980 ) {
 		ind = 980;
 	}
-	if ( ind > 1350 ) {
-		ind = 500;
-	}
+//	if ( ind > 1350 ) {
+//		ind = 500;
+//	}
 
 //	text( ind, 0, 2 );
 
