@@ -12,6 +12,7 @@
 #define SOZAI_SUU 1
 #define HUMMER_RANGE 48
 #define CAMERA_MOVE 1
+#define goal_in 5000
 
 struct playerScene
 {
@@ -60,6 +61,14 @@ struct datas game(struct datas Data) {
     {
     		"てごろないわ"
     };
+    u16 NPCs[7][2]=
+    {
+    		{1,100}
+    };//アイテムID/報酬
+    char NPCsItemName[7][64]=
+    {
+    		"ハンマー"
+    };
 
     struct sozai Sozais[SOZAI_SUU];
     for(s16 i;i<SOZAI_SUU;i++)
@@ -81,7 +90,7 @@ struct datas game(struct datas Data) {
     }
     Data.gm = GAME;
 
-    u16 palette[64];
+    u16 palette[128];
 
     // BGM再生
     SND_startPlay_4PCM_ENV(
@@ -96,6 +105,7 @@ struct datas game(struct datas Data) {
     memcpy(&palette[16], rock01.palette->data, 16 * 2);
     memcpy(&palette[32], soradesu_1_image.palette->data, 16 * 2);
     memcpy(&palette[48], zimensample_1_image.palette->data, 16 * 2);
+    memcpy(&palette[64], NPC.palette->data, 16 * 2);
 
 	sprites[0] = SPR_addSprite(&Player, 0, 0, TILE_ATTR(PAL0, TRUE, FALSE, FALSE));
 	SPR_setPosition(sprites[0], 0 ,0);
@@ -142,6 +152,9 @@ struct datas game(struct datas Data) {
 
     u16 ind_c = 450;
     u16 ind_d = 1200;
+
+    //依頼人関係
+    s16 Irainin_showed=0;
 
     while(TRUE)
    {
@@ -314,13 +327,19 @@ struct datas game(struct datas Data) {
 			}
 
 
-
         SPR_update();
         VDP_waitVSync();
 
+        //依頼人はこのへん
+        if(Camera.x>=500 && Irainin_showed!=1){sprites[6] = SPR_addSprite(&NPC,500-Camera.x,160,TILE_ATTR(PAL4, TRUE, FALSE, FALSE));Irainin_showed=1;}
+        if(Irainin_showed==1) SPR_setPosition(sprites[6],500-Camera.x,160);
+
+
+        //プレイヤーの依頼人関係処理
+
         // デバッグコマンド
         u16 pad1 =JOY_readJoypad(JOY_1);
-        if (pad1 & BUTTON_START){
+        if (pad1 & BUTTON_START || Camera.x>goal_in){
             VDP_clearPlan(PLAN_A, TRUE);
             VDP_clearPlan(PLAN_B, TRUE);
             VDP_setHorizontalScroll(PLAN_B, 0);

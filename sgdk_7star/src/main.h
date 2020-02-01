@@ -42,6 +42,7 @@ struct datas
 	enum game_mode gm;
 	s16 money;
 	s16 explore_mode;
+	s16 date;
 };
 
 

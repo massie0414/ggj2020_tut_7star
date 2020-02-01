@@ -7,6 +7,7 @@ extern const SpriteDefinition Player;
 extern const SpriteDefinition rock01;
 extern const SpriteDefinition rock02;
 extern const SpriteDefinition rock03;
+extern const SpriteDefinition NPC;
 extern const Image soradesu_image;
 extern const Image soradesu_1_image;
 extern const Image soradesu_2_image;
