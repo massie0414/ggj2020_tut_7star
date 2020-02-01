@@ -43,6 +43,7 @@ struct datas
 	s16 money;
 	s16 explore_mode; //0 or 1 s‚«‚©‹A‚è
 	s16 date;
+	s16 addMoney;
 };
 
 

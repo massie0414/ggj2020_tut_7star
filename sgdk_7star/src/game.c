@@ -34,6 +34,13 @@ typedef struct sozai
 	s16 genso[4];
 	s16 HP;
 };
+struct irainin
+{
+	s16 amount;
+	s16 item_id;
+	char name[64];
+	s16 reward;
+};
 
 s16 playerMoveOn(s16 *x,s16 *y,s16 cameraX,s16 cameraY);
 void cameraScroll(s16 *cameraX,s16 *playerX);
@@ -61,10 +68,10 @@ struct datas game(struct datas Data) {
     {
     		"てごろないわ"
     };
-    u16 NPCs[7][2]=
+    u16 NPCs[7][3]=
     {
-    		{1,100}
-    };//アイテムID/報酬
+    		{1,1,100}
+    };//アイテムID/個数/報酬
     char NPCsItemName[7][64]=
     {
     		"ハンマー"
@@ -155,11 +162,25 @@ struct datas game(struct datas Data) {
 
     //依頼人関係
     s16 Irainin_showed=0;
+    struct irainin Irainins[1];
+    for(s16 i=0;i<1;i++)
+    {
+    	for(s16 h=0;h<64;h++)
+    	{
+    		Irainins[i].name[h]=NPCsItemName[i][h];
+    	}
+
+    	Irainins[i].item_id = NPCs[i][0];
+    	Irainins[i].amount = NPCs[i][1];
+    	Irainins[i].reward = NPCs[i][2];
+    }
+    Data.explore_mode=1;
+    s16 completedSwitch=0;
 
     while(TRUE)
    {
 
-    	text(PlayerData.y,0,0);
+    	text(Data.addMoney,0,0);
     	bg_b_count += CAMERA_MOVE;
 
     	if ( bg_b_count >= 64 * 8 ) {
@@ -336,7 +357,20 @@ struct datas game(struct datas Data) {
 
 
         //プレイヤーの依頼人関係処理
-//        if(Data.explore_mode==1 && Camera.x+160>=500)
+        if(Data.explore_mode==1 && PlayerData.x>=500&&completedSwitch==0)
+        {
+        	Data.hammer=1;
+			if(Data.hammer>=Irainins[Data.date-1].amount)
+			{
+				Data.hammer-=Irainins[Data.date-1].amount;
+				Data.money+=Irainins[Data.date-1].reward;
+				Data.addMoney+=Irainins[Data.date-1].reward;
+				completedSwitch=1;
+			}else
+			{
+				completedSwitch=1;
+			}
+        }
 
         // デバッグコマンド
         u16 pad1 =JOY_readJoypad(JOY_1);
