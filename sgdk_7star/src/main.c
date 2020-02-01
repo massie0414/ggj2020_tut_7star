@@ -118,6 +118,9 @@ int main() {
         case GAME3:
             gm = game3();
             break;
+        case WORK:
+        	gm=work();
+        	break;
         }
     }
 

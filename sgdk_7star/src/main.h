@@ -11,6 +11,7 @@ enum game_mode {
     GAME,
 	GAME2,
 	GAME3,
+	WORK,
 };
 
 int logo();
@@ -18,5 +19,6 @@ int title();
 int game();
 int game2();
 int game3();
+int work();
 void text( int num, int x, int y );
 void fadeIn();
