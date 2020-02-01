@@ -94,11 +94,7 @@ int game() {
 
     VDP_drawImageEx(PLAN_B, &soradesu_image, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, ind), 0, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æ
     ind += soradesu_image.tileset->numTile;
-    VDP_drawImageEx(PLAN_B, &soradesu_image, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, ind), 320, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æ
-    ind += soradesu_image.tileset->numTile;
     VDP_drawImageEx(PLAN_A, &zimensample_image, TILE_ATTR_FULL(PAL3, FALSE, FALSE, FALSE, ind), 0, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æA
-    ind += zimensample_image.tileset->numTile;
-    VDP_drawImageEx(PLAN_A, &zimensample_image, TILE_ATTR_FULL(PAL3, FALSE, FALSE, FALSE, ind), 320, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æA
     ind += zimensample_image.tileset->numTile;
 
     sprites[0] = SPR_addSprite(&Player, 0,0, TILE_ATTR(PAL0, TRUE, FALSE, FALSE));
@@ -210,6 +206,20 @@ int game() {
 
         SPR_update();
         VDP_waitVSync();
+
+        // ƒfƒoƒbƒOƒRƒ}ƒ“ƒh
+        u16 pad1 =JOY_readJoypad(JOY_1);
+        if (pad1 & BUTTON_START){
+            VDP_clearPlan(PLAN_A, TRUE);
+            VDP_clearPlan(PLAN_B, TRUE);
+            VDP_setHorizontalScroll(PLAN_B, 0);
+            VDP_setVerticalScroll(PLAN_B, 0);
+            VDP_setHorizontalScroll(PLAN_A, 0);
+            VDP_setVerticalScroll(PLAN_A, 0);
+			gm=WORK;
+			break;
+        }
+
    }
 
     return gm;
