@@ -49,7 +49,7 @@ int game() {
     Camera.y=224/2;
     u16 tests[SOZAI_SUU][8]=
     {
-    	{6400,2000,FALSE,FALSE,5,5,5,5}
+    	{6400,2000,FALSE,FALSE,5,5,5,5} // @suppress("Symbol is not resolved")
     };
     u16 ind;
     char tests_name[SOZAI_SUU][64]=
@@ -76,8 +76,8 @@ int game() {
     }
     enum game_mode gm;
     gm = GAME;
-    Sprite* sprites[3];
-    Sprite* sozaiSprites[3];
+//  Sprite* sprites[6];
+//  Sprite* sozaiSprites[3];
     u16 palette[64];
 
     SPR_init();
@@ -95,22 +95,35 @@ int game() {
     SYS_enableInts();
     VDP_fadeIn(0, (4 * 16) - 1, palette, 20, FALSE);
 
+	for(fix32 i=1;i<SOZAI_SUU;i++)
+	{
+		chkSozais(Sozais[i],Camera.x);
+		if(Sozais[i].showed==1 && sprites[i+3]== NULL){
+			sprites[i+3] = SPR_addSprite(
+					&SozaiProto,
+					Sozais[i].x-Camera.x,
+					Sozais[i].y,
+					TILE_ATTR(PAL1, TRUE, FALSE, FALSE)
+			);
+		}
+	}
+
+	int scroll_x = 0;
     while(TRUE)
    {
     	fix32 walkMode=playerMoveOn(&PlayerData.x,&PlayerData.y);
     	if(walkMode==1) SPR_setAnim(sprites[0], 1);
     	else SPR_setAnim(sprites[0], 0);
-    	cameraScroll(&Camera.x,&PlayerData.x);
+    //	cameraScroll(&Camera.x,&PlayerData.x);
+    	Camera.x += 500;
+    	PlayerData.x -= 5;
+
     	VDP_setHorizontalScroll(PLAN_A, fix32ToInt(-Camera.x));
 		VDP_setHorizontalScroll(PLAN_B, fix32ToInt(-Camera.x) >> 3);
 
-    	SPR_setPosition(sprites[0],PlayerData.x/10,PlayerData.y/10);
-    	for(fix32 i;i<SOZAI_SUU;i++)
-    		{
-    		chkSozais(Sozais[i],Camera.x);
-    		if(Sozais[i].showed==1 && sozaiSprites[i]== NULL) sozaiSprites[i] = SPR_addSprite(&SozaiProto, Sozais[i].x-Camera.x,Sozais[i].y, TILE_ATTR(PAL1, TRUE, FALSE, FALSE));
-    		}
+		text( Camera.x, 0, 26 );
 
+    	SPR_setPosition(sprites[0],PlayerData.x/10,PlayerData.y/10);
 
         SPR_update();
         VDP_waitVSync();
@@ -133,19 +146,18 @@ fix32 playerMoveOn(fix32 *x,fix32 *y)
 	if(*x/10>320-48) *x=(320-48)*10;
 	return mode;
 }
-void cameraScroll(fix32 *cameraX,fix32 *playerX)
+//void cameraScroll(fix32 *cameraX,fix32 *playerX)
+//{
+//	*cameraX=cameraX+5;
+//	*playerX-=5;
+//
+//}
+void
+chkSozais(struct sozai Sozai,fix32 cameraX)
 {
-	*cameraX=cameraX+5;
-	*playerX-=5;
-
-}
-void chkSozais(struct sozai Sozai,fix32 cameraX)
-{
-
-		if(Sozai.showed==1 || Sozai.broke==1) return Sozai;
-		if(Sozai.x<=cameraX+1600)
-		{
-			Sozai.showed =1;
-
-		}
+	if(Sozai.showed==1 || Sozai.broke==1) return Sozai;
+	if(Sozai.x<=cameraX+1600)
+	{
+		Sozai.showed =1;
+	}
 }

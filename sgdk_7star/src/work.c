@@ -18,7 +18,7 @@ int work() {
     gm = WORK;
     enum game_item iw,im;
     iw=WATER;
-    im= METAL;
+    im=METAL;
 
 
     u16 pattern = TILE_USERINDEX; // @suppress("Symbol is not resolved")

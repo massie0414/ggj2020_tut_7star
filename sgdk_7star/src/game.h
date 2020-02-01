@@ -1,5 +1,4 @@
-:
-m#include <genesis.h>
+#include <genesis.h>
 /*
  * game.h
  *

@@ -60,28 +60,28 @@ int main() {
 //    VDP_setTextPriority(TRUE); // @suppress("Symbol is not resolved")
 
     // init sonic sprite
-    int i = 0;
-    for ( i = 0; i < TEST_SIZE; i++ ) {
-		sprites[i] = SPR_addSprite(
-			&sonic_sprite,
-			i*8,
-			i*8,
-			TILE_ATTR(
-				PAL0, // @suppress("Symbol is not resolved")
-				i,
-				FALSE, // @suppress("Symbol is not resolved")
-				FALSE // @suppress("Symbol is not resolved")
-			)
-		);
-
-	    /* Disable auto tile upload */
-		/*
-	    SPR_setAutoTileUpload(
-	    		sprites[i],
-				FALSE
-		);
-		*/
-    }
+//    int i = 0;
+//    for ( i = 0; i < TEST_SIZE; i++ ) {
+//		sprites[i] = SPR_addSprite(
+//			&sonic_sprite,
+//			i*8,
+//			i*8,
+//			TILE_ATTR(
+//				PAL0, // @suppress("Symbol is not resolved")
+//				i,
+//				FALSE, // @suppress("Symbol is not resolved")
+//				FALSE // @suppress("Symbol is not resolved")
+//			)
+//		);
+//
+//	    /* Disable auto tile upload */
+//		/*
+//	    SPR_setAutoTileUpload(
+//	    		sprites[i],
+//				FALSE
+//		);
+//		*/
+//    }
 
 
 

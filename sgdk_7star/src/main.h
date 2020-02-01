@@ -1,9 +1,9 @@
 #include <genesis.h>
 
-#define TEST_SIZE 1
+#define SPRITE_SIZE 6
 
 // sprites structure (pointer of Sprite)
-Sprite* sprites[TEST_SIZE];
+Sprite* sprites[SPRITE_SIZE];
 
 enum game_mode {
     LOGO,
