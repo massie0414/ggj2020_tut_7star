@@ -43,7 +43,7 @@ int game() {
     SYS_disableInts();
     struct playerScene PlayerData;
     PlayerData.x=100;
-    PlayerData.y=100;
+    PlayerData.y=1500;
     struct camera Camera;
     Camera.x=3200/2;
     Camera.y=2240/2;
@@ -94,8 +94,20 @@ int game() {
 
     VDP_drawImageEx(PLAN_B, &soradesu_image, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, ind), 0, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æ
     ind += soradesu_image.tileset->numTile;
+    VDP_drawImageEx(PLAN_B, &soradesu_1_image, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, ind), 40, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æ
+    ind += soradesu_1_image.tileset->numTile;
+    VDP_drawImageEx(PLAN_B, &soradesu_1_image, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, ind), 48, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æ
+    ind += soradesu_1_image.tileset->numTile;
+    VDP_drawImageEx(PLAN_B, &soradesu_1_image, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, ind), 56, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æ
+    ind += soradesu_1_image.tileset->numTile;
     VDP_drawImageEx(PLAN_A, &zimensample_image, TILE_ATTR_FULL(PAL3, FALSE, FALSE, FALSE, ind), 0, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æA
     ind += zimensample_image.tileset->numTile;
+    VDP_drawImageEx(PLAN_A, &zimensample_1_image, TILE_ATTR_FULL(PAL3, FALSE, FALSE, FALSE, ind), 40, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æA
+    ind += zimensample_1_image.tileset->numTile;
+    VDP_drawImageEx(PLAN_A, &zimensample_1_image, TILE_ATTR_FULL(PAL3, FALSE, FALSE, FALSE, ind), 48, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æA
+    ind += zimensample_1_image.tileset->numTile;
+    VDP_drawImageEx(PLAN_A, &zimensample_1_image, TILE_ATTR_FULL(PAL3, FALSE, FALSE, FALSE, ind), 56, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æA
+    ind += zimensample_1_image.tileset->numTile;
 
     sprites[0] = SPR_addSprite(&Player, 0,0, TILE_ATTR(PAL0, TRUE, FALSE, FALSE));
 

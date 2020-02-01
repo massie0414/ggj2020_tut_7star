@@ -16,10 +16,10 @@ void fadeIn() {
 
     u16 palette[64];
 
-    memcpy(&palette[ 0], test2.palette->data, 16 * 2);
-    memcpy(&palette[16], bgb_image.palette->data, 16 * 2);
-    memcpy(&palette[32], bga_image.palette->data, 16 * 2);
-    memcpy(&palette[48], sonic_sprite.palette->data, 16 * 2);
+//    memcpy(&palette[ 0], test2.palette->data, 16 * 2);
+//    memcpy(&palette[16], bgb_image.palette->data, 16 * 2);
+//    memcpy(&palette[32], bga_image.palette->data, 16 * 2);
+//    memcpy(&palette[48], sonic_sprite.palette->data, 16 * 2);
 
     u16 fromcol = 0;
     u16 tocol = (4 * 16) - 1;
