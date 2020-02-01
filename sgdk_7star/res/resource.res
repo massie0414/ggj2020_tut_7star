@@ -10,7 +10,7 @@ SPRITE numbers_8 "numbers_8.png" 1 1 LZ4W 0 NONE SPRITE 100
 SPRITE numbers_16 "numbers_16.png" 2 2 LZ4W 0 NONE SPRITE 100
 
 WAV test_wav "test8.wav" XGM
-WAV snare1 "snare1.wav" XGM
+WAV BGM_short_01_8 "BGM_short_01_8.wav" XGM
 
 xgm testxgm "test.xgm"
 

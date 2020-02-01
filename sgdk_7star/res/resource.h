@@ -2,7 +2,7 @@
 #define _RES_RESOURCE_H_
 
 extern const u8 test_wav[11776];
-extern const u8 snare1[9472];
+extern const u8 BGM_short_01_8[390144];
 extern const u8 testxgm[512];
 extern const TileSet sjis_font;
 extern const SpriteDefinition sonic_sprite;

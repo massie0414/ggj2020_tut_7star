@@ -10,8 +10,13 @@ int title() {
     SYS_disableInts();
 
     // start music
-    SND_startPlay_XGM(testxgm);
-
+    SND_startPlay_PCM(
+    		BGM_short_01_8,
+			sizeof(BGM_short_01_8),
+			SOUND_RATE_8000,
+			SOUND_PAN_CENTER,
+			TRUE
+	);
 
     u16 palette[64];
 
@@ -88,11 +93,19 @@ int title() {
             ) {
                 if ( y == 18 ) {
                     // ゲームスタート
-                //  SND_setPCM_XGM(64, se1_14k, sizeof(se1_14k));
-                //  SND_startPlayPCM_XGM(64, 10, SOUND_PCM_CH1);
 
-                	// BGMの停止
-					XGM_stopPlay();
+                	// BGMストップ
+                    if (SND_isPlaying_4PCM_ENV(SOUND_PCM_CH1_MSK)){
+                        SND_stopPlay_4PCM_ENV(SOUND_PCM_CH1);
+                    }
+
+                    // 効果音を鳴らしてみる
+                    SND_startPlay_4PCM_ENV(
+                            test_wav,
+                            sizeof(test_wav),
+                            SOUND_PCM_CH2,
+                            FALSE
+                    );
 
                     VDP_fadeOut(0, (1 * 16) - 1, 20, FALSE); // @suppress("Symbol is not resolved")
 

@@ -94,7 +94,22 @@ int main() {
 			count
 	);
 
-	SND_setPCM_XGM(64, test_wav, sizeof(test_wav));
+    SND_setVolume_4PCM_ENV(
+            SOUND_PCM_CH1,
+            15    // Volume to set : 16 possible level from 0 (minimum) to 15 (maximum).
+    );
+    SND_setVolume_4PCM_ENV(
+            SOUND_PCM_CH2,
+            15    // Volume to set : 16 possible level from 0 (minimum) to 15 (maximum).
+    );
+    SND_setVolume_4PCM_ENV(
+            SOUND_PCM_CH3,
+            15    // Volume to set : 16 possible level from 0 (minimum) to 15 (maximum).
+    );
+    SND_setVolume_4PCM_ENV(
+            SOUND_PCM_CH4,
+            15    // Volume to set : 16 possible level from 0 (minimum) to 15 (maximum).
+    );
 
     SYS_enableInts();
 

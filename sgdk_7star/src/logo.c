@@ -9,9 +9,6 @@ int logo(){
     // VDPアクセス時の割り込みを無効にする
     SYS_disableInts();
 
-    // 効果音
-	SND_startPlayPCM_XGM(64, 1, SOUND_PCM_CH2); // @suppress("Symbol is not resolved")
-
     u16 palette[64];
 
     enum game_mode gm;
