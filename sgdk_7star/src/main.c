@@ -31,7 +31,7 @@ int main() {
             15    // Volume to set : 16 possible level from 0 (minimum) to 15 (maximum).
     );
     SND_setVolume_4PCM_ENV(
-            SOUND_PCM_CH4,
+            SOUND_PCM_CH4, // @suppress("Symbol is not resolved")
             15    // Volume to set : 16 possible level from 0 (minimum) to 15 (maximum).
     );
 

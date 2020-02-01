@@ -76,28 +76,27 @@ int game() {
     }
     enum game_mode gm;
     gm = GAME;
+
 //  Sprite* sprites[6];
 //  Sprite* sozaiSprites[3];
     u16 palette[64];
-    SND_startPlay_4PCM_ENV(
-       		BGM_Sub_8,
-               sizeof(BGM_Sub_8),
-               SOUND_PCM_CH1,
-               FALSE
-       );
 
     SPR_init();
     memcpy(&palette[0], Player.palette->data, 16 * 2);
-    memcpy(&palette[16], rock01.palette->data, 16 * 2);
     memcpy(&palette[32], soradesu_image.palette->data, 16 * 2);
-//    memcpy(&palette[48], soradesu_image.palette->data, 16 * 2);
-
+    memcpy(&palette[48], rock01.palette->data, 16 * 2);
     VDP_drawImageEx(PLAN_B, &soradesu_image, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, ind), 0, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æ
     ind += soradesu_image.tileset->numTile;
     VDP_drawImageEx(PLAN_A, &bga_image, TILE_ATTR_FULL(PAL1, FALSE, FALSE, FALSE, ind), 0, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æA
     ind += bga_image.tileset->numTile;
 
+
+
     sprites[0] = SPR_addSprite(&Player, 0,0, TILE_ATTR(PAL0, TRUE, FALSE, FALSE));
+    VDP_drawImageEx(PLAN_A, &bga_image, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, ind), 0, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æA
+    ind += bga_image.tileset->numTile;
+    VDP_drawImageEx(PLAN_B, &bgb_image, TILE_ATTR_FULL(PAL3, FALSE, FALSE, FALSE, ind), 0, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æ
+   ind += bgb_image.tileset->numTile;
 
     SPR_setAnim(sprites[0], 0);
     SYS_enableInts();
@@ -133,12 +132,12 @@ int game() {
     	}
     //	cameraScroll(&Camera.x,&PlayerData.x);
     	Camera.x += 500;
-    //	PlayerData.x -= 5;
+    	PlayerData.x -= 5;
 
     	VDP_setHorizontalScroll(PLAN_A, fix32ToInt(-Camera.x));
 		VDP_setHorizontalScroll(PLAN_B, fix32ToInt(-Camera.x) >> 3);
 
-		SPR_setPosition(sprites[0],(PlayerData.x-Camera.x/100)/10,PlayerData.y/10);
+		SPR_setPosition(sprites[0],PlayerData.x/10,PlayerData.y/10);
 		for(fix32 i=0;i<SOZAI_SUU;i++)
 			{
 				if(Sozais[i].broke==1) continue;
@@ -146,47 +145,19 @@ int game() {
 				{
 					SPR_setPosition(sprites[i+3],(Sozais[i].x-Camera.x/100)/10,Sozais[i].y/10);
 					u16 num=playerButton();
-					if(playerButton()&BUTTON_A)
-					{
-						SND_startPlay_4PCM_ENV(
-							Punch_wav,
-							sizeof(Punch_wav),
-							SOUND_PCM_CH2,
-							FALSE
-						);}
-					if(num & BUTTON_A)
+					if(num &BUTTON_A)
 					{
 						num2=0;
-//						if(PlayerData.x+48>Sozais[i].x&&PlayerData.x+48<Sozais[i].x+48&&PlayerData.y>Sozais[i].y&&PlayerData.y<Sozais[i].y+48){num2=1;}
-//						if(PlayerData.x+72>Sozais[i].x&&PlayerData.x+72<Sozais[i].x+48&&PlayerData.y>Sozais[i].y&&PlayerData.y<Sozais[i].y+48) num2=1;
-//						if(PlayerData.x+96>Sozais[i].x&&PlayerData.x+96<Sozais[i].x+48&&PlayerData.y>Sozais[i].y&&PlayerData.y<Sozais[i].y+48) num2=1;
-//						if(PlayerData.x+48>Sozais[i].x&&PlayerData.x+48<Sozais[i].x+48&&PlayerData.y+24>Sozais[i].y&&PlayerData.y+24<Sozais[i].y+48) num2=1;
-//						if(PlayerData.x+96>Sozais[i].x&&PlayerData.x+96<Sozais[i].x+48&&PlayerData.y+24>Sozais[i].y&&PlayerData.y+24<Sozais[i].y+48) num2=1;
-//						if(PlayerData.x+48>Sozais[i].x&&PlayerData.x+48<Sozais[i].x+48&&PlayerData.y+48>Sozais[i].y&&PlayerData.y+48<Sozais[i].y+48) num2=1;
-//						if(PlayerData.x+72>Sozais[i].x&&PlayerData.x+72<Sozais[i].x+48&&PlayerData.y+48>Sozais[i].y&&PlayerData.y+48<Sozais[i].y+48) num2=1;
-//						if(PlayerData.x+96>Sozais[i].x&&PlayerData.x+96<Sozais[i].x+48&&PlayerData.y+48>Sozais[i].y&&PlayerData.y+48<Sozais[i].y+48) num2=1;
-
-						if ( PlayerData.x > Sozais[i].x - 48
-						  && PlayerData.x < Sozais[i].x + 48
-						  && PlayerData.y > Sozais[i].y - 48
-						  && PlayerData.y < Sozais[i].y + 48
-						) {
-							num2=1;
-						}
-
-						if(num2==1) {
-							SPR_releaseSprite(sprites[i+3]);
-							Sozais[i].broke==1;
-
-			                // Œø‰Ê‰¹‚ð–Â‚ç‚µ‚Ä‚Ý‚é
-			                SND_startPlay_4PCM_ENV(
-			                		SE_Explosion_8,
-			                        sizeof(SE_Explosion_8),
-			                        SOUND_PCM_CH2,
-			                        FALSE
-			                );
-						}
-					}
+						if(PlayerData.x+48>Sozais[i].x&&PlayerData.x+48<Sozais[i].x+48&&PlayerData.y>Sozais[i].y&&PlayerData.y<Sozais[i].y+48) num2=1;
+						if(PlayerData.x+72>Sozais[i].x&&PlayerData.x+72<Sozais[i].x+48&&PlayerData.y>Sozais[i].y&&PlayerData.y<Sozais[i].y+48) num2=1;
+						if(PlayerData.x+96>Sozais[i].x&&PlayerData.x+96<Sozais[i].x+48&&PlayerData.y>Sozais[i].y&&PlayerData.y<Sozais[i].y+48) num2=1;
+						if(PlayerData.x+48>Sozais[i].x&&PlayerData.x+48<Sozais[i].x+48&&PlayerData.y+24>Sozais[i].y&&PlayerData.y+24<Sozais[i].y+48) num2=1;
+						if(PlayerData.x+96>Sozais[i].x&&PlayerData.x+96<Sozais[i].x+48&&PlayerData.y+24>Sozais[i].y&&PlayerData.y+24<Sozais[i].y+48) num2=1;
+						if(PlayerData.x+48>Sozais[i].x&&PlayerData.x+48<Sozais[i].x+48&&PlayerData.y+48>Sozais[i].y&&PlayerData.y+48<Sozais[i].y+48) num2=1;
+						if(PlayerData.x+72>Sozais[i].x&&PlayerData.x+72<Sozais[i].x+48&&PlayerData.y+48>Sozais[i].y&&PlayerData.y+48<Sozais[i].y+48) num2=1;
+						if(PlayerData.x+96>Sozais[i].x&&PlayerData.x+96<Sozais[i].x+48&&PlayerData.y+48>Sozais[i].y&&PlayerData.y+48<Sozais[i].y+48) num2=1;
+//						text(fix32ToInt(num2),10,10);
+						if(num2==1) {SPR_releaseSprite(sprites[i+3]); Sozais[i].broke==1;}}
 
 				}
 				else if(Sozais[i].x<=Camera.x+1600)
@@ -201,13 +172,20 @@ int game() {
 
 					}
 			}
-
-
-
         SPR_update();
         VDP_waitVSync();
+        u16 pad1 =JOY_readJoypad(JOY_1);
+        if (pad1 & BUTTON_START){
+        	VDP_clearPlan(PLAN_A, TRUE);
+        	VDP_clearPlan(PLAN_B, TRUE);
+        	VDP_setHorizontalScroll(PLAN_B, 0);
+        	VDP_setVerticalScroll(PLAN_B, 0);
+        	VDP_setHorizontalScroll(PLAN_A, 0);
+        	VDP_setVerticalScroll(PLAN_A, 0);
+        gm=WORK;
+        break;
+        }
    }
-
     return gm;
 }
 fix32 playerMoveOn(fix32 *x,fix32 *y)
