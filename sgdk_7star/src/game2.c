@@ -86,11 +86,11 @@ int game2() {
     gm = GAME2;
 
     // Load tile data (pattern) in VRAM.
-	VDP_loadTileSet(
-		test2.tileset,
-		TILE_USERINDEX,	// @suppress("Symbol is not resolved")
-		TRUE			// @suppress("Symbol is not resolved")
-	);
+//	VDP_loadTileSet(
+//		test2.tileset,
+//		TILE_USERINDEX,	// @suppress("Symbol is not resolved")
+//		TRUE			// @suppress("Symbol is not resolved")
+//	);
 
 	u16 x = 0;
 	u16 y = 0;
