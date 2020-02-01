@@ -80,6 +80,15 @@ int logo(){
                     FALSE
             );
         }
+        if (pad1 & BUTTON_C) { // @suppress("Symbol is not resolved")
+            // Œø‰Ê‰¹‚ð–Â‚ç‚µ‚Ä‚Ý‚é
+            SND_startPlay_4PCM_ENV(
+            		SE_Hammer_8,
+                    sizeof(SE_Hammer_8),
+                    SOUND_PCM_CH3,
+                    FALSE
+            );
+        }
         VDP_waitVSync();
     }
     return gm;

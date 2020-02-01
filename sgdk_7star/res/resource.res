@@ -15,6 +15,7 @@ WAV SE_Explosion_8 "SE_Explosion_8.wav" XGM
 WAV SE_Footstep_8 "SE_Footstep_8.wav" XGM
 WAV SE_Footsteps_cave_8 "SE_Footsteps_cave_8.wav" XGM
 WAV SE_Punch_8 "SE_Punch_8.wav" XGM
+WAV SE_Hammer_8 "sound/SE_Hammer_8.wav" XGM
 
 xgm testxgm "test.xgm"
 
