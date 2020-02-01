@@ -90,12 +90,16 @@ int game() {
     memcpy(&palette[0], Player.palette->data, 16 * 2);
     memcpy(&palette[16], rock01.palette->data, 16 * 2);
     memcpy(&palette[32], soradesu_image.palette->data, 16 * 2);
-//    memcpy(&palette[48], soradesu_image.palette->data, 16 * 2);
+    memcpy(&palette[48], zimensample_image.palette->data, 16 * 2);
 
     VDP_drawImageEx(PLAN_B, &soradesu_image, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, ind), 0, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æ
     ind += soradesu_image.tileset->numTile;
-    VDP_drawImageEx(PLAN_A, &bga_image, TILE_ATTR_FULL(PAL1, FALSE, FALSE, FALSE, ind), 0, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æA
-    ind += bga_image.tileset->numTile;
+    VDP_drawImageEx(PLAN_B, &soradesu_image, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, ind), 320, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æ
+    ind += soradesu_image.tileset->numTile;
+    VDP_drawImageEx(PLAN_A, &zimensample_image, TILE_ATTR_FULL(PAL3, FALSE, FALSE, FALSE, ind), 0, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æA
+    ind += zimensample_image.tileset->numTile;
+    VDP_drawImageEx(PLAN_A, &zimensample_image, TILE_ATTR_FULL(PAL3, FALSE, FALSE, FALSE, ind), 320, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æA
+    ind += zimensample_image.tileset->numTile;
 
     sprites[0] = SPR_addSprite(&Player, 0,0, TILE_ATTR(PAL0, TRUE, FALSE, FALSE));
 
