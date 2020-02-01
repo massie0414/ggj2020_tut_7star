@@ -331,7 +331,7 @@ struct datas game(struct datas Data) {
         VDP_waitVSync();
 
         //ˆË—Šl‚Í‚±‚Ì‚Ö‚ñ
-        if(Camera.x>=500 && Irainin_showed!=1){sprites[6] = SPR_addSprite(&NPC,500-Camera.x,160,TILE_ATTR(PAL4, TRUE, FALSE, FALSE));Irainin_showed=1;}
+        if(Camera.x>=500 && Irainin_showed!=1){sprites[6] = SPR_addSprite(&NPC,500-Camera.x,160,TILE_ATTR(PAL0, TRUE, FALSE, FALSE));Irainin_showed=1;}
         if(Irainin_showed==1) SPR_setPosition(sprites[6],500-Camera.x,160);
 
 
