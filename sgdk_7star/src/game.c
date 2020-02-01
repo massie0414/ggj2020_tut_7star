@@ -10,6 +10,7 @@
 #define CAMERA_SCROLL 10
 #define SCROLL_DIFF 32
 #define SOZAI_SUU 1
+#define HUMMER_RANGE 48
 
 struct playerScene
 {
@@ -34,27 +35,27 @@ typedef struct sozai
 
 fix32 playerMoveOn(fix32 *x,fix32 *y);
 void cameraScroll(fix32 *cameraX,fix32 *playerX);
-void chkSozais(struct sozai Sozai,fix32 cameraX);
+u16 playerButton();
 int game() {
 
     // disable interrupt when accessing VDP
 
-
+	fix32 num2;
     SYS_disableInts();
     struct playerScene PlayerData;
     PlayerData.x=100;
     PlayerData.y=100;
     struct camera Camera;
-    Camera.x=320/2;
-    Camera.y=224/2;
-    u16 tests[SOZAI_SUU][8]=
+    Camera.x=3200/2;
+    Camera.y=2240/2;
+    u16 tests[SOZAI_SUU][9]=
     {
-    	{6400,2000,FALSE,FALSE,5,5,5,5} // @suppress("Symbol is not resolved")
+    	{2000,1800,FALSE,FALSE,5,5,5,5,1} // @suppress("Symbol is not resolved")
     };
     u16 ind;
     char tests_name[SOZAI_SUU][64]=
     {
-    		"‚è‚ñ‚²"
+    		"‚Ä‚²‚ë‚È‚¢‚í"
     };
 
     struct sozai Sozais[SOZAI_SUU];
@@ -82,31 +83,26 @@ int game() {
 
     SPR_init();
     memcpy(&palette[0], Player.palette->data, 16 * 2);
-    memcpy(&palette[16], SozaiProto.palette->data, 16 * 2);
+    memcpy(&palette[16], bga_image.palette->data, 16 * 2);
+    memcpy(&palette[32], bgb_image.palette->data, 16 * 2);
+    memcpy(&palette[48], rock01.palette->data, 16 * 2);
+    memcpy(&palette[64], rock02.palette->data, 16 * 2);
+    memcpy(&palette[80], rock03.palette->data, 16 * 2);
 
-    VDP_drawImageEx(PLAN_B, &bgb_image, TILE_ATTR_FULL(PAL0, FALSE, FALSE, FALSE, ind), 0, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æ
-   ind += bgb_image.tileset->numTile;
-   VDP_drawImageEx(PLAN_A, &bga_image, TILE_ATTR_FULL(PAL1, FALSE, FALSE, FALSE, ind), 0, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æA
-   ind += bga_image.tileset->numTile;
+
 
 
     sprites[0] = SPR_addSprite(&Player, 0,0, TILE_ATTR(PAL0, TRUE, FALSE, FALSE));
+    VDP_drawImageEx(PLAN_A, &bga_image, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, ind), 0, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æA
+    ind += bga_image.tileset->numTile;
+    VDP_drawImageEx(PLAN_B, &bgb_image, TILE_ATTR_FULL(PAL3, FALSE, FALSE, FALSE, ind), 0, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æ
+   ind += bgb_image.tileset->numTile;
+
     SPR_setAnim(sprites[0], 0);
     SYS_enableInts();
     VDP_fadeIn(0, (4 * 16) - 1, palette, 20, FALSE);
 
-	for(fix32 i=1;i<SOZAI_SUU;i++)
-	{
-		chkSozais(Sozais[i],Camera.x);
-		if(Sozais[i].showed==1 && sprites[i+3]== NULL){
-			sprites[i+3] = SPR_addSprite(
-					&SozaiProto,
-					Sozais[i].x-Camera.x,
-					Sozais[i].y,
-					TILE_ATTR(PAL1, TRUE, FALSE, FALSE)
-			);
-		}
-	}
+
 
 	int scroll_x = 0;
     while(TRUE)
@@ -121,9 +117,43 @@ int game() {
     	VDP_setHorizontalScroll(PLAN_A, fix32ToInt(-Camera.x));
 		VDP_setHorizontalScroll(PLAN_B, fix32ToInt(-Camera.x) >> 3);
 
-		text( Camera.x, 0, 26 );
+		SPR_setPosition(sprites[0],PlayerData.x/10,PlayerData.y/10);
+		for(fix32 i=0;i<SOZAI_SUU;i++)
+			{
+				if(Sozais[i].broke==1) continue;
+				else if(Sozais[i].showed==1)
+				{
+					SPR_setPosition(sprites[i+3],(Sozais[i].x-Camera.x/100)/10,Sozais[i].y/10);
+					u16 num=playerButton();
+					if(num &BUTTON_A)
+					{
+						num2=0;
+						if(PlayerData.x+48>Sozais[i].x&&PlayerData.x+48<Sozais[i].x+48&&PlayerData.y>Sozais[i].y&&PlayerData.y<Sozais[i].y+48) num2=1;
+						if(PlayerData.x+72>Sozais[i].x&&PlayerData.x+72<Sozais[i].x+48&&PlayerData.y>Sozais[i].y&&PlayerData.y<Sozais[i].y+48) num2=1;
+						if(PlayerData.x+96>Sozais[i].x&&PlayerData.x+96<Sozais[i].x+48&&PlayerData.y>Sozais[i].y&&PlayerData.y<Sozais[i].y+48) num2=1;
+						if(PlayerData.x+48>Sozais[i].x&&PlayerData.x+48<Sozais[i].x+48&&PlayerData.y+24>Sozais[i].y&&PlayerData.y+24<Sozais[i].y+48) num2=1;
+						if(PlayerData.x+96>Sozais[i].x&&PlayerData.x+96<Sozais[i].x+48&&PlayerData.y+24>Sozais[i].y&&PlayerData.y+24<Sozais[i].y+48) num2=1;
+						if(PlayerData.x+48>Sozais[i].x&&PlayerData.x+48<Sozais[i].x+48&&PlayerData.y+48>Sozais[i].y&&PlayerData.y+48<Sozais[i].y+48) num2=1;
+						if(PlayerData.x+72>Sozais[i].x&&PlayerData.x+72<Sozais[i].x+48&&PlayerData.y+48>Sozais[i].y&&PlayerData.y+48<Sozais[i].y+48) num2=1;
+						if(PlayerData.x+96>Sozais[i].x&&PlayerData.x+96<Sozais[i].x+48&&PlayerData.y+48>Sozais[i].y&&PlayerData.y+48<Sozais[i].y+48) num2=1;
+//						text(fix32ToInt(num2),10,10);
+						if(num2==1) {SPR_releaseSprite(sprites[i+3]); Sozais[i].broke==1;}}
 
-    	SPR_setPosition(sprites[0],PlayerData.x/10,PlayerData.y/10);
+				}
+				else if(Sozais[i].x<=Camera.x+1600)
+					{
+						Sozais[i].showed =1;
+						sprites[i+3] = SPR_addSprite(
+											&rock01,
+											(Sozais[i].x-Camera.x)/10,
+											Sozais[i].y/10,
+											TILE_ATTR(PAL1, TRUE, FALSE, FALSE)
+									);
+
+					}
+			}
+
+
 
         SPR_update();
         VDP_waitVSync();
@@ -146,18 +176,16 @@ fix32 playerMoveOn(fix32 *x,fix32 *y)
 	if(*x/10>320-48) *x=(320-48)*10;
 	return mode;
 }
+u16 playerButton()
+{
+	fix32 num=0;
+	return JOY_readJoypad(JOY_1);
+
+	return num;
+}
 //void cameraScroll(fix32 *cameraX,fix32 *playerX)
 //{
 //	*cameraX=cameraX+5;
 //	*playerX-=5;
 //
 //}
-void
-chkSozais(struct sozai Sozai,fix32 cameraX)
-{
-	if(Sozai.showed==1 || Sozai.broke==1) return Sozai;
-	if(Sozai.x<=cameraX+1600)
-	{
-		Sozai.showed =1;
-	}
-}
