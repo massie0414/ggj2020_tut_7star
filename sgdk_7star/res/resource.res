@@ -1,7 +1,5 @@
 IMAGE logo16 "logo16.png" -1
 IMAGE title16 "title16.png" -1
-IMAGE bga "bga.png" -1
-IMAGE bgb "bgb.png" -1
 IMAGE test "test.png" 0 0
 IMAGE test2 "test2.png" 0 0
 

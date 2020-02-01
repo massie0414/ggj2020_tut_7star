@@ -5,8 +5,8 @@
 
 #include "main.h"
 
-#define TOP_HEIGHT 112-24
-#define BOTTOM_HEIGHT 224-48
+#define TOP_HEIGHT 1120-240
+#define BOTTOM_HEIGHT 2240-480
 #define CAMERA_SCROLL 10
 #define SCROLL_DIFF 32
 #define SOZAI_SUU 1
@@ -51,6 +51,7 @@ int game() {
     {
     	{6400,2000,FALSE,FALSE,5,5,5,5}
     };
+    u16 ind;
     char tests_name[SOZAI_SUU][64]=
     {
     		"‚è‚ñ‚²"
@@ -82,6 +83,13 @@ int game() {
     SPR_init();
     memcpy(&palette[0], Player.palette->data, 16 * 2);
     memcpy(&palette[16], SozaiProto.palette->data, 16 * 2);
+
+    VDP_drawImageEx(PLAN_B, &bgb_image, TILE_ATTR_FULL(PAL0, FALSE, FALSE, FALSE, ind), 0, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æ
+   ind += bgb_image.tileset->numTile;
+   VDP_drawImageEx(PLAN_A, &bga_image, TILE_ATTR_FULL(PAL1, FALSE, FALSE, FALSE, ind), 0, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æA
+   ind += bga_image.tileset->numTile;
+
+
     sprites[0] = SPR_addSprite(&Player, 0,0, TILE_ATTR(PAL0, TRUE, FALSE, FALSE));
     SPR_setAnim(sprites[0], 0);
     SYS_enableInts();
@@ -93,12 +101,17 @@ int game() {
     	if(walkMode==1) SPR_setAnim(sprites[0], 1);
     	else SPR_setAnim(sprites[0], 0);
     	cameraScroll(&Camera.x,&PlayerData.x);
+    	VDP_setHorizontalScroll(PLAN_A, fix32ToInt(-Camera.x));
+		VDP_setHorizontalScroll(PLAN_B, fix32ToInt(-Camera.x) >> 3);
+
     	SPR_setPosition(sprites[0],PlayerData.x/10,PlayerData.y/10);
     	for(fix32 i;i<SOZAI_SUU;i++)
     		{
     		chkSozais(Sozais[i],Camera.x);
     		if(Sozais[i].showed==1 && sozaiSprites[i]== NULL) sozaiSprites[i] = SPR_addSprite(&SozaiProto, Sozais[i].x-Camera.x,Sozais[i].y, TILE_ATTR(PAL1, TRUE, FALSE, FALSE));
     		}
+
+
         SPR_update();
         VDP_waitVSync();
    }
@@ -122,7 +135,7 @@ fix32 playerMoveOn(fix32 *x,fix32 *y)
 }
 void cameraScroll(fix32 *cameraX,fix32 *playerX)
 {
-	*cameraX+=5;
+	*cameraX=cameraX+5;
 	*playerX-=5;
 
 }
