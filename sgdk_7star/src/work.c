@@ -14,13 +14,6 @@ int work() {
     enum game_mode gm;
     gm = WORK;
 
-
-    /*enum game_item iwod,isto,imet,iwat;
-    iwod=WOOD;
-    isto=STONE;
-    imet=METAL;
-    iwat=WATER;*/
-
     u16 pattern = TILE_USERINDEX; // @suppress("Symbol is not resolved")
     char str1[] = "★道具";
     draw_sjis_text(PLAN_A, str1, TILE_ATTR_FULL(PAL0, 0, 0, 0, pattern), 0, 5, 0); // @suppress("Symbol is not resolved")
@@ -119,48 +112,76 @@ int work() {
 							x = 30;
 						}
            if (pad1 & BUTTON_START){
-            if(x==0 && y==10){
+            if((x==0 && y==10) && (stone>=10 && water>=10)&& hammer<1 ){//ハンマー
+           		stone-=10;
+           		water-=10;
+           		hammer+=1;
            	}
-           	else if(x==0 && y==15 ){
-
+           	else if((x==0 && y==15)&& wood>=20 && bucket<1){//バケツ
+           		wood -=20;
+           		bucket+=1;
            	}
-           	else if(x==0 && y==20 ){
-
+           	else if((x==0 && y==20) && (wood>=15 && stone>=15)&& bflag<1){//爆弾
+           		wood-=15;
+           		stone-=15;
+           		bomb+=3;
+           		bflag+=1;
            	}
-           	else if(x==0 && y==25 ){
-
+           	else if((x==0 && y==25) && (wood>=10 && stone>=10)&& saw<1){//ノコギリ
+           		wood-=10;
+           		stone-=10;
+           		saw+=1;
            	}
-				if(x==10 && y==10 ){
-
+				if((x==10 && y==10) && wood>=5){//椅子
+					wood-=5;
+					chair+=1;
 				}
-				else if(x==10 && y==15 ){
-
+				else if((x==10 && y==15)&&wood>=10 ){//机
+					wood-=10;
+					desk+=1;
 				}
-				else if(x==10 && y==20 ){
-
+				else if((x==10 && y==20)&& (wood>=5 && metal>=2)){//タンス
+					wood-=5;
+					metal-=2;
+					chest+=1;
 				}
-				else if(x==10 && y==25 ){
-
+				else if((x==10 && y==25) && stone>=5){//レンガ
+					stone-=5;
+					brick+=1;
 				}
-					if(x==20 && y==10 ){
-
+					if((x==20 && y==10)&&metal>=2){//指輪
+						metal-=2;
+						ring+=1;
 					}
-					else if(x==20 && y==15 ){
-
+					else if((x==20 && y==15) && stone>=10){//彫刻
+						stone-=10;
+						sculpture+=1;
 					}
-					else if(x==20 && y==20 ){
-
+					else if((x==20 && y==20) && (wood>=20 && metal>=2)){//木の家
+						wood-=20;
+						metal-=2;
+						wHouse+=1;
 					}
-					else if(x==20 && y==25 ){
+					else if((x==20 && y==25) && (stone>=20 && metal>=2)){//石の家
+						stone-=20;
+						metal-=2;
+						sHouse+=1;
 					}
-						if(x==30 && y==10 ){
-
+						if((x==30 && y==10)&&(wood>=20 && metal>=5 && water>=10)){//木の豪邸
+							wood-=20;
+							metal-=5;
+							water-=10;
+							wMansion+=1;
 						}
-						else if(x==30 && y==15 ){
-
+						else if((x==30 && y==15) && (stone>=20 && metal>=5 && water>=10)){//石の豪邸
+							stone-=20;
+							metal-=5;
+							water-=10;
+							sMansion+=1;
 						}
-						else if(x==30 && y==20 ){
-
+						else if((x==30 && y>=20)&& water>=20 ){//水槽
+							water-=20;
+							tank+=1;
 						}
 						else if(x==30 && y==25 ){
 							VDP_clearPlan(PLAN_A, TRUE);
