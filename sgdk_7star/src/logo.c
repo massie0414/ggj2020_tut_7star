@@ -4,15 +4,15 @@
 
 const int START = 180;
 
-int logo(){
+struct datas logo(struct datas Data){
 
     // VDPアクセス時の割り込みを無効にする
     SYS_disableInts();
 
     u16 palette[64];
 
-    enum game_mode gm;
-    gm = LOGO;
+    //enum game_mode gm;
+    Data.gm = LOGO;
 
     int count = 0;
 
@@ -53,7 +53,7 @@ int logo(){
         if (pad1 & BUTTON_START // @suppress("Symbol is not resolved") // @suppress("Suggested parenthesis around expression")
          || count > START
         ) {
-            gm = TITLE;
+            Data.gm = TITLE;
 
             VDP_fadeOut(0, (1 * 16) - 1, 20, FALSE); // @suppress("Symbol is not resolved")
 
@@ -91,5 +91,5 @@ int logo(){
         }
         VDP_waitVSync();
     }
-    return gm;
+    return Data;
 }

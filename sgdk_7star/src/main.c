@@ -4,6 +4,8 @@
 #include "main.h"
 
 int main() {
+	struct datas Data;
+
 
     // VDPアクセス時の割り込みを無効にする
     SYS_disableInts();
@@ -38,28 +40,30 @@ int main() {
 
     SYS_enableInts();
 
-    enum game_mode gm;
-    gm = LOGO;
+    Data.gm = LOGO;
 
     while(1) {
-        switch ( gm ) {
+        switch ( Data.gm ) {
         case LOGO:
-            gm = logo();
+            Data = logo(Data);
             break;
         case TITLE:
-            gm = title();
+        	Data = title(Data);
             break;
+        case INIT:
+        	Data = init(Data);
+        	break;
         case GAME:
-            gm = game();
+        	Data = game(Data);
             break;
         case GAME2:
-            gm = game2();
+        	Data = game2(Data);
             break;
         case GAME3:
-            gm = game3();
+        	Data = game3(Data);
             break;
         case WORK:
-        	gm=work();
+        	Data=work(Data);
         	break;
         }
     }

@@ -6,13 +6,13 @@
 /**
  * •¶Žš‚Å•`‰æ‚µ‚Ä‚Ý‚é
  */
-int game3() {
+struct datas game3(struct datas Data) {
 
     // disable interrupt when accessing VDP
     SYS_disableInts();
 
-    enum game_mode gm;
-    gm = GAME3;
+    //enum game_mode gm;
+    Data.gm = GAME3;
 
     u16 pattern = TILE_USERINDEX; // @suppress("Symbol is not resolved")
     char str1[] = "ƒeƒXƒg‚P";
@@ -52,5 +52,5 @@ int game3() {
         VDP_waitVSync();
     }
 
-    return gm;
+    return Data;
 }

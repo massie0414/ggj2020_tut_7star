@@ -31,16 +31,16 @@ typedef struct sozai
 	char showed;
 	char broke;
 	s16 genso[4];
+	s16 HP;
 };
-
 
 s16 playerMoveOn(s16 *x,s16 *y,s16 cameraX,s16 cameraY);
 void cameraScroll(s16 *cameraX,s16 *playerX);
 u16 playerButton();
 int VDP_BG( VDPPlan PLAN, int PAL, int ind, int type, int tile_x, int tile_y, Image image1, Image image2, Image image3, Image image4, Image image5 );
 
-int game() {
-
+struct datas game(struct datas Data) {
+	SPR_init();
     // disable interrupt when accessing VDP
 	s16 num2;
     SYS_disableInts();
@@ -54,7 +54,7 @@ int game() {
     Camera.y=122;
     u16 tests[SOZAI_SUU][9]=
     {
-    	{ 400, 180,FALSE,FALSE,5,5,5,5,1} // @suppress("Symbol is not resolved")
+    	{ 400, 180,FALSE,FALSE,1,2,4,8,3} // @suppress("Symbol is not resolved")
     };
     char tests_name[SOZAI_SUU][64]=
     {
@@ -77,9 +77,9 @@ int game() {
     	Sozais[i].genso[1]=tests[i][5];
     	Sozais[i].genso[2]=tests[i][6];
     	Sozais[i].genso[3]=tests[i][7];
+    	Sozais[i].HP=tests[i][8];
     }
-    enum game_mode gm;
-    gm = GAME;
+    Data.gm = GAME;
 
     u16 palette[64];
 
@@ -140,6 +140,7 @@ int game() {
 
     while(TRUE)
    {
+    	text(Camera.x,0,0);
     	bg_b_count += CAMERA_MOVE;
     	if ( bg_b_count >= 64 * 8 ) {
     	    ind_b = VDP_BG( PLAN_B, PAL2, ind_b, ++vdp_b_count, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image );	vdp_b_count %= 5;	vdp_b_x += 8; vdp_b_x %= 64;
@@ -208,7 +209,7 @@ int game() {
 		for(s16 i=0;i<SOZAI_SUU;i++)
 			{
 				if(Sozais[i].broke==1) continue;
-				else if(Sozais[i].showed==1)
+				if(Sozais[i].showed==1)
 				{
 					SPR_setPosition(sprites[i+3],(Sozais[i].x-Camera.x),Sozais[i].y);
 					u16 num=playerButton();
@@ -233,25 +234,34 @@ int game() {
 						) {
 							num2=1;
 						}
-
+						num2=1;
 						if(num2==1) {
-							SPR_releaseSprite(sprites[i+3]);
+							Sozais[i].HP-=1;
+							if(Sozais[i].HP<=0){
+								SND_startPlay_4PCM_ENV(
+										SE_Explosion_8,
+										sizeof(SE_Explosion_8),
+										SOUND_PCM_CH2,
+										FALSE
+								);
+								Data.water=Sozais[i].genso[1];
+								Data.stone=Sozais[i].genso[2];
+								Data.metal=Sozais[i].genso[3];
+								Data.wood=Sozais[i].genso[4];
+								Sozais[i].broke=1;
+								SPR_setPosition(sprites[i+3], 350 ,0);
 
-							Sozais[i].broke==1;
+								// Œø‰Ê‰¹‚ð–Â‚ç‚µ‚Ä‚Ý‚é
 
-			                // Œø‰Ê‰¹‚ð–Â‚ç‚µ‚Ä‚Ý‚é
-			                SND_startPlay_4PCM_ENV(
-			                		SE_Explosion_8,
-			                        sizeof(SE_Explosion_8),
-			                        SOUND_PCM_CH2,
-			                        FALSE
-			                );
-						}
-						if(Sozais[i].x<Camera.x){SPR_setAnim(sprites[i+3],-1); Sozais[i].broke=1;}
+
+
+							}
+													}
+//						if(Sozais[i].x<Camera.x){SPR_setAnim(sprites[i+3],-1); Sozais[i].broke=1;}
 					}
 
 				}
-				else if(Sozais[i].x<=Camera.x+160 && Sozais[i].showed!=1)
+				else if(Sozais[i].x<=Camera.x+320 && Sozais[i].showed!=1)
 					{
 						Sozais[i].showed =1;
 						sprites[i+3] = SPR_addSprite(
@@ -277,13 +287,14 @@ int game() {
             VDP_setVerticalScroll(PLAN_B, 0);
             VDP_setHorizontalScroll(PLAN_A, 0);
             VDP_setVerticalScroll(PLAN_A, 0);
-			gm=WORK;
+            //SPR_end();
+			Data.gm=WORK;
 			break;
         }
 
    }
 
-    return gm;
+    return Data;
 }
 s16 playerMoveOn(s16 *x,s16 *y,s16 cameraX,s16 cameraY)
 {

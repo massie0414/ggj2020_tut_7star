@@ -77,13 +77,13 @@ static u16 tests[TILE_Y][TILE_X] = {
 
 };
 
-int game2() {
+struct datas game2(struct datas Data) {
 
     // disable interrupt when accessing VDP
     SYS_disableInts();
 
-    enum game_mode gm;
-    gm = GAME2;
+    //enum game_mode gm;
+    Data.gm = GAME2;
 
     // Load tile data (pattern) in VRAM.
 //	VDP_loadTileSet(
@@ -163,5 +163,5 @@ int game2() {
         VDP_waitVSync();
     }
 
-    return gm;
+    return Data;
 }

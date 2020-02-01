@@ -5,7 +5,7 @@
 
 const int WAIT = 20;
 
-int title() {
+struct datas title(struct datas Data) {
 
     // VDPアクセス時の割り込みを無効にする
     SYS_disableInts();
@@ -20,8 +20,8 @@ int title() {
 
     u16 palette[64];
 
-    enum game_mode gm;
-    gm = TITLE;
+    //enum game_mode gm;
+    Data.gm = TITLE;
 
     u16 pad0;
     u16 pad1;
@@ -134,7 +134,7 @@ int title() {
 
                     VDP_clearPlan(PLAN_A, TRUE); // @suppress("Symbol is not resolved")
                     VDP_clearPlan(PLAN_B, TRUE); // @suppress("Symbol is not resolved")
-                    gm = GAME;
+                    Data.gm = INIT;
                     break;
                 }
                 else if ( y == 19 ) {
@@ -161,5 +161,5 @@ int title() {
         VDP_waitVSync();
     }
 
-    return gm;
+    return Data;
 }

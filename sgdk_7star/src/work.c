@@ -4,15 +4,15 @@
 #include "draw_sjis.h"
 #include "game.h"
 
-int work() {
+struct datas work(struct datas Data) {
 	int y=10;
 	int x=0;
 	u16 pad1,pad0;
     // disable interrupt when accessing VDP
     SYS_disableInts();
 
-    enum game_mode gm;
-    gm = WORK;
+    //enum game_mode gm;
+    Data.gm = WORK;
 
     u16 pattern = TILE_USERINDEX; // @suppress("Symbol is not resolved")
     char str1[] = "š“¹‹ï";
@@ -80,6 +80,7 @@ int work() {
 
     while(1)
     {
+    	text(Data.water,0,0);
 		pad1 = JOY_readJoypad(JOY_1);
 		if (pad0 != pad1) {
 					pad0 = pad1;
@@ -112,81 +113,81 @@ int work() {
 							x = 30;
 						}
            if (pad1 & BUTTON_START){
-            if((x==0 && y==10) && (stone>=10 && water>=10)&& hammer<1 ){//ƒnƒ“ƒ}[
-           		stone-=10;
-           		water-=10;
-           		hammer+=1;
+            if((x==0 && y==10) && (Data.water>=1)&& Data.hammer<1 ){//ƒnƒ“ƒ}[
+           		Data.water-=1;
+           		Data.hammer+=1;
            	}
-           	else if((x==0 && y==15)&& wood>=20 && bucket<1){//ƒoƒPƒc
-           		wood -=20;
-           		bucket+=1;
+           	else if((x==0 && y==15)&& Data.wood>=20 && Data.bucket<1){//ƒoƒPƒc
+           		Data.wood -=20;
+           		Data.bucket+=1;
            	}
-           	else if((x==0 && y==20) && (wood>=15 && stone>=15)&& bflag<1){//”š’e
-           		wood-=15;
-           		stone-=15;
-           		bomb+=3;
-           		bflag+=1;
+           	else if((x==0 && y==20) && (Data.wood>=15 && Data.stone>=15)&& Data.bflag<1){//”š’e
+           		Data.wood-=15;
+           		Data.stone-=15;
+           		Data.bomb+=3;
+           		Data.bflag+=1;
            	}
-           	else if((x==0 && y==25) && (wood>=10 && stone>=10)&& saw<1){//ƒmƒRƒMƒŠ
-           		wood-=10;
-           		stone-=10;
-           		saw+=1;
+           	else if((x==0 && y==25) && (Data.wood>=10 && Data.stone>=10)&& Data.saw<1){//ƒmƒRƒMƒŠ
+           		Data.wood-=10;
+           		Data.stone-=10;
+           		Data.saw+=1;
            	}
-				if((x==10 && y==10) && wood>=5){//ˆÖŽq
-					wood-=5;
-					chair+=1;
+				if((x==10 && y==10) && Data.wood>=5){//ˆÖŽq
+					Data.wood-=5;
+					Data.chair+=1;
 				}
-				else if((x==10 && y==15)&&wood>=10 ){//Š÷
-					wood-=10;
-					desk+=1;
+				else if((x==10 && y==15)&&Data.wood>=10 ){//Š÷
+					Data.wood-=10;
+					Data.desk+=1;
 				}
-				else if((x==10 && y==20)&& (wood>=5 && metal>=2)){//ƒ^ƒ“ƒX
-					wood-=5;
-					metal-=2;
-					chest+=1;
+				else if((x==10 && y==20)&& (Data.wood>=5 && Data.metal>=2)){//ƒ^ƒ“ƒX
+					Data.wood-=5;
+					Data.metal-=2;
+					Data.chest+=1;
 				}
-				else if((x==10 && y==25) && stone>=5){//ƒŒƒ“ƒK
-					stone-=5;
-					brick+=1;
+				else if((x==10 && y==25) && Data.stone>=5){//ƒŒƒ“ƒK
+					Data.stone-=5;
+					Data.brick+=1;
 				}
-					if((x==20 && y==10)&&metal>=2){//Žw—Ö
-						metal-=2;
-						ring+=1;
+					if((x==20 && y==10)&&Data.metal>=2){//Žw—Ö
+						Data.metal-=2;
+						Data.ring+=1;
 					}
-					else if((x==20 && y==15) && stone>=10){//’¤
-						stone-=10;
-						sculpture+=1;
+					else if((x==20 && y==15) && Data.stone>=10){//’¤
+						Data.stone-=10;
+						Data.sculpture+=1;
 					}
-					else if((x==20 && y==20) && (wood>=20 && metal>=2)){//–Ø‚Ì‰Æ
-						wood-=20;
-						metal-=2;
-						wHouse+=1;
+					else if((x==20 && y==20) && (Data.wood>=20 && Data.metal>=2)){//–Ø‚Ì‰Æ
+						Data.wood-=20;
+						Data.metal-=2;
+						Data.wHouse+=1;
 					}
-					else if((x==20 && y==25) && (stone>=20 && metal>=2)){//Î‚Ì‰Æ
-						stone-=20;
-						metal-=2;
-						sHouse+=1;
+					else if((x==20 && y==25) && (Data.stone>=20 && Data.metal>=2)){//Î‚Ì‰Æ
+						Data.stone-=20;
+						Data.metal-=2;
+						Data.sHouse+=1;
 					}
-						if((x==30 && y==10)&&(wood>=20 && metal>=5 && water>=10)){//–Ø‚Ì‹“@
-							wood-=20;
-							metal-=5;
-							water-=10;
-							wMansion+=1;
+						if((x==30 && y==10)&&(Data.wood>=20 && Data.metal>=5 && Data.water>=10)){//–Ø‚Ì‹“@
+							Data.wood-=20;
+							Data.metal-=5;
+							Data.water-=10;
+							Data.wMansion+=1;
 						}
-						else if((x==30 && y==15) && (stone>=20 && metal>=5 && water>=10)){//Î‚Ì‹“@
-							stone-=20;
-							metal-=5;
-							water-=10;
-							sMansion+=1;
+						else if((x==30 && y==15) && (Data.stone>=20 && Data.metal>=5 && Data.water>=10)){//Î‚Ì‹“@
+							Data.stone-=20;
+							Data.metal-=5;
+							Data.water-=10;
+							Data.sMansion+=1;
 						}
-						else if((x==30 && y>=20)&& water>=20 ){//…‘…
-							water-=20;
-							tank+=1;
+						else if((x==30 && y>=20)&& Data.water>=20 ){//…‘…
+							Data.water-=20;
+							Data.tank+=1;
 						}
 						else if(x==30 && y==25 ){
 							VDP_clearPlan(PLAN_A, TRUE);
 							VDP_clearPlan(PLAN_B, TRUE);
-							gm=GAME;
+							Data.explore_mode=1;
+							Data.gm=GAME;
 							break;
 						}
 		      }
@@ -194,5 +195,5 @@ int work() {
 	    VDP_drawText(">", x, y);
         VDP_waitVSync();
     }
-    return gm;
+    return Data;
 }
