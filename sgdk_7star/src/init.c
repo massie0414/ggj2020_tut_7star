@@ -30,6 +30,7 @@ struct datas init(struct datas Data)
 	Data.wMansion=0;//–Ø‚Ì‹“@
 	Data.sMansion=0;//Î‚Ì‹“@
 	Data.tank=0;
+	Data.date =1;
 
 	Data.gm = GAME;
 
