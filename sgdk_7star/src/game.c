@@ -36,6 +36,8 @@ typedef struct sozai
 fix32 playerMoveOn(fix32 *x,fix32 *y);
 void cameraScroll(fix32 *cameraX,fix32 *playerX);
 u16 playerButton();
+int VDP_soradesu( int ind, int type, int tile_x, int tile_y );
+
 int game() {
 
     // disable interrupt when accessing VDP
@@ -89,25 +91,55 @@ int game() {
     SPR_init();
     memcpy(&palette[0], Player.palette->data, 16 * 2);
     memcpy(&palette[16], rock01.palette->data, 16 * 2);
-    memcpy(&palette[32], soradesu_image.palette->data, 16 * 2);
+    memcpy(&palette[32], soradesu_1_image.palette->data, 16 * 2);
     memcpy(&palette[48], zimensample_image.palette->data, 16 * 2);
 
-    VDP_drawImageEx(PLAN_B, &soradesu_image, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, ind), 0, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æ
-    ind += soradesu_image.tileset->numTile;
-    VDP_drawImageEx(PLAN_B, &soradesu_1_image, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, ind), 40, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æ
-    ind += soradesu_1_image.tileset->numTile;
-    VDP_drawImageEx(PLAN_B, &soradesu_1_image, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, ind), 48, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æ
-    ind += soradesu_1_image.tileset->numTile;
-    VDP_drawImageEx(PLAN_B, &soradesu_1_image, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, ind), 56, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æ
-    ind += soradesu_1_image.tileset->numTile;
-    VDP_drawImageEx(PLAN_A, &zimensample_image, TILE_ATTR_FULL(PAL3, FALSE, FALSE, FALSE, ind), 0, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æA
-    ind += zimensample_image.tileset->numTile;
+    int vdp_count = 0;
+    int vdp_x = 0;
+    ind = VDP_soradesu( ind, ++vdp_count, vdp_x, 0 );	vdp_count %= 5;	vdp_x += 8; vdp_x %= 64;
+    ind = VDP_soradesu( ind, ++vdp_count, vdp_x, 0 );	vdp_count %= 5;	vdp_x += 8; vdp_x %= 64;
+    ind = VDP_soradesu( ind, ++vdp_count, vdp_x, 0 );	vdp_count %= 5;	vdp_x += 8; vdp_x %= 64;
+    ind = VDP_soradesu( ind, ++vdp_count, vdp_x, 0 );	vdp_count %= 5;	vdp_x += 8; vdp_x %= 64;
+    ind = VDP_soradesu( ind, ++vdp_count, vdp_x, 0 );	vdp_count %= 5;	vdp_x += 8; vdp_x %= 64;
+    ind = VDP_soradesu( ind, ++vdp_count, vdp_x, 0 );	vdp_count %= 5;	vdp_x += 8; vdp_x %= 64;
+    ind = VDP_soradesu( ind, ++vdp_count, vdp_x, 0 );	vdp_count %= 5;	vdp_x += 8; vdp_x %= 64;
+    ind = VDP_soradesu( ind, ++vdp_count, vdp_x, 0 );	vdp_count %= 5;	vdp_x += 8; vdp_x %= 64;
+
+//    VDP_drawImageEx(PLAN_B, &soradesu_1_image, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, ind), 0, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æ
+//    ind += soradesu_1_image.tileset->numTile;
+//    VDP_drawImageEx(PLAN_B, &soradesu_2_image, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, ind), 8, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æ
+//    ind += soradesu_2_image.tileset->numTile;
+//    VDP_drawImageEx(PLAN_B, &soradesu_3_image, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, ind), 16, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æ
+//    ind += soradesu_3_image.tileset->numTile;
+//    VDP_drawImageEx(PLAN_B, &soradesu_4_image, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, ind), 24, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æ
+//    ind += soradesu_4_image.tileset->numTile;
+//    VDP_drawImageEx(PLAN_B, &soradesu_5_image, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, ind), 32, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æ
+//    ind += soradesu_5_image.tileset->numTile;
+//    VDP_drawImageEx(PLAN_B, &soradesu_1_image, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, ind), 40, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æ
+//    ind += soradesu_1_image.tileset->numTile;
+//    VDP_drawImageEx(PLAN_B, &soradesu_2_image, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, ind), 48, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æ
+//    ind += soradesu_2_image.tileset->numTile;
+//    VDP_drawImageEx(PLAN_B, &soradesu_3_image, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, ind), 56, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æ
+//    ind += soradesu_3_image.tileset->numTile;
+
+
+
+    VDP_drawImageEx(PLAN_A, &zimensample_1_image, TILE_ATTR_FULL(PAL3, FALSE, FALSE, FALSE, ind), 0, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æA
+    ind += zimensample_1_image.tileset->numTile;
+    VDP_drawImageEx(PLAN_A, &zimensample_2_image, TILE_ATTR_FULL(PAL3, FALSE, FALSE, FALSE, ind), 8, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æA
+    ind += zimensample_2_image.tileset->numTile;
+    VDP_drawImageEx(PLAN_A, &zimensample_3_image, TILE_ATTR_FULL(PAL3, FALSE, FALSE, FALSE, ind), 16, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æA
+    ind += zimensample_3_image.tileset->numTile;
+    VDP_drawImageEx(PLAN_A, &zimensample_4_image, TILE_ATTR_FULL(PAL3, FALSE, FALSE, FALSE, ind), 24, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æA
+    ind += zimensample_4_image.tileset->numTile;
+    VDP_drawImageEx(PLAN_A, &zimensample_5_image, TILE_ATTR_FULL(PAL3, FALSE, FALSE, FALSE, ind), 32, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æA
+    ind += zimensample_5_image.tileset->numTile;
     VDP_drawImageEx(PLAN_A, &zimensample_1_image, TILE_ATTR_FULL(PAL3, FALSE, FALSE, FALSE, ind), 40, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æA
     ind += zimensample_1_image.tileset->numTile;
-    VDP_drawImageEx(PLAN_A, &zimensample_1_image, TILE_ATTR_FULL(PAL3, FALSE, FALSE, FALSE, ind), 48, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æA
-    ind += zimensample_1_image.tileset->numTile;
-    VDP_drawImageEx(PLAN_A, &zimensample_1_image, TILE_ATTR_FULL(PAL3, FALSE, FALSE, FALSE, ind), 56, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æA
-    ind += zimensample_1_image.tileset->numTile;
+    VDP_drawImageEx(PLAN_A, &zimensample_2_image, TILE_ATTR_FULL(PAL3, FALSE, FALSE, FALSE, ind), 48, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æA
+    ind += zimensample_2_image.tileset->numTile;
+    VDP_drawImageEx(PLAN_A, &zimensample_3_image, TILE_ATTR_FULL(PAL3, FALSE, FALSE, FALSE, ind), 56, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æA
+    ind += zimensample_3_image.tileset->numTile;
 
     sprites[0] = SPR_addSprite(&Player, 0,0, TILE_ATTR(PAL0, TRUE, FALSE, FALSE));
 
@@ -248,7 +280,7 @@ fix32 playerMoveOn(fix32 *x,fix32 *y)
 	if(*y>BOTTOM_HEIGHT) *y=BOTTOM_HEIGHT;
 	if(*y<TOP_HEIGHT) *y=TOP_HEIGHT;
 	if(*x<0){*x=0; mode=1;}
-	if(*x/10>320-48) *x=(320-48)*10;
+//	if(*x/10>320-48) *x=(320-48)*10;
 	return mode;
 }
 u16 playerButton()
@@ -264,3 +296,72 @@ u16 playerButton()
 //	*playerX-=5;
 //
 //}
+
+//”wŒi‚Ì•`‰æB
+int VDP_soradesu( int ind, int type, int tile_x, int tile_y ) {
+
+	switch ( type ) {
+	case 1:
+		VDP_drawImageEx(
+				PLAN_B,
+				&soradesu_1_image,
+				TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, ind),
+				tile_x,
+				tile_y,
+				FALSE,
+				TRUE
+		);
+		ind += soradesu_1_image.tileset->numTile;
+		break;
+	case 2:
+		VDP_drawImageEx(
+				PLAN_B,
+				&soradesu_2_image,
+				TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, ind),
+				tile_x,
+				tile_y,
+				FALSE,
+				TRUE
+		);
+		ind += soradesu_2_image.tileset->numTile;
+		break;
+	case 3:
+		VDP_drawImageEx(
+				PLAN_B,
+				&soradesu_3_image,
+				TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, ind),
+				tile_x,
+				tile_y,
+				FALSE,
+				TRUE
+		);
+		ind += soradesu_3_image.tileset->numTile;
+		break;
+	case 4:
+		VDP_drawImageEx(
+				PLAN_B,
+				&soradesu_4_image,
+				TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, ind),
+				tile_x,
+				tile_y,
+				FALSE,
+				TRUE
+		);
+		ind += soradesu_4_image.tileset->numTile;
+		break;
+	case 5:
+		VDP_drawImageEx(
+				PLAN_B,
+				&soradesu_5_image,
+				TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, ind),
+				tile_x,
+				tile_y,
+				FALSE,
+				TRUE
+		);
+		ind += soradesu_5_image.tileset->numTile;
+		break;
+	}
+
+	return ind;
+}

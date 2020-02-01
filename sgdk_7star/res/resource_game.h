@@ -9,7 +9,15 @@ extern const SpriteDefinition rock02;
 extern const SpriteDefinition rock03;
 extern const Image soradesu_image;
 extern const Image soradesu_1_image;
+extern const Image soradesu_2_image;
+extern const Image soradesu_3_image;
+extern const Image soradesu_4_image;
+extern const Image soradesu_5_image;
 extern const Image zimensample_image;
 extern const Image zimensample_1_image;
+extern const Image zimensample_2_image;
+extern const Image zimensample_3_image;
+extern const Image zimensample_4_image;
+extern const Image zimensample_5_image;
 
 #endif // _RES_RESOURCE_GAME_H_
