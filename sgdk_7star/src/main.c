@@ -50,6 +50,9 @@ int main() {
         case TITLE:
         	Data = title(Data);
             break;
+        case DAY:
+        	Data = day(Data);
+        	break;
         case INIT:
         	Data = init(Data);
         	break;

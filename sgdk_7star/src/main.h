@@ -9,6 +9,7 @@ enum game_mode {
     LOGO,
     TITLE,
 	INIT,
+	DAY,
     GAME,
 	GAME2,
 	GAME3,
@@ -49,6 +50,7 @@ struct datas
 struct datas logo(struct datas Data);
 struct datas title(struct datas Data);
 struct datas init(struct datas Data);
+struct datas day(struct datas Data);
 struct datas game(struct datas Data);
 struct datas game2(struct datas Data);
 struct datas game3(struct datas Data);
