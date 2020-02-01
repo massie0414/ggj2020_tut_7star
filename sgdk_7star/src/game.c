@@ -1,141 +1,138 @@
 #include <genesis.h>
+
 #include "resource.h"
+#include "resource_game.h"
+
 #include "main.h"
 
+#define TOP_HEIGHT 112-24
+#define BOTTOM_HEIGHT 224-48
+#define CAMERA_SCROLL 10
+#define SCROLL_DIFF 32
+#define SOZAI_SUU 1
+
+struct playerScene
+{
+	fix32 x;
+	fix32 y;
+};
+struct camera
+{
+	fix32 x;
+	fix32 y;
+};
+typedef struct sozai
+{
+	char name[64];
+	fix32 x;
+	fix32 y;
+	char showed;
+	char broke;
+	fix32 genso[4];
+};
+
+
+fix32 playerMoveOn(fix32 *x,fix32 *y);
+void cameraScroll(fix32 *cameraX,fix32 *playerX);
+void chkSozais(struct sozai Sozai,fix32 cameraX);
 int game() {
 
     // disable interrupt when accessing VDP
-    SYS_disableInts();
 
+
+    SYS_disableInts();
+    struct playerScene PlayerData;
+    PlayerData.x=100;
+    PlayerData.y=100;
+    struct camera Camera;
+    Camera.x=320/2;
+    Camera.y=224/2;
+    u16 tests[SOZAI_SUU][8]=
+    {
+    	{6400,2000,FALSE,FALSE,5,5,5,5}
+    };
+    char tests_name[SOZAI_SUU][64]=
+    {
+    		"りんご"
+    };
+
+    struct sozai Sozais[SOZAI_SUU];
+    for(fix32 i;i<SOZAI_SUU;i++)
+    {
+//    	strcpy(Sozais[i].name,tests_name[i]);
+    	for(fix32 h;h<64;h++)
+    	{
+    		Sozais[i].name[h]=tests_name[i][h];
+    	}
+    	Sozais[i].x = tests[i][0];
+    	Sozais[i].y = tests[i][1];
+    	Sozais[i].showed=tests[i][2];
+    	Sozais[i].broke=tests[i][3];
+    	Sozais[i].genso[0]=tests[i][4];
+    	Sozais[i].genso[1]=tests[i][5];
+    	Sozais[i].genso[2]=tests[i][6];
+    	Sozais[i].genso[3]=tests[i][7];
+    }
     enum game_mode gm;
     gm = GAME;
-
+    Sprite* sprites[3];
+    Sprite* sozaiSprites[3];
     u16 palette[64];
 
-    int i = 0;
-    for ( i = 0; i < TEST_SIZE; i++ ) {
-    	SPR_setAnim(sprites[i], i % 8);
-    }
-//  SPR_update();
-
-    // load background
-    u16 ind = TILE_USERINDEX; // @suppress("Symbol is not resolved")
-    VDP_drawImageEx(
-    		PLAN_B,
-			&bgb,
-			TILE_ATTR_FULL(
-					PAL1, // @suppress("Symbol is not resolved")
-					FALSE, // @suppress("Symbol is not resolved")
-					FALSE, // @suppress("Symbol is not resolved")
-					FALSE, // @suppress("Symbol is not resolved")
-					ind
-					),
-			0,
-			0,
-			FALSE, // @suppress("Symbol is not resolved")
-			TRUE // @suppress("Symbol is not resolved")
-	);
-    ind += bgb.tileset->numTile;
-    VDP_drawImageEx(
-    		PLAN_A,
-			&bga,
-			TILE_ATTR_FULL(
-					PAL2, // @suppress("Symbol is not resolved")
-					FALSE, // @suppress("Symbol is not resolved")
-					FALSE, // @suppress("Symbol is not resolved")
-					FALSE, // @suppress("Symbol is not resolved")
-					ind),
-			0,
-			0,
-			FALSE, // @suppress("Symbol is not resolved")
-			TRUE // @suppress("Symbol is not resolved")
-	);
-    ind += bga.tileset->numTile;
-
-    memcpy(&palette[ 0], sonic_sprite.palette->data, 16 * 2);
-    memcpy(&palette[16], bgb.palette->data, 16 * 2);
-    memcpy(&palette[32], bga.palette->data, 16 * 2);
-    memcpy(&palette[48], sonic_sprite.palette->data, 16 * 2);
-
-    // fade in
-    u16 fromcol = 0;
-    u16 tocol = (4 * 16) - 1;
-    u16 numframe = 20;
-    u8 async = FALSE; // @suppress("Symbol is not resolved")
-    VDP_fadeIn(
-		fromcol,
-		tocol,
-		palette,
-		numframe,
-		async
-	);
-
-    // 使用可能なVDPスプライトの数を返します。
-    u16 availableSprites = VDP_getAvailableSprites();
-
-    // 現在割り当てられているVDPスプライトの最高のインデックスを計算して返します。
-    s16 refreshHighestAllocatedSpriteIndex = VDP_refreshHighestAllocatedSpriteIndex();
-
-    // VDP process done, we can re enable interrupts
+    SPR_init();
+    memcpy(&palette[0], Player.palette->data, 16 * 2);
+    memcpy(&palette[16], SozaiProto.palette->data, 16 * 2);
+    sprites[0] = SPR_addSprite(&Player, 0,0, TILE_ATTR(PAL0, TRUE, FALSE, FALSE));
+    SPR_setAnim(sprites[0], 0);
     SYS_enableInts();
+    VDP_fadeIn(0, (4 * 16) - 1, palette, 20, FALSE);
 
-//  int count = 0;
-
-    s16 x = 10;
-    s16 y = 10;
-
-    i = 0;
-    s16 a_x = 0;
-    s16 b_x = 0;
-    s16 a_y = 0;
-    s16 b_y = 0;
-    while(1)
-    {
-        text(availableSprites, 0, 26);
-        text(refreshHighestAllocatedSpriteIndex, 0, 27);
-
-    //    a_x++;
-    //    a_y++;
-    //    b_x+=2;
-    //    b_y+=2;
-        VDP_setHorizontalScroll(PLAN_A, a_x);
-        VDP_setHorizontalScroll(PLAN_B, b_x);
-        VDP_setVerticalScroll(PLAN_A, a_y);
-        VDP_setVerticalScroll(PLAN_B, b_y);
-
-
-    	/*
-    	count++;
-    	if ( count > 100 ) {
-    		gm = TITLE;
-
-    		for ( i = 0; i < TEST_SIZE; i++ ) {
-    			SPR_setAnim(sprites[i], -1);
+    while(TRUE)
+   {
+    	fix32 walkMode=playerMoveOn(&PlayerData.x,&PlayerData.y);
+    	if(walkMode==1) SPR_setAnim(sprites[0], 1);
+    	else SPR_setAnim(sprites[0], 0);
+    	cameraScroll(&Camera.x,&PlayerData.x);
+    	SPR_setPosition(sprites[0],PlayerData.x/10,PlayerData.y/10);
+    	for(fix32 i;i<SOZAI_SUU;i++)
+    		{
+    		chkSozais(Sozais[i],Camera.x);
+    		if(Sozais[i].showed==1 && sozaiSprites[i]== NULL) sozaiSprites[i] = SPR_addSprite(&SozaiProto, Sozais[i].x-Camera.x,Sozais[i].y, TILE_ATTR(PAL1, TRUE, FALSE, FALSE));
     		}
-    	    SPR_update();
-
-    	    VDP_fadeOut(0, (1 * 16) - 1, 20, FALSE);
-
-    		break;
-    	}
-    	*/
-
-    //	for ( i = 0; i < TEST_SIZE; i++ ) {
-    		x = ( i % 5 ) * 8 * 6;
-    		y = ( i / 5 ) * 8 * 6;
-			SPR_setPosition(
-				sprites[i],
-				x,
-				y
-			);
-    //	}
-
-		i++;
-		i = i % TEST_SIZE;
-
         SPR_update();
         VDP_waitVSync();
-    }
+   }
 
     return gm;
+}
+fix32 playerMoveOn(fix32 *x,fix32 *y)
+{
+	fix32 mode=0;
+	u16 value = JOY_readJoypad(JOY_1);
+	if(value&BUTTON_LEFT){*x-=20;mode=1;}
+	if(value&BUTTON_RIGHT){ *x+=20;mode=1;}
+	if(value&BUTTON_UP){*y-=10;mode=1;}
+	if(value&BUTTON_DOWN){*y+=10;mode=1;}
+	//はじっこ処理
+	if(*y>BOTTOM_HEIGHT) *y=BOTTOM_HEIGHT;
+	if(*y<TOP_HEIGHT) *y=TOP_HEIGHT;
+	if(*x<0){*x=0; mode=1;}
+	if(*x/10>320-48) *x=(320-48)*10;
+	return mode;
+}
+void cameraScroll(fix32 *cameraX,fix32 *playerX)
+{
+	*cameraX+=5;
+	*playerX-=5;
+
+}
+void chkSozais(struct sozai Sozai,fix32 cameraX)
+{
+
+		if(Sozai.showed==1 || Sozai.broke==1) return Sozai;
+		if(Sozai.x<=cameraX+1600)
+		{
+			Sozai.showed =1;
+
+		}
 }
