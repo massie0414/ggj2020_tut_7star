@@ -1,5 +1,6 @@
 #include <genesis.h>
 #include "resource.h"
+#include "resource_game.h"
 #include "main.h"
 
 const int WAIT = 20;
@@ -10,13 +11,6 @@ int title() {
     SYS_disableInts();
 
     // start music
-//    SND_startPlay_PCM(
-//    		BGM_Sub_8,
-//			sizeof(BGM_Sub_8),
-//			SOUND_RATE_8000,
-//			SOUND_PAN_CENTER,
-//			TRUE
-//	);
     SND_startPlay_4PCM_ENV(
     		BGM_Sub_8,
             sizeof(BGM_Sub_8),
@@ -35,21 +29,34 @@ int title() {
     int count = 0;
     int y = 18;
 
+    u16 ind = TILE_USERINDEX;
     VDP_drawImageEx(
         PLAN_B,
-        &title16,
-        TILE_ATTR_FULL(PAL0, 0, 0, 0, TILE_USERINDEX), // @suppress("Symbol is not resolved")
+        &soradesu_image,
+        TILE_ATTR_FULL(PAL0, 0, 0, 0, ind), // @suppress("Symbol is not resolved")
         0,  // x
         1,  // y
         0,
-        1
+		1
     );
+    ind += soradesu_image.tileset->numTile;
+    VDP_drawImageEx(
+        PLAN_A,
+        &title_image,
+        TILE_ATTR_FULL(PAL1, 0, 0, 0, ind), // @suppress("Symbol is not resolved")
+        0,  // x
+        1,  // y
+        0,
+		1
+    );
+    ind += title_image.tileset->numTile;
 
     // prepare palettes
-    memcpy(&palette[0], title16.palette->data, 16 * 2);
+    memcpy(&palette[0], soradesu_image.palette->data, 16 * 2);
+    memcpy(&palette[16], title_image.palette->data, 16 * 2);
 
     // fade in
-    VDP_fadeIn(0, (1 * 16) - 1, palette, 20, FALSE); // @suppress("Symbol is not resolved")
+    VDP_fadeIn(0, (2 * 16) - 1, palette, 20, FALSE); // @suppress("Symbol is not resolved")
 
     // VDP process done, we can re enable interrupts
     SYS_enableInts();
@@ -149,7 +156,7 @@ int title() {
         VDP_drawText("HOW TO PLAY", 23, 19);
         VDP_drawText("CREDIT"     , 23, 20);
 
-        VDP_drawText("(C)2020 TEAM NAME", 20, 22);
+        VDP_drawText("(C)2020 7STAR", 22, 22);
 
         VDP_waitVSync();
     }

@@ -17,5 +17,6 @@ extern const Image logo16;
 extern const Image title16;
 extern const Image test;
 extern const Image test2;
+extern const Image title_image;
 
 #endif // _RES_RESOURCE_H_

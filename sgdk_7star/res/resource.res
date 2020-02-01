@@ -2,6 +2,7 @@ IMAGE logo16 "logo16.png" -1
 IMAGE title16 "title16.png" -1
 IMAGE test "test.png" 0 0
 IMAGE test2 "test2.png" 0 0
+IMAGE title_image "gfx/title.png" 0 0
 
 SPRITE sonic_sprite "sonic.png" 6 6 LZ4W 5 NONE SPRITE 100
 SPRITE numbers_8 "numbers_8.png" 1 1 LZ4W 0 NONE SPRITE 100
