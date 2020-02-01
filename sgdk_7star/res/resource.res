@@ -14,4 +14,3 @@ xgm testxgm "test.xgm"
 
 TILESET sjis_font "sjis_font.png" 0
 
-
