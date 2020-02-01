@@ -9,7 +9,7 @@ int main() {
 
     // initialization
     VDP_setScreenWidth320();
-    VDP_setPlanSize(128,32);
+    VDP_setPlanSize(64,32);
     SPR_init();
 
     // BGM‚Ì‰Šú‰»
