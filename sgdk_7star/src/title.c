@@ -140,16 +140,16 @@ int title() {
         }
 
         // カーソル
-        VDP_drawText(" ", 12, 18);  // クリア
-        VDP_drawText(" ", 12, 19);  // クリア
-        VDP_drawText(" ", 12, 20);  // クリア
-        VDP_drawText(">", 12, y);
+        VDP_drawText(" ", 22, 18);  // クリア
+        VDP_drawText(" ", 22, 19);  // クリア
+        VDP_drawText(" ", 22, 20);  // クリア
+        VDP_drawText(">", 22, y);
 
-        VDP_drawText("GAME START ", 13, 18);
-        VDP_drawText("HOW TO PLAY", 13, 19);
-        VDP_drawText("CREDIT"     , 13, 20);
+        VDP_drawText("GAME START ", 23, 18);
+        VDP_drawText("HOW TO PLAY", 23, 19);
+        VDP_drawText("CREDIT"     , 23, 20);
 
-        VDP_drawText("(C)2020 TEAM NAME", 10, 22);
+        VDP_drawText("(C)2020 TEAM NAME", 20, 22);
 
         VDP_waitVSync();
     }

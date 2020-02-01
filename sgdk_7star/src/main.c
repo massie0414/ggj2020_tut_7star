@@ -12,6 +12,11 @@ int main() {
     VDP_setPlanSize(64,32);
     SPR_init();
 
+//    VDP_setWindowHPos(FALSE, 0);
+//    VDP_setWindowVPos(FALSE, 6);
+//    VDP_setTextPlan(PLAN_WINDOW);
+//    VDP_setTextPriority(TRUE);
+
     // BGMÇÃèâä˙âª
     SND_setVolume_4PCM_ENV(
             SOUND_PCM_CH1,
