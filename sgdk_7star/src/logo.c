@@ -61,6 +61,25 @@ int logo(){
             VDP_clearPlan(PLAN_B, TRUE); // @suppress("Symbol is not resolved")
             break;
         }
+
+        if (pad1 & BUTTON_A) { // @suppress("Symbol is not resolved")
+            // Œø‰Ê‰¹‚ð–Â‚ç‚µ‚Ä‚Ý‚é
+            SND_startPlay_4PCM_ENV(
+            		SE_Punch_8,
+                    sizeof(SE_Punch_8),
+                    SOUND_PCM_CH2,
+                    FALSE
+            );
+        }
+        if (pad1 & BUTTON_B) { // @suppress("Symbol is not resolved")
+            // Œø‰Ê‰¹‚ð–Â‚ç‚µ‚Ä‚Ý‚é
+            SND_startPlay_4PCM_ENV(
+            		SE_Explosion_8,
+                    sizeof(SE_Explosion_8),
+                    SOUND_PCM_CH3,
+                    FALSE
+            );
+        }
         VDP_waitVSync();
     }
     return gm;

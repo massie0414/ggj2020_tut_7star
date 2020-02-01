@@ -10,13 +10,19 @@ int title() {
     SYS_disableInts();
 
     // start music
-    SND_startPlay_PCM(
-    		BGM_short_01_8,
-			sizeof(BGM_short_01_8),
-			SOUND_RATE_8000,
-			SOUND_PAN_CENTER,
-			TRUE
-	);
+//    SND_startPlay_PCM(
+//    		BGM_Sub_8,
+//			sizeof(BGM_Sub_8),
+//			SOUND_RATE_8000,
+//			SOUND_PAN_CENTER,
+//			TRUE
+//	);
+    SND_startPlay_4PCM_ENV(
+    		BGM_Sub_8,
+            sizeof(BGM_Sub_8),
+            SOUND_PCM_CH1,
+            FALSE
+    );
 
     u16 palette[64];
 
@@ -80,13 +86,31 @@ int title() {
 
             }
             if (pad1 & BUTTON_A) { // @suppress("Symbol is not resolved")
-
+                // Œø‰Ê‰¹‚ð–Â‚ç‚µ‚Ä‚Ý‚é
+                SND_startPlay_4PCM_ENV(
+                		SE_Explosion_8,
+                        sizeof(SE_Explosion_8),
+                        SOUND_PCM_CH2,
+                        FALSE
+                );
             }
             if (pad1 & BUTTON_B) { // @suppress("Symbol is not resolved")
-
+                // Œø‰Ê‰¹‚ð–Â‚ç‚µ‚Ä‚Ý‚é
+                SND_startPlay_4PCM_ENV(
+                		SE_Footstep_8,
+                        sizeof(SE_Footstep_8),
+                        SOUND_PCM_CH3,
+                        FALSE
+                );
             }
             if (pad1 & BUTTON_C) { // @suppress("Symbol is not resolved")
-
+                // Œø‰Ê‰¹‚ð–Â‚ç‚µ‚Ä‚Ý‚é
+                SND_startPlay_4PCM_ENV(
+                		SE_Footsteps_cave_8,
+                        sizeof(SE_Footsteps_cave_8),
+                        SOUND_PCM_CH4,
+                        FALSE
+                );
             }
             if (pad1 & BUTTON_START // @suppress("Suggested parenthesis around expression") // @suppress("Symbol is not resolved")
              && count >= WAIT
@@ -98,14 +122,6 @@ int title() {
                     if (SND_isPlaying_4PCM_ENV(SOUND_PCM_CH1_MSK)){
                         SND_stopPlay_4PCM_ENV(SOUND_PCM_CH1);
                     }
-
-                    // Œø‰Ê‰¹‚ð–Â‚ç‚µ‚Ä‚Ý‚é
-                    SND_startPlay_4PCM_ENV(
-                            test_wav,
-                            sizeof(test_wav),
-                            SOUND_PCM_CH2,
-                            FALSE
-                    );
 
                     VDP_fadeOut(0, (1 * 16) - 1, 20, FALSE); // @suppress("Symbol is not resolved")
 
