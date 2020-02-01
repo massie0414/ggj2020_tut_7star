@@ -14,6 +14,7 @@ int work() {
     enum game_mode gm;
     gm = WORK;
 
+
     /*enum game_item iwod,isto,imet,iwat;
     iwod=WOOD;
     isto=STONE;
@@ -65,7 +66,6 @@ int work() {
     char str14[] = "êŒÇÃâ∆";
     draw_sjis_text(PLAN_A, str14, TILE_ATTR_FULL(PAL0, 0, 0, 0, pattern), 22, 25, 0);
     pattern +=  strlen(str2) * 2;
-
     char str15[] = "ñÿÇÃçãì@";
     draw_sjis_text(PLAN_A, str15, TILE_ATTR_FULL(PAL0, 0, 0, 0, pattern), 32, 10, 0);
     pattern +=  strlen(str2) * 2;
