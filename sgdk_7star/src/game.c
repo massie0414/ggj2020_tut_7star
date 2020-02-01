@@ -11,6 +11,7 @@
 #define SCROLL_DIFF 32
 #define SOZAI_SUU 1
 #define HUMMER_RANGE 48
+#define CAMERA_MOVE 1
 
 struct playerScene
 {
@@ -36,7 +37,7 @@ typedef struct sozai
 s16 playerMoveOn(s16 *x,s16 *y,s16 cameraX,s16 cameraY);
 void cameraScroll(s16 *cameraX,s16 *playerX);
 u16 playerButton();
-int VDP_soradesu( int ind, int type, int tile_x, int tile_y );
+int VDP_BG( VDPPlan PLAN, int PAL, int ind, int type, int tile_x, int tile_y, Image image1, Image image2, Image image3, Image image4, Image image5 );
 
 int game() {
 
@@ -44,16 +45,17 @@ int game() {
 	s16 num2;
     SYS_disableInts();
     struct playerScene PlayerData;
-    PlayerData.x=160;
+    PlayerData.x=0;
+//  PlayerData.x=160;
     PlayerData.y=122;
     struct camera Camera;
-    Camera.x=160;
+    Camera.x=0;
+//  Camera.x=160;
     Camera.y=122;
     u16 tests[SOZAI_SUU][9]=
     {
     	{ 400, 180,FALSE,FALSE,5,5,5,5,1} // @suppress("Symbol is not resolved")
     };
-    u16 ind;
     char tests_name[SOZAI_SUU][64]=
     {
     		"‚Ä‚²‚ë‚È‚¢‚í"
@@ -78,72 +80,49 @@ int game() {
     }
     enum game_mode gm;
     gm = GAME;
-//  Sprite* sprites[6];
-//  Sprite* sozaiSprites[3];
-    u16 palette[64];
-    SND_startPlay_4PCM_ENV(
-       		BGM_Sub_8,
-               sizeof(BGM_Sub_8),
-               SOUND_PCM_CH1,
-               FALSE
-       );
 
-    SPR_init();
+    u16 palette[64];
+
+    // BGMÄ¶
+    SND_startPlay_4PCM_ENV(
+		BGM_Sub_8,
+	   sizeof(BGM_Sub_8),
+	   SOUND_PCM_CH1,
+	   TRUE
+   );
+
+//  SPR_init();
     memcpy(&palette[0], Player.palette->data, 16 * 2);
     memcpy(&palette[16], rock01.palette->data, 16 * 2);
     memcpy(&palette[32], soradesu_1_image.palette->data, 16 * 2);
-    memcpy(&palette[48], zimensample_image.palette->data, 16 * 2);
+    memcpy(&palette[48], zimensample_1_image.palette->data, 16 * 2);
 
-    int vdp_count = 0;
-    int vdp_x = 0;
-    ind = VDP_soradesu( ind, ++vdp_count, vdp_x, 0 );	vdp_count %= 5;	vdp_x += 8; vdp_x %= 64;
-    ind = VDP_soradesu( ind, ++vdp_count, vdp_x, 0 );	vdp_count %= 5;	vdp_x += 8; vdp_x %= 64;
-    ind = VDP_soradesu( ind, ++vdp_count, vdp_x, 0 );	vdp_count %= 5;	vdp_x += 8; vdp_x %= 64;
-    ind = VDP_soradesu( ind, ++vdp_count, vdp_x, 0 );	vdp_count %= 5;	vdp_x += 8; vdp_x %= 64;
-    ind = VDP_soradesu( ind, ++vdp_count, vdp_x, 0 );	vdp_count %= 5;	vdp_x += 8; vdp_x %= 64;
-    ind = VDP_soradesu( ind, ++vdp_count, vdp_x, 0 );	vdp_count %= 5;	vdp_x += 8; vdp_x %= 64;
-    ind = VDP_soradesu( ind, ++vdp_count, vdp_x, 0 );	vdp_count %= 5;	vdp_x += 8; vdp_x %= 64;
-    ind = VDP_soradesu( ind, ++vdp_count, vdp_x, 0 );	vdp_count %= 5;	vdp_x += 8; vdp_x %= 64;
+	sprites[0] = SPR_addSprite(&Player, 0, 0, TILE_ATTR(PAL0, TRUE, FALSE, FALSE));
+	SPR_setPosition(sprites[0], 0 ,0);
+	SPR_setAnim(sprites[0], 0);
 
-//    VDP_drawImageEx(PLAN_B, &soradesu_1_image, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, ind), 0, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æ
-//    ind += soradesu_1_image.tileset->numTile;
-//    VDP_drawImageEx(PLAN_B, &soradesu_2_image, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, ind), 8, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æ
-//    ind += soradesu_2_image.tileset->numTile;
-//    VDP_drawImageEx(PLAN_B, &soradesu_3_image, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, ind), 16, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æ
-//    ind += soradesu_3_image.tileset->numTile;
-//    VDP_drawImageEx(PLAN_B, &soradesu_4_image, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, ind), 24, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æ
-//    ind += soradesu_4_image.tileset->numTile;
-//    VDP_drawImageEx(PLAN_B, &soradesu_5_image, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, ind), 32, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æ
-//    ind += soradesu_5_image.tileset->numTile;
-//    VDP_drawImageEx(PLAN_B, &soradesu_1_image, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, ind), 40, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æ
-//    ind += soradesu_1_image.tileset->numTile;
-//    VDP_drawImageEx(PLAN_B, &soradesu_2_image, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, ind), 48, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æ
-//    ind += soradesu_2_image.tileset->numTile;
-//    VDP_drawImageEx(PLAN_B, &soradesu_3_image, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, ind), 56, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æ
-//    ind += soradesu_3_image.tileset->numTile;
+    // ”wŒiB
+    int vdp_b_count = 0;
+    int vdp_b_x = 0;
+    u16 ind_b = TILE_USERINDEX;
+    ind_b = VDP_BG( PLAN_B, PAL2, ind_b, ++vdp_b_count, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image );	vdp_b_count %= 5;	vdp_b_x += 8; vdp_b_x %= 64;
+    ind_b = VDP_BG( PLAN_B, PAL2, ind_b, ++vdp_b_count, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image );	vdp_b_count %= 5;	vdp_b_x += 8; vdp_b_x %= 64;
+    ind_b = VDP_BG( PLAN_B, PAL2, ind_b, ++vdp_b_count, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image );	vdp_b_count %= 5;	vdp_b_x += 8; vdp_b_x %= 64;
+    ind_b = VDP_BG( PLAN_B, PAL2, ind_b, ++vdp_b_count, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image );	vdp_b_count %= 5;	vdp_b_x += 8; vdp_b_x %= 64;
+    ind_b = VDP_BG( PLAN_B, PAL2, ind_b, ++vdp_b_count, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image );	vdp_b_count %= 5;	vdp_b_x += 8; vdp_b_x %= 64;
+    ind_b = VDP_BG( PLAN_B, PAL2, ind_b, ++vdp_b_count, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image );	vdp_b_count %= 5;	vdp_b_x += 8; vdp_b_x %= 64;
 
+    // ”wŒiA
+    int vdp_a_count = 0;
+    int vdp_a_x = 0;
+    u16 ind_a = 500;
+    ind_a = VDP_BG( PLAN_A, PAL3, ind_a, ++vdp_a_count, vdp_a_x, 0, zimensample_1_image, zimensample_2_image, zimensample_3_image, zimensample_4_image, zimensample_5_image );	vdp_a_count %= 5;	vdp_a_x += 8; vdp_a_x %= 64;
+    ind_a = VDP_BG( PLAN_A, PAL3, ind_a, ++vdp_a_count, vdp_a_x, 0, zimensample_1_image, zimensample_2_image, zimensample_3_image, zimensample_4_image, zimensample_5_image );	vdp_a_count %= 5;	vdp_a_x += 8; vdp_a_x %= 64;
+    ind_a = VDP_BG( PLAN_A, PAL3, ind_a, ++vdp_a_count, vdp_a_x, 0, zimensample_1_image, zimensample_2_image, zimensample_3_image, zimensample_4_image, zimensample_5_image );	vdp_a_count %= 5;	vdp_a_x += 8; vdp_a_x %= 64;
+    ind_a = VDP_BG( PLAN_A, PAL3, ind_a, ++vdp_a_count, vdp_a_x, 0, zimensample_1_image, zimensample_2_image, zimensample_3_image, zimensample_4_image, zimensample_5_image );	vdp_a_count %= 5;	vdp_a_x += 8; vdp_a_x %= 64;
+    ind_a = VDP_BG( PLAN_A, PAL3, ind_a, ++vdp_a_count, vdp_a_x, 0, zimensample_1_image, zimensample_2_image, zimensample_3_image, zimensample_4_image, zimensample_5_image );	vdp_a_count %= 5;	vdp_a_x += 8; vdp_a_x %= 64;
+    ind_a = VDP_BG( PLAN_A, PAL3, ind_a, ++vdp_a_count, vdp_a_x, 0, zimensample_1_image, zimensample_2_image, zimensample_3_image, zimensample_4_image, zimensample_5_image );	vdp_a_count %= 5;	vdp_a_x += 8; vdp_a_x %= 64;
 
-
-    VDP_drawImageEx(PLAN_A, &zimensample_1_image, TILE_ATTR_FULL(PAL3, FALSE, FALSE, FALSE, ind), 0, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æA
-    ind += zimensample_1_image.tileset->numTile;
-    VDP_drawImageEx(PLAN_A, &zimensample_2_image, TILE_ATTR_FULL(PAL3, FALSE, FALSE, FALSE, ind), 8, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æA
-    ind += zimensample_2_image.tileset->numTile;
-    VDP_drawImageEx(PLAN_A, &zimensample_3_image, TILE_ATTR_FULL(PAL3, FALSE, FALSE, FALSE, ind), 16, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æA
-    ind += zimensample_3_image.tileset->numTile;
-    VDP_drawImageEx(PLAN_A, &zimensample_4_image, TILE_ATTR_FULL(PAL3, FALSE, FALSE, FALSE, ind), 24, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æA
-    ind += zimensample_4_image.tileset->numTile;
-    VDP_drawImageEx(PLAN_A, &zimensample_5_image, TILE_ATTR_FULL(PAL3, FALSE, FALSE, FALSE, ind), 32, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æA
-    ind += zimensample_5_image.tileset->numTile;
-    VDP_drawImageEx(PLAN_A, &zimensample_1_image, TILE_ATTR_FULL(PAL3, FALSE, FALSE, FALSE, ind), 40, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æA
-    ind += zimensample_1_image.tileset->numTile;
-    VDP_drawImageEx(PLAN_A, &zimensample_2_image, TILE_ATTR_FULL(PAL3, FALSE, FALSE, FALSE, ind), 48, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æA
-    ind += zimensample_2_image.tileset->numTile;
-    VDP_drawImageEx(PLAN_A, &zimensample_3_image, TILE_ATTR_FULL(PAL3, FALSE, FALSE, FALSE, ind), 56, 0, FALSE, TRUE);//”wŒi‚Ì•`‰æA
-    ind += zimensample_3_image.tileset->numTile;
-
-    sprites[0] = SPR_addSprite(&Player, 0,0, TILE_ATTR(PAL0, TRUE, FALSE, FALSE));
-
-    SPR_setAnim(sprites[0], 0);
     SYS_enableInts();
     VDP_fadeIn(0, (4 * 16) - 1, palette, 20, FALSE);
 
@@ -152,9 +131,32 @@ int game() {
 	int walk_count = 0;
 	int fightMode=0;
 	int fightModeTimer;
-	int scroll_x = 0;
+
+	int bg_b_count = 0;
+	int bg_a_count = 0;
+
+    int vdp_b_clean_x = 0;
+    int vdp_a_clean_x = 0;
+
     while(TRUE)
    {
+    	bg_b_count += CAMERA_MOVE;
+    	if ( bg_b_count >= 64 * 8 ) {
+    	    ind_b = VDP_BG( PLAN_B, PAL2, ind_b, ++vdp_b_count, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image );	vdp_b_count %= 5;	vdp_b_x += 8; vdp_b_x %= 64;
+    	    bg_b_count -= 64 * 8;
+    	}
+
+    	bg_a_count += CAMERA_MOVE;
+    	if ( bg_a_count >= 64 ) {
+    		ind_a = VDP_BG( PLAN_A, PAL3, ind_a, ++vdp_a_count, vdp_a_x, 0, zimensample_1_image, zimensample_2_image, zimensample_3_image, zimensample_4_image, zimensample_5_image );	vdp_a_count %= 5;	vdp_a_x += 8; vdp_a_x %= 64;
+    	    bg_a_count -= 64;
+    	}
+
+    //	text( PlayerData.x, 0, 0 );
+    //	text( Camera.x, 0, 1 );
+
+
+
     	u16 num=playerButton();
     	if(num & BUTTON_A==1)
     	{
@@ -196,9 +198,8 @@ int game() {
     		SPR_setAnim(sprites[0],2);
     		if(fightModeTimer<=0) fightMode=0;
     	}
-    //	cameraScroll(&Camera.x,&PlayerData.x);
-    	Camera.x +=1 ;
-    //	PlayerData.x -= 5;
+
+    	Camera.x += CAMERA_MOVE;
 
     	VDP_setHorizontalScroll(PLAN_A, -Camera.x);
 		VDP_setHorizontalScroll(PLAN_B,-Camera.x >> 3);
@@ -224,14 +225,6 @@ int game() {
 					if(num & BUTTON_A)
 					{
 						num2=0;
-//						if(PlayerData.x+48>Sozais[i].x&&PlayerData.x+48<Sozais[i].x+48&&PlayerData.y>Sozais[i].y&&PlayerData.y<Sozais[i].y+48){num2=1;}
-//						if(PlayerData.x+72>Sozais[i].x&&PlayerData.x+72<Sozais[i].x+48&&PlayerData.y>Sozais[i].y&&PlayerData.y<Sozais[i].y+48) num2=1;
-//						if(PlayerData.x+96>Sozais[i].x&&PlayerData.x+96<Sozais[i].x+48&&PlayerData.y>Sozais[i].y&&PlayerData.y<Sozais[i].y+48) num2=1;
-//						if(PlayerData.x+48>Sozais[i].x&&PlayerData.x+48<Sozais[i].x+48&&PlayerData.y+24>Sozais[i].y&&PlayerData.y+24<Sozais[i].y+48) num2=1;
-//						if(PlayerData.x+96>Sozais[i].x&&PlayerData.x+96<Sozais[i].x+48&&PlayerData.y+24>Sozais[i].y&&PlayerData.y+24<Sozais[i].y+48) num2=1;
-//						if(PlayerData.x+48>Sozais[i].x&&PlayerData.x+48<Sozais[i].x+48&&PlayerData.y+48>Sozais[i].y&&PlayerData.y+48<Sozais[i].y+48) num2=1;
-//						if(PlayerData.x+72>Sozais[i].x&&PlayerData.x+72<Sozais[i].x+48&&PlayerData.y+48>Sozais[i].y&&PlayerData.y+48<Sozais[i].y+48) num2=1;
-//						if(PlayerData.x+96>Sozais[i].x&&PlayerData.x+96<Sozais[i].x+48&&PlayerData.y+48>Sozais[i].y&&PlayerData.y+48<Sozais[i].y+48) num2=1;
 
 						if ( PlayerData.x+24 > Sozais[i].x
 						  && PlayerData.x+24 < Sozais[i].x+48
@@ -243,6 +236,7 @@ int game() {
 
 						if(num2==1) {
 							SPR_releaseSprite(sprites[i+3]);
+
 							Sozais[i].broke==1;
 
 			                // Œø‰Ê‰¹‚ð–Â‚ç‚µ‚Ä‚Ý‚é
@@ -266,7 +260,6 @@ int game() {
 											Sozais[i].y,
 											TILE_ATTR(PAL1, TRUE, FALSE, FALSE)
 									);
-
 					}
 			}
 
@@ -321,71 +314,67 @@ u16 playerButton()
 //
 //}
 
-//”wŒi‚Ì•`‰æB
-int VDP_soradesu( int ind, int type, int tile_x, int tile_y ) {
+//”wŒi‚Ì•`‰æ
+int VDP_BG(
+		VDPPlan PLAN,
+		int PAL,
+		int ind,
+		int type,
+		int tile_x,
+		int tile_y,
+		Image image1,
+		Image image2,
+		Image image3,
+		Image image4,
+		Image image5
+) {
+	Image image;
 
 	switch ( type ) {
 	case 1:
-		VDP_drawImageEx(
-				PLAN_B,
-				&soradesu_1_image,
-				TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, ind),
-				tile_x,
-				tile_y,
-				FALSE,
-				TRUE
-		);
-		ind += soradesu_1_image.tileset->numTile;
+		image = image1;
 		break;
 	case 2:
-		VDP_drawImageEx(
-				PLAN_B,
-				&soradesu_2_image,
-				TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, ind),
-				tile_x,
-				tile_y,
-				FALSE,
-				TRUE
-		);
-		ind += soradesu_2_image.tileset->numTile;
+		image = image2;
 		break;
 	case 3:
-		VDP_drawImageEx(
-				PLAN_B,
-				&soradesu_3_image,
-				TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, ind),
-				tile_x,
-				tile_y,
-				FALSE,
-				TRUE
-		);
-		ind += soradesu_3_image.tileset->numTile;
+		image = image3;
 		break;
 	case 4:
-		VDP_drawImageEx(
-				PLAN_B,
-				&soradesu_4_image,
-				TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, ind),
-				tile_x,
-				tile_y,
-				FALSE,
-				TRUE
-		);
-		ind += soradesu_4_image.tileset->numTile;
+		image = image4;
 		break;
 	case 5:
-		VDP_drawImageEx(
-				PLAN_B,
-				&soradesu_5_image,
-				TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, ind),
-				tile_x,
-				tile_y,
-				FALSE,
-				TRUE
-		);
-		ind += soradesu_5_image.tileset->numTile;
+		image = image5;
 		break;
 	}
 
+	VDP_drawImageEx(
+			PLAN,
+			&image,
+			TILE_ATTR_FULL(PAL, FALSE, FALSE, FALSE, ind),
+		//	TILE_ATTR_FULL(PAL, FALSE, FALSE, FALSE, 1),
+			tile_x,
+			tile_y,
+			FALSE,
+			TRUE
+	);
+	ind += image.tileset->numTile;
+
+	if ( ind > 400 && ind < 500 ) {
+		ind = TILE_USERINDEX;
+	}
+
+	// ƒXƒvƒ‰ƒCƒg—Ìˆæ‚ð”ð‚¯‚é
+	if ( ind > 880 && ind < 980 ) {
+		ind = 980;
+	}
+	if ( ind > 1350 ) {
+		ind = 500;
+	}
+
+//	text( ind, 0, 2 );
+
 	return ind;
 }
+
+

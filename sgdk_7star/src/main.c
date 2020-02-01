@@ -1,5 +1,6 @@
 #include <genesis.h>
 #include "resource.h"
+#include "resource_game.h"
 #include "main.h"
 
 int main() {
@@ -9,7 +10,7 @@ int main() {
 
     // initialization
     VDP_setScreenWidth320();
-    VDP_setPlanSize(128,32);
+    VDP_setPlanSize(64,32);
     SPR_init();
 
 //    VDP_setWindowHPos(FALSE, 0);
