@@ -335,14 +335,14 @@ struct datas game(struct datas Data) {
 								Data.wood=Sozais[i].genso[4];
 								Sozais[i].broke=1;
 								SPR_setPosition(sprites[i+3], 350 ,0);
-							}
+
 
 								// Œø‰Ê‰¹‚ð–Â‚ç‚µ‚Ä‚Ý‚é
 
 
 
 							}
-													}
+							}
 						if(Sozais[i].x<Camera.x){SPR_releaseSprite(sprites[i+3]); Sozais[i].broke=1;}
 					}
 
