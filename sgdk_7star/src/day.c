@@ -16,7 +16,6 @@ struct datas day(struct datas Data) {
 
     int count = 0;
 
-    if(Data.explore_mode==0){
     	u16 pattern = TILE_USERINDEX; // @suppress("Symbol is not resolved")
     	text(Data.date,15,10);
     	    char str1[] = "“ú–Ú";
@@ -42,7 +41,6 @@ struct datas day(struct datas Data) {
     	    	        }
     	        VDP_waitVSync();
     	    }
-    }
     return Data;
 }
 
