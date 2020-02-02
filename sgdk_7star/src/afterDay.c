@@ -16,7 +16,6 @@ struct datas afterDay(struct datas Data) {
 
     int count = 0;
 
-    if(Data.explore_mode==1){
     	u16 pattern = TILE_USERINDEX; // @suppress("Symbol is not resolved")
     	    text(Data.date,15,10);
     	    char str1[] = "“ú–ÚI—¹";
@@ -38,15 +37,12 @@ struct datas afterDay(struct datas Data) {
     	    	count++;
 
     	    	        pad1 = JOY_readJoypad(JOY_1); // @suppress("Symbol is not resolved")
-    	    	        if (pad1 & BUTTON_START // @suppress("Symbol is not resolved") // @suppress("Suggested parenthesis around expression")
-    	    	         || count > WHAIT2
-    	    	        ) {
+    	    	        if (pad1 & BUTTON_START || count > WHAIT2) {
     	    	            Data.gm = GAME;
 	    	            break;
     	    	        }
     	        VDP_waitVSync();
     	    }
-    }
     return Data;
 }
 

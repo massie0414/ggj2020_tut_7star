@@ -1,9 +1,9 @@
-SPRITE Player "Picture/bouanim2.png" 6 6 LZ4W 5 NONE SPRITE 100,BOX
-SPRITE rock01 "Picture/rock01.png" 4 4 LZ4W 5 NONE SPRITE 100,BOX
-SPRITE NPC "Picture/NPCanim.png" 6 6 LZ4W 5 NONE SPRITE 100,BOX
-SPRITE jump_coin "Picture/jump_coin.png" 1 4 LZ4W 5 NONE SPRITE 100,BOX
-SPRITE ki "Picture/ki2.png" 6 6 LZ4W 5 NONE SPRITE 100,BOX
-SPRITE ice "Picture/koori3.png" 4 4 LZ4W 5 NONE SPRITE 100,BOX
+SPRITE Player "Picture/bouanim2.png" 6 6 LZ4W 5 NONE SPRITE 100 BOX
+SPRITE rock01 "Picture/rock01.png" 4 4 LZ4W 5 NONE SPRITE 100 BOX
+SPRITE NPC "Picture/NPCanim.png" 6 6 LZ4W 5 NONE SPRITE 100 BOX
+SPRITE jump_coin "Picture/jump_coin.png" 1 4 LZ4W 5 NONE SPRITE 100 BOX
+SPRITE ki "Picture/ki2.png" 6 6 LZ4W 5 NONE SPRITE 100 BOX
+SPRITE ice "Picture/koori3.png" 4 4 LZ4W 5 NONE SPRITE 100 BOX
 
 
 
