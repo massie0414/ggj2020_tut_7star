@@ -305,20 +305,19 @@ struct datas game(struct datas Data) {
 					{
 						num2=0;
 
-//						if ( PlayerData.x+24 > Sozais[i].x
-//						  && PlayerData.x+24 < Sozais[i].x+48
-//						  && PlayerData.y+24 > Sozais[i].y
-//						  && PlayerData.y+24 < Sozais[i].y+48
-
-//						)
-						if(PlayerData.x>Sozais[i].x && PlayerData.x<Sozais[i].x+48 && PlayerData.y>Sozais[i].y && PlayerData.y<Sozais[i].y+48) num2=1;
+						if ( PlayerData.x+24 > Sozais[i].x
+						  && PlayerData.x+24 < Sozais[i].x+48
+						  && PlayerData.y+48 > Sozais[i].y
+						  && PlayerData.y+48 < Sozais[i].y+48
+						){num2=1;}
+						/*if(PlayerData.x>Sozais[i].x && PlayerData.x<Sozais[i].x+48 && PlayerData.y>Sozais[i].y && PlayerData.y<Sozais[i].y+48) num2=1;
 						if(PlayerData.x>Sozais[i].x+24 && PlayerData.x+24<Sozais[i].x+48 && PlayerData.y>Sozais[i].y && PlayerData.y<Sozais[i].y+48) num2=1;
 						if(PlayerData.x>Sozais[i].x+48 && PlayerData.x+48<Sozais[i].x+48 && PlayerData.y>Sozais[i].y && PlayerData.y<Sozais[i].y+48) num2=1;
 						if(PlayerData.x>Sozais[i].x && PlayerData.x<Sozais[i].x+48 && PlayerData.y+24>Sozais[i].y && PlayerData.y+24<Sozais[i].y+48) num2=1;
 						if(PlayerData.x>Sozais[i].x+48 && PlayerData.x+48<Sozais[i].x+48 && PlayerData.y+24>Sozais[i].y && PlayerData.y+24<Sozais[i].y+48) num2=1;
 						if(PlayerData.x>Sozais[i].x && PlayerData.x<Sozais[i].x+48 && PlayerData.y+48>Sozais[i].y && PlayerData.y+48<Sozais[i].y+48) num2=1;
 						if(PlayerData.x>Sozais[i].x+24 && PlayerData.x+24<Sozais[i].x+48 && PlayerData.y+48>Sozais[i].y && PlayerData.y+48<Sozais[i].y+48) num2=1;
-						if(PlayerData.x>Sozais[i].x+48 && PlayerData.x+48<Sozais[i].x+48 && PlayerData.y+48>Sozais[i].y && PlayerData.y+48<Sozais[i].y+48) num2=1;
+						if(PlayerData.x>Sozais[i].x+48 && PlayerData.x+48<Sozais[i].x+48 && PlayerData.y+48>Sozais[i].y && PlayerData.y+48<Sozais[i].y+48) num2=1;*/
 
 						if(num2==1) {
 							Sozais[i].HP-=1;
