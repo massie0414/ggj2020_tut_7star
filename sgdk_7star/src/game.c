@@ -174,7 +174,6 @@ struct datas game(struct datas Data) {
     	Irainins[i].amount = NPCs[i][1];
     	Irainins[i].reward = NPCs[i][2];
     }
-    Data.explore_mode=1;
     s16 completedSwitch=0;
 
     while(TRUE)
@@ -306,10 +305,7 @@ struct datas game(struct datas Data) {
 						  && PlayerData.x+24 < Sozais[i].x+48
 						  && PlayerData.y+24 > Sozais[i].y
 						  && PlayerData.y+24 < Sozais[i].y+48
-						) {
-							num2=1;
-						}
-						num2=1;
+						)
 						if(num2==1) {
 							Sozais[i].HP-=1;
 							if(Sozais[i].HP<=0){
@@ -368,7 +364,7 @@ struct datas game(struct datas Data) {
 				Data.money+=Irainins[Data.date-1].reward;
 				Data.addMoney+=Irainins[Data.date-1].reward;
 				completedSwitch=1;
-				SPR_setAnim(sprites[6],1);
+//				SPR_setAnim(sprites[6],1);
 				SND_startPlay_4PCM_ENV(
 						SE_Explosion_8,
 						sizeof(SE_Explosion_8),
@@ -383,7 +379,19 @@ struct datas game(struct datas Data) {
 
         // デバッグコマンド
         u16 pad1 =JOY_readJoypad(JOY_1);
-        if (pad1 & BUTTON_START || Camera.x>goal_in){
+        if ((pad1 & BUTTON_START || Camera.x>goal_in) &&Data.explore_mode==1){
+                   VDP_clearPlan(PLAN_A, TRUE);
+                   VDP_clearPlan(PLAN_B, TRUE);
+                   VDP_setHorizontalScroll(PLAN_B, 0);
+                   VDP_setVerticalScroll(PLAN_B, 0);
+                   VDP_setHorizontalScroll(PLAN_A, 0);
+                   VDP_setVerticalScroll(PLAN_A, 0);
+                   SPR_releaseSprite(sprites[0]);
+                   //SPR_end();
+       			Data.gm=DAY;
+       			break;
+               }
+        if ((pad1 & BUTTON_START || Camera.x>goal_in) &&Data.explore_mode==0 ){
             VDP_clearPlan(PLAN_A, TRUE);
             VDP_clearPlan(PLAN_B, TRUE);
             VDP_setHorizontalScroll(PLAN_B, 0);
