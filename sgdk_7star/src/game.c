@@ -116,7 +116,7 @@ struct datas game(struct datas Data) {
 
 	sprites[0] = SPR_addSprite(&Player, 0, 0, TILE_ATTR(PAL0, TRUE, FALSE, FALSE));
 	SPR_setPosition(sprites[0], 0 ,0);
-	SPR_setAnim(sprites[0], 0);
+//	SPR_setAnim(sprites[0], 0);
 
     // ”wŒiB
     int vdp_b_count = 0;
@@ -175,6 +175,7 @@ struct datas game(struct datas Data) {
     	Irainins[i].reward = NPCs[i][2];
     }
     s16 completedSwitch=0;
+    Data.explore_mode=1;
 
     while(TRUE)
    {
@@ -360,7 +361,32 @@ struct datas game(struct datas Data) {
         if(Data.explore_mode==1 && PlayerData.x>=500&&completedSwitch==0)
         {
         	Data.hammer=1;
-			if(Data.hammer>=Irainins[Data.date-1].amount)
+        	s16 ans=0;
+        	switch(Irainins[Data.date-1].item_id)
+        	{
+        		case 0:
+        			ans=(Data.chair>Irainins[Data.date-1].amount? 1:0);
+        			break;
+        		case 1:
+        			ans=(Data.desk>Irainins[Data.date-1].amount? 1:0);
+        			break;
+        		case 2:
+        			ans=(Data.sculpture>Irainins[Data.date-1].amount? 1:0);
+        			break;
+        		case 3:
+        			ans=(Data.tank>Irainins[Data.date-1].amount? 1:0);
+        			break;
+        		case 4:
+        			ans=(Data.ring>Irainins[Data.date-1].amount? 1:0);
+        			break;
+        		case 5:
+        			ans=(Data.sHouse>Irainins[Data.date-1].amount? 1:0);
+        			break;
+        		case 6:
+        			ans=(Data.wMansion>Irainins[Data.date-1].amount? 1:0);
+        			break;
+        	}
+			if(ans==1)
 			{
 				Data.hammer-=Irainins[Data.date-1].amount;
 				Data.money+=Irainins[Data.date-1].reward;
