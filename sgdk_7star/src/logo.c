@@ -38,9 +38,12 @@ struct datas logo(struct datas Data){
 
     // prepare palettes
     memcpy(&palette[0], logo16.palette->data, 16 * 2);
+    memcpy(&palette[16], logo16.palette->data, 16 * 2);
+    memcpy(&palette[32], logo16.palette->data, 16 * 2);
+    memcpy(&palette[48], logo16.palette->data, 16 * 2);
 
     // fade in
-    VDP_fadeIn(0, (1 * 16) - 1, palette, 20, FALSE); // @suppress("Symbol is not resolved")
+    VDP_fadeIn(0, (4 * 16) - 1, palette, 20, FALSE); // @suppress("Symbol is not resolved")
 
     // VDP process done, we can re enable interrupts
     SYS_enableInts();
@@ -55,40 +58,40 @@ struct datas logo(struct datas Data){
         ) {
             Data.gm = TITLE;
 
-            VDP_fadeOut(0, (1 * 16) - 1, 20, FALSE); // @suppress("Symbol is not resolved")
+            VDP_fadeOut(0, (4 * 16) - 1, 20, FALSE); // @suppress("Symbol is not resolved")
 
             VDP_clearPlan(PLAN_A, TRUE); // @suppress("Symbol is not resolved")
             VDP_clearPlan(PLAN_B, TRUE); // @suppress("Symbol is not resolved")
             break;
         }
 
-        if (pad1 & BUTTON_A) { // @suppress("Symbol is not resolved")
-            // Œø‰Ê‰¹‚ð–Â‚ç‚µ‚Ä‚Ý‚é
-            SND_startPlay_4PCM_ENV(
-            		SE_Punch_8,
-                    sizeof(SE_Punch_8),
-                    SOUND_PCM_CH2,
-                    FALSE
-            );
-        }
-        if (pad1 & BUTTON_B) { // @suppress("Symbol is not resolved")
-            // Œø‰Ê‰¹‚ð–Â‚ç‚µ‚Ä‚Ý‚é
-            SND_startPlay_4PCM_ENV(
-            		SE_Explosion_8,
-                    sizeof(SE_Explosion_8),
-                    SOUND_PCM_CH3,
-                    FALSE
-            );
-        }
-        if (pad1 & BUTTON_C) { // @suppress("Symbol is not resolved")
-            // Œø‰Ê‰¹‚ð–Â‚ç‚µ‚Ä‚Ý‚é
-            SND_startPlay_4PCM_ENV(
-            		SE_Hammer_8,
-                    sizeof(SE_Hammer_8),
-                    SOUND_PCM_CH3,
-                    FALSE
-            );
-        }
+//        if (pad1 & BUTTON_A) { // @suppress("Symbol is not resolved")
+//            // Œø‰Ê‰¹‚ð–Â‚ç‚µ‚Ä‚Ý‚é
+//            SND_startPlay_4PCM_ENV(
+//            		SE_Punch_8,
+//                    sizeof(SE_Punch_8),
+//                    SOUND_PCM_CH2,
+//                    FALSE
+//            );
+//        }
+//        if (pad1 & BUTTON_B) { // @suppress("Symbol is not resolved")
+//            // Œø‰Ê‰¹‚ð–Â‚ç‚µ‚Ä‚Ý‚é
+//            SND_startPlay_4PCM_ENV(
+//            		SE_Explosion_8,
+//                    sizeof(SE_Explosion_8),
+//                    SOUND_PCM_CH3,
+//                    FALSE
+//            );
+//        }
+//        if (pad1 & BUTTON_C) { // @suppress("Symbol is not resolved")
+//            // Œø‰Ê‰¹‚ð–Â‚ç‚µ‚Ä‚Ý‚é
+//            SND_startPlay_4PCM_ENV(
+//            		SE_Hammer_8,
+//                    sizeof(SE_Hammer_8),
+//                    SOUND_PCM_CH3,
+//                    FALSE
+//            );
+//        }
         VDP_waitVSync();
     }
     return Data;

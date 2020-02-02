@@ -54,9 +54,11 @@ struct datas title(struct datas Data) {
     // prepare palettes
     memcpy(&palette[0], soradesu_image.palette->data, 16 * 2);
     memcpy(&palette[16], title_image.palette->data, 16 * 2);
+    memcpy(&palette[32], title_image.palette->data, 16 * 2);
+    memcpy(&palette[48], title_image.palette->data, 16 * 2);
 
     // fade in
-    VDP_fadeIn(0, (2 * 16) - 1, palette, 20, FALSE); // @suppress("Symbol is not resolved")
+    VDP_fadeIn(0, (4 * 16) - 1, palette, 20, FALSE); // @suppress("Symbol is not resolved")
 
     // VDP process done, we can re enable interrupts
     SYS_enableInts();
@@ -92,33 +94,33 @@ struct datas title(struct datas Data) {
             if (pad1 & BUTTON_RIGHT) { // @suppress("Symbol is not resolved")
 
             }
-            if (pad1 & BUTTON_A) { // @suppress("Symbol is not resolved")
-                // Œø‰Ê‰¹‚ð–Â‚ç‚µ‚Ä‚Ý‚é
-                SND_startPlay_4PCM_ENV(
-                		SE_Explosion_8,
-                        sizeof(SE_Explosion_8),
-                        SOUND_PCM_CH2,
-                        FALSE
-                );
-            }
-            if (pad1 & BUTTON_B) { // @suppress("Symbol is not resolved")
-                // Œø‰Ê‰¹‚ð–Â‚ç‚µ‚Ä‚Ý‚é
-                SND_startPlay_4PCM_ENV(
-                		SE_Footstep_8,
-                        sizeof(SE_Footstep_8),
-                        SOUND_PCM_CH3,
-                        FALSE
-                );
-            }
-            if (pad1 & BUTTON_C) { // @suppress("Symbol is not resolved")
-                // Œø‰Ê‰¹‚ð–Â‚ç‚µ‚Ä‚Ý‚é
-                SND_startPlay_4PCM_ENV(
-                		SE_Footsteps_cave_8,
-                        sizeof(SE_Footsteps_cave_8),
-                        SOUND_PCM_CH4,
-                        FALSE
-                );
-            }
+//            if (pad1 & BUTTON_A) { // @suppress("Symbol is not resolved")
+//                // Œø‰Ê‰¹‚ð–Â‚ç‚µ‚Ä‚Ý‚é
+//                SND_startPlay_4PCM_ENV(
+//                		SE_Explosion_8,
+//                        sizeof(SE_Explosion_8),
+//                        SOUND_PCM_CH2,
+//                        FALSE
+//                );
+//            }
+//            if (pad1 & BUTTON_B) { // @suppress("Symbol is not resolved")
+//                // Œø‰Ê‰¹‚ð–Â‚ç‚µ‚Ä‚Ý‚é
+//                SND_startPlay_4PCM_ENV(
+//                		SE_Footstep_8,
+//                        sizeof(SE_Footstep_8),
+//                        SOUND_PCM_CH3,
+//                        FALSE
+//                );
+//            }
+//            if (pad1 & BUTTON_C) { // @suppress("Symbol is not resolved")
+//                // Œø‰Ê‰¹‚ð–Â‚ç‚µ‚Ä‚Ý‚é
+//                SND_startPlay_4PCM_ENV(
+//                		SE_Footsteps_cave_8,
+//                        sizeof(SE_Footsteps_cave_8),
+//                        SOUND_PCM_CH4,
+//                        FALSE
+//                );
+//            }
             if (pad1 & BUTTON_START // @suppress("Suggested parenthesis around expression") // @suppress("Symbol is not resolved")
              && count >= WAIT
             ) {
@@ -130,7 +132,7 @@ struct datas title(struct datas Data) {
                         SND_stopPlay_4PCM_ENV(SOUND_PCM_CH1);
                     }
 
-                    VDP_fadeOut(0, (1 * 16) - 1, 20, FALSE); // @suppress("Symbol is not resolved")
+                    VDP_fadeOut(0, (4 * 16) - 1, 20, FALSE); // @suppress("Symbol is not resolved")
 
                     VDP_clearPlan(PLAN_A, TRUE); // @suppress("Symbol is not resolved")
                     VDP_clearPlan(PLAN_B, TRUE); // @suppress("Symbol is not resolved")
