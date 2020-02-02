@@ -390,6 +390,7 @@ struct datas game(struct datas Data) {
             VDP_setVerticalScroll(PLAN_B, 0);
             VDP_setHorizontalScroll(PLAN_A, 0);
             VDP_setVerticalScroll(PLAN_A, 0);
+            SPR_releaseSprite(sprites[0]);
             //SPR_end();
 			Data.gm=WORK;
 			break;
