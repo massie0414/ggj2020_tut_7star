@@ -329,10 +329,10 @@ struct datas game(struct datas Data) {
 										SOUND_PCM_CH2,
 										FALSE
 								);
-								Data.water=Sozais[i].genso[1];
-								Data.stone=Sozais[i].genso[2];
-								Data.metal=Sozais[i].genso[3];
-								Data.wood=Sozais[i].genso[4];
+								Data.water=Sozais[i].genso[0];
+								Data.stone=Sozais[i].genso[1];
+								Data.metal=Sozais[i].genso[2];
+								Data.wood=Sozais[i].genso[3];
 								Sozais[i].broke=1;
 								SPR_setPosition(sprites[i+3], 350 ,0);
 
