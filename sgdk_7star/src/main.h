@@ -14,7 +14,7 @@ enum game_mode {
 	GAME2,
 	GAME3,
 	WORK,
-	AFTERDAY;
+	AFTERDAY,
 };
 
 struct datas
