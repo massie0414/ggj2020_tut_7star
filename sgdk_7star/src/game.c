@@ -331,7 +331,7 @@ struct datas game(struct datas Data) {
 
 							}
 													}
-//						if(Sozais[i].x<Camera.x){SPR_setAnim(sprites[i+3],-1); Sozais[i].broke=1;}
+						if(Sozais[i].x<Camera.x){SPR_releaseSprite(sprites[i+3]); Sozais[i].broke=1;}
 					}
 
 				}
@@ -354,6 +354,7 @@ struct datas game(struct datas Data) {
         //依頼人はこのへん
         if(Camera.x+320>=660 && Irainin_showed!=1){sprites[6] = SPR_addSprite(&NPC,660-Camera.x,124,TILE_ATTR(PAL0, TRUE, FALSE, FALSE));Irainin_showed=1;}
         if(Irainin_showed==1) SPR_setPosition(sprites[6],660-Camera.x,124);
+        if(Camera.x-160>=500){SPR_releaseSprite(sprites[6]);}
 
 
         //プレイヤーの依頼人関係処理
@@ -366,6 +367,13 @@ struct datas game(struct datas Data) {
 				Data.money+=Irainins[Data.date-1].reward;
 				Data.addMoney+=Irainins[Data.date-1].reward;
 				completedSwitch=1;
+				SPR_setAnim(sprites[6],1);
+				SND_startPlay_4PCM_ENV(
+						SE_Explosion_8,
+						sizeof(SE_Explosion_8),
+						SOUND_PCM_CH2,
+						FALSE
+				);
 			}else
 			{
 				completedSwitch=1;
