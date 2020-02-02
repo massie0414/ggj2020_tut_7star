@@ -2,7 +2,7 @@
 #include "main.h"
 #include "game.h"
 
-struct datas init(struct datas Data)
+datas init(datas Data)
 {
 	//enum game_mode gm;
 	    Data.gm = INIT;

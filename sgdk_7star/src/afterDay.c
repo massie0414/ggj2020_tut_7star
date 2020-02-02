@@ -5,7 +5,7 @@
 #include "game.h"
 const int WHAIT2 = 180;
 
-struct datas afterDay(struct datas Data) {
+datas afterDay(datas Data) {
 
     // disable interrupt when accessing VDP
     SYS_disableInts();
@@ -38,9 +38,13 @@ struct datas afterDay(struct datas Data) {
 
     	    	        pad1 = JOY_readJoypad(JOY_1); // @suppress("Symbol is not resolved")
     	    	        if (pad1 & BUTTON_START || count > WHAIT2) {
-    	    	            Data.gm = GAME;
+    	    	            Data.gm = DAY;
 
     	    	            VDP_fadeOut(0, (4 * 16) - 1, 20, FALSE); // @suppress("Symbol is not resolved")
+    	                    VDP_clearPlan(PLAN_A, TRUE); // @suppress("Symbol is not resolved")
+    	                    VDP_clearPlan(PLAN_B, TRUE); // @suppress("Symbol is not resolved")
+
+    	                    Data.date ++;
 
 	    	            break;
     	    	        }

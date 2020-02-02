@@ -5,7 +5,7 @@
 
 const int WAIT = 20;
 
-struct datas title(struct datas Data) {
+datas title(datas Data) {
 
     // VDPアクセス時の割り込みを無効にする
     SYS_disableInts();

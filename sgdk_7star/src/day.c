@@ -5,7 +5,7 @@
 #include "game.h"
 const int WHAIT = 180;
 
-struct datas day(struct datas Data) {
+datas day(datas Data) {
 
     // disable interrupt when accessing VDP
     SYS_disableInts();

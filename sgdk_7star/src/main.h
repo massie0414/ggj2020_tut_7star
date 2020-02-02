@@ -17,7 +17,7 @@ enum game_mode {
 	AFTERDAY,
 };
 
-struct datas
+typedef struct
 {
 	s16 water;
 	s16 stone;
@@ -46,17 +46,17 @@ struct datas
 	s16 explore_mode; //0 or 1 s‚«‚©‹A‚è
 	s16 date;
 	s16 addMoney;
-};
+} datas;
 
 
-struct datas logo(struct datas Data);
-struct datas title(struct datas Data);
-struct datas init(struct datas Data);
-struct datas day(struct datas Data);
-struct datas afterDay(struct datas Data);
-struct datas game(struct datas Data);
-struct datas game2(struct datas Data);
-struct datas game3(struct datas Data);
-struct datas work(struct datas Data);
+datas logo(datas Data);
+datas title(datas Data);
+datas init(datas Data);
+datas day(datas Data);
+datas afterDay(datas Data);
+datas game(datas Data);
+datas game2(datas Data);
+datas game3(datas Data);
+datas work(datas Data);
 void text( int num, int x, int y );
 void fadeIn();

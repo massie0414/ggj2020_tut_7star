@@ -6,7 +6,7 @@
 /**
  * •¶Žš‚Å•`‰æ‚µ‚Ä‚Ý‚é
  */
-struct datas game3(struct datas Data) {
+datas game3(datas Data) {
 
     // disable interrupt when accessing VDP
     SYS_disableInts();

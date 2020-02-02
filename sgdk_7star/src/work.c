@@ -4,7 +4,7 @@
 #include "draw_sjis.h"
 #include "game.h"
 
-struct datas work(struct datas Data) {
+datas work(datas Data) {
 	int y=10;
 	int x=0;
 	u16 pad1,pad0;

@@ -40,6 +40,8 @@ struct irainin
 	s16 item_id;
 	char name[64];
 	s16 reward;
+	s16 x;
+	s16 y;
 };
 
 s16 playerMoveOn(s16 *x,s16 *y,s16 cameraX,s16 cameraY);
@@ -47,18 +49,16 @@ void cameraScroll(s16 *cameraX,s16 *playerX);
 u16 playerButton();
 int VDP_BG( VDPPlan PLAN, int PAL, int ind, int type, int tile_x, int tile_y, Image image1, Image image2, Image image3, Image image4, Image image5 );
 
-struct datas game(struct datas Data) {
+datas game(datas Data) {
 //	SPR_init();
     // disable interrupt when accessing VDP
 	s16 num2;
     SYS_disableInts();
     struct playerScene PlayerData;
     PlayerData.x=0;
-//  PlayerData.x=160;
     PlayerData.y=122;
     struct camera Camera;
     Camera.x=0;
-//  Camera.x=160;
     Camera.y=122;
     u16 tests[SOZAI_SUU][9]=
     {
@@ -68,10 +68,10 @@ struct datas game(struct datas Data) {
     {
     		"てごろないわ"
     };
-    u16 NPCs[7][3]=
+    u16 NPCs[7][5]=
     {
-    		{1,1,100}
-    };//アイテムID/個数/報酬
+    		{1,1,100, 400, 124}
+    };//アイテムID/個数/報酬/X/Y
     char NPCsItemName[7][64]=
     {
     		"ハンマー"
@@ -112,11 +112,20 @@ struct datas game(struct datas Data) {
     memcpy(&palette[16], rock01.palette->data, 16 * 2);
     memcpy(&palette[32], soradesu_1_image.palette->data, 16 * 2);
     memcpy(&palette[48], zimensample_1_image.palette->data, 16 * 2);
-    memcpy(&palette[64], NPC.palette->data, 16 * 2);
+//  memcpy(&palette[64], NPC.palette->data, 16 * 2);
 
 	sprites[0] = SPR_addSprite(&Player, 0, 0, TILE_ATTR(PAL0, TRUE, FALSE, FALSE));
 	SPR_setPosition(sprites[0], 0 ,0);
 //	SPR_setAnim(sprites[0], 0);
+
+	Sozais[0].showed =1;
+	sprites[3] = SPR_addSprite(
+			&rock01,
+			Sozais[0].x-Camera.x,
+			Sozais[0].y,
+			TILE_ATTR(PAL1, TRUE, FALSE, FALSE)
+	);
+
 
     // 背景B
     int vdp_b_count = 0;
@@ -131,15 +140,15 @@ struct datas game(struct datas Data) {
     ind_b = VDP_BG( PLAN_B, PAL2, ind_b, ++vdp_b_count, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image );	vdp_b_count %= 5;	vdp_b_x += 8; vdp_b_x %= 64;
 
     // 背景A
-    int vdp_a_count = 0;
-    int vdp_a_x = 0;
-    u16 ind_a = 450;
+    int vdp_a_count = 2;
+    int vdp_a_x = 16;
+    u16 ind_a = 450+100;
     ind_a = VDP_BG( PLAN_A, PAL3, ind_a, ++vdp_a_count, vdp_a_x, 0, zimensample_1_image, zimensample_2_image, zimensample_3_image, zimensample_4_image, zimensample_5_image );	vdp_a_count %= 5;	vdp_a_x += 8; vdp_a_x %= 64;
     ind_a = VDP_BG( PLAN_A, PAL3, ind_a, ++vdp_a_count, vdp_a_x, 0, zimensample_1_image, zimensample_2_image, zimensample_3_image, zimensample_4_image, zimensample_5_image );	vdp_a_count %= 5;	vdp_a_x += 8; vdp_a_x %= 64;
     ind_a = VDP_BG( PLAN_A, PAL3, ind_a, ++vdp_a_count, vdp_a_x, 0, zimensample_1_image, zimensample_2_image, zimensample_3_image, zimensample_4_image, zimensample_5_image );	vdp_a_count %= 5;	vdp_a_x += 8; vdp_a_x %= 64;
     ind_a = VDP_BG( PLAN_A, PAL3, ind_a, ++vdp_a_count, vdp_a_x, 0, zimensample_1_image, zimensample_2_image, zimensample_3_image, zimensample_4_image, zimensample_5_image );	vdp_a_count %= 5;	vdp_a_x += 8; vdp_a_x %= 64;
     ind_a = VDP_BG( PLAN_A, PAL3, ind_a, ++vdp_a_count, vdp_a_x, 0, zimensample_1_image, zimensample_2_image, zimensample_3_image, zimensample_4_image, zimensample_5_image );	vdp_a_count %= 5;	vdp_a_x += 8; vdp_a_x %= 64;
-    ind_a = 800;
+    ind_a = 450;
     ind_a = VDP_BG( PLAN_A, PAL3, ind_a, ++vdp_a_count, vdp_a_x, 0, zimensample_1_image, zimensample_2_image, zimensample_3_image, zimensample_4_image, zimensample_5_image );	vdp_a_count %= 5;	vdp_a_x += 8; vdp_a_x %= 64;
 
     SYS_enableInts();
@@ -173,6 +182,8 @@ struct datas game(struct datas Data) {
     	Irainins[i].item_id = NPCs[i][0];
     	Irainins[i].amount = NPCs[i][1];
     	Irainins[i].reward = NPCs[i][2];
+    	Irainins[i].x = NPCs[i][3];
+    	Irainins[i].y = NPCs[i][4];
     }
     s16 completedSwitch=0;
 
@@ -183,26 +194,16 @@ struct datas game(struct datas Data) {
     while(TRUE)
    {
 
-    	text(Sozais[0].x,0,0);
-    	text(PlayerData.x,0,1);
+    //	text(Sozais[0].x,0,0);
+    //	text(PlayerData.x,0,1);
     	bg_b_count += CAMERA_MOVE;
 
     	if ( bg_b_count >= 64 * 8 ) {
-//    		if ( Camera.x < 500 ) {
-    			ind_b = VDP_BG( PLAN_B, PAL2, ind_b, ++vdp_b_count, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image );
-//    		}
-//       		else if ( Camera.x < 2500 ) {
-//       			VDP_setPalette(2, soradoukutu_1_image.palette->data);
-//       			ind_c = VDP_BG( PLAN_B, PAL2, ind_c, ++vdp_b_count, vdp_b_x, 0, soradoukutu_1_image, soradoukutu_2_image, soradoukutu_3_image, soradoukutu_4_image, soradoukutu_5_image );
-//       		}
-//       		else {
-//       			VDP_setPalette(2, doukutu_1_image.palette->data);
-//       			ind_b = VDP_BG( PLAN_B, PAL2, ind_b, ++vdp_b_count, vdp_b_x, 0, doukutu_1_image, doukutu_2_image, doukutu_3_image, doukutu_4_image, doukutu_5_image );
-//       		}
+    		ind_b = VDP_BG( PLAN_B, PAL2, ind_b, ++vdp_b_count, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image );
+
     		vdp_b_count %= 5;
     		if ( vdp_b_count == 0 ) {
     			ind_b = TILE_USERINDEX;
-//    			ind_c = 450;
     		}
     		vdp_b_x += 8;
     		vdp_b_x %= 64;
@@ -211,28 +212,16 @@ struct datas game(struct datas Data) {
 
     	bg_a_count += CAMERA_MOVE;
     	if ( bg_a_count >= 64 ) {
-//    		if ( Camera.x < 2800 ) {
-    			ind_a = VDP_BG( PLAN_A, PAL3, ind_a, ++vdp_a_count, vdp_a_x, 0, zimensample_1_image, zimensample_2_image, zimensample_3_image, zimensample_4_image, zimensample_5_image );
-//    		}
-//       		else if ( Camera.x < 3000 ) {
-//       			VDP_setPalette(3, zimenntodoukutu_1_image.palette->data);
-//       			ind_d = VDP_BG( PLAN_A, PAL3, ind_d, ++vdp_a_count, vdp_a_x, 0, zimenntodoukutu_1_image, zimenntodoukutu_2_image, zimenntodoukutu_3_image, zimenntodoukutu_4_image, zimenntodoukutu_5_image );
-//      		}
-//    		else {
-//       			VDP_setPalette(3, doukutuzimen_1_image.palette->data);
-//    			ind_a = VDP_BG( PLAN_A, PAL3, ind_a, ++vdp_a_count, vdp_a_x, 0, doukutuzimen_1_image, doukutuzimen_2_image, doukutuzimen_3_image, doukutuzimen_4_image, doukutuzimen_5_image );
-//    		}
+    		ind_a = VDP_BG( PLAN_A, PAL3, ind_a, ++vdp_a_count, vdp_a_x, 0, zimensample_1_image, zimensample_2_image, zimensample_3_image, zimensample_4_image, zimensample_5_image );
+
     		vdp_a_count %= 5;
     		if ( vdp_a_count == 0 ) {
     			ind_a = 450;
-//    			ind_d = 1200;
     		}
     		vdp_a_x += 8;
     		vdp_a_x %= 64;
     	    bg_a_count -= 64;
     	}
-
-
 
     	u16 num=playerButton();
     	if(num & BUTTON_A==1)
@@ -331,81 +320,106 @@ struct datas game(struct datas Data) {
 					}
 
 				}
-
-
-					{
-						Sozais[i].showed =1;
-						sprites[i+3] = SPR_addSprite(
-											&rock01,
-											Sozais[i].x-Camera.x,
-											Sozais[i].y,
-											TILE_ATTR(PAL1, TRUE, FALSE, FALSE)
-									);
-					}
 			}
+
+		// 依頼人
+		   if ( Data.explore_mode == 1 ) {
+		    	// 帰りの処理
+
+				//依頼人
+				if(Camera.x>=0 && Irainin_showed!=1){
+					sprites[6] = SPR_addSprite(
+							&NPC,
+							Irainins[Data.date-1].x,
+							Irainins[Data.date-1].y,
+							TILE_ATTR(PAL0, TRUE, FALSE, FALSE)
+					);
+					Irainin_showed=1;
+				}
+				if(Irainin_showed==1) {
+					SPR_setPosition(
+						sprites[6],
+						Irainins[Data.date-1].x-Camera.x,	// カメラ移動を意識するため、毎フレーム処理
+						Irainins[Data.date-1].y
+					);
+				}
+//				if(Camera.x>=260){
+//					SPR_releaseSprite(sprites[6]);
+//				}
+
+//				text(Data.date, 0, 5);
+//				text(Irainins[Data.date-1].item_id, 0, 6);
+//				text(Irainins[Data.date-1].amount, 0, 7);
+//				text(Data.desk, 0, 8);
+
+				//プレイヤーの依頼人関係処理
+				if ( PlayerData.x > Irainins[Data.date-1].x-48
+				  && PlayerData.x < Irainins[Data.date-1].x+48
+				  && PlayerData.y > Irainins[Data.date-1].y-48
+				  && PlayerData.y < Irainins[Data.date-1].y+48
+				  && completedSwitch == 0
+				) {
+					Data.hammer=1;
+					s16 ans=0;
+//					switch(Irainins[Data.date-1].item_id)
+//					{
+//						case 0:
+//							ans=(Data.chair>=Irainins[Data.date-1].amount? 1:0);
+//							break;
+//						case 1:
+//							ans=(Data.desk>=Irainins[Data.date-1].amount? 1:0);
+//							break;
+//						case 2:
+//							ans=(Data.sculpture>=Irainins[Data.date-1].amount? 1:0);
+//							break;
+//						case 3:
+//							ans=(Data.tank>=Irainins[Data.date-1].amount? 1:0);
+//							break;
+//						case 4:
+//							ans=(Data.ring>=Irainins[Data.date-1].amount? 1:0);
+//							break;
+//						case 5:
+//							ans=(Data.sHouse>=Irainins[Data.date-1].amount? 1:0);
+//							break;
+//						case 6:
+//							ans=(Data.wMansion>=Irainins[Data.date-1].amount? 1:0);
+//							break;
+//					}
+
+					ans = 1;
+					if(ans==1)
+					{
+						Data.hammer-=Irainins[Data.date-1].amount;
+						Data.money+=Irainins[Data.date-1].reward;
+						Data.addMoney+=Irainins[Data.date-1].reward;
+						SPR_setAnim(sprites[6],1);
+						SND_startPlay_4PCM_ENV(
+								SE_Explosion_8,
+								sizeof(SE_Explosion_8),
+								SOUND_PCM_CH2,
+								FALSE
+						);
+						SPR_setPosition(sprites[7],PlayerData.x,PlayerData.y);
+						SPR_setAnim(sprites[7],0);
+						coin_time=30;
+					}
+					completedSwitch=1;
+				}
+
+				if(coin_time>1) {
+					coin_time--;
+				}
+
+				if(coin_time==1) {
+					coin_time--;
+					SPR_setPosition(sprites[7],350,0);
+				}
+		    }
+
 
 
         SPR_update();
         VDP_waitVSync();
-
-        //依頼人はこのへん
-        if(Camera.x>=0 && Irainin_showed!=1){sprites[6] = SPR_addSprite(&NPC,660-Camera.x,124,TILE_ATTR(PAL0, TRUE, FALSE, FALSE));Irainin_showed=1;}
-        if(Irainin_showed==1) SPR_setPosition(sprites[6],100-Camera.x,124);
-        if(Camera.x-160>=100){SPR_releaseSprite(sprites[6]);}
-
-
-        //プレイヤーの依頼人関係処理
-        if(Data.explore_mode==1 && PlayerData.x>=500&&completedSwitch==0)
-        {
-        	Data.hammer=1;
-        	s16 ans=0;
-        	switch(Irainins[Data.date-1].item_id)
-        	{
-        		case 0:
-        			ans=(Data.chair>=Irainins[Data.date-1].amount? 1:0);
-        			break;
-        		case 1:
-        			ans=(Data.desk>=Irainins[Data.date-1].amount? 1:0);
-        			break;
-        		case 2:
-        			ans=(Data.sculpture>=Irainins[Data.date-1].amount? 1:0);
-        			break;
-        		case 3:
-        			ans=(Data.tank>=Irainins[Data.date-1].amount? 1:0);
-        			break;
-        		case 4:
-        			ans=(Data.ring>=Irainins[Data.date-1].amount? 1:0);
-        			break;
-        		case 5:
-        			ans=(Data.sHouse>=Irainins[Data.date-1].amount? 1:0);
-        			break;
-        		case 6:
-        			ans=(Data.wMansion>=Irainins[Data.date-1].amount? 1:0);
-        			break;
-        	}
-			if(ans==1)
-			{
-				Data.hammer-=Irainins[Data.date-1].amount;
-				Data.money+=Irainins[Data.date-1].reward;
-				Data.addMoney+=Irainins[Data.date-1].reward;
-				completedSwitch=1;
-				SPR_setAnim(sprites[6],1);
-				SND_startPlay_4PCM_ENV(
-						SE_Explosion_8,
-						sizeof(SE_Explosion_8),
-						SOUND_PCM_CH2,
-						FALSE
-				);
-				SPR_setPosition(sprites[7],PlayerData.x,PlayerData.y);
-				SPR_setAnim(sprites[7],0);
-				coin_time=30;
-			}else
-			{
-				completedSwitch=1;
-			}
-        }
-        if(coin_time>1) coin_time--;
-        if(coin_time==1) {coin_time--;SPR_setPosition(sprites[7],350,0);}
 
         // デバッグコマンド
         u16 pad1 =JOY_readJoypad(JOY_1);
@@ -416,9 +430,13 @@ struct datas game(struct datas Data) {
                    VDP_setVerticalScroll(PLAN_B, 0);
                    VDP_setHorizontalScroll(PLAN_A, 0);
                    VDP_setVerticalScroll(PLAN_A, 0);
-                   SPR_releaseSprite(sprites[0]);
+                   s16 i = 0;
+                   for (i = 0; i < 7; i++) {
+                   	SPR_releaseSprite(sprites[i]);
+                   }
                    //SPR_end();
-       			Data.gm=DAY;
+
+       			Data.gm=AFTERDAY;
        			break;
                }
         if ((pad1 & BUTTON_START || Camera.x>goal_in) &&Data.explore_mode==0 ){
@@ -430,6 +448,11 @@ struct datas game(struct datas Data) {
             VDP_setVerticalScroll(PLAN_A, 0);
             SPR_releaseSprite(sprites[0]);
             //SPR_end();
+            s16 i = 0;
+            for (i = 0; i < 7; i++) {
+            	SPR_releaseSprite(sprites[i]);
+            }
+
 			Data.gm=WORK;
 			break;
         }
@@ -451,7 +474,7 @@ s16 playerMoveOn(s16 *x,s16 *y,s16 cameraX,s16 cameraY)
 	if(*y<TOP_HEIGHT) *y=TOP_HEIGHT;
 	if(*x<0){*x=0; mode=1;}
 	if(*x<cameraX){*x=cameraX; mode=1;}
-	if(*x>cameraX+160-48) *x=cameraX+160-48;
+	if(*x>cameraX+320-48) *x=cameraX+320-48;
 	return mode;
 }
 u16 playerButton()
@@ -484,7 +507,7 @@ int VDP_BG(
 	Image image;
 
 	// スプライト領域を避ける
-	if ( ind + image.tileset->numTile > 800
+	if ( ind + image.tileset->numTile > 900
 	  && ind < 1100
 	) {
 		ind = 1100;

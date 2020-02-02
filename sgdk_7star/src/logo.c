@@ -4,7 +4,7 @@
 
 const int START = 180;
 
-struct datas logo(struct datas Data){
+datas logo(datas Data){
 
     // VDPアクセス時の割り込みを無効にする
     SYS_disableInts();

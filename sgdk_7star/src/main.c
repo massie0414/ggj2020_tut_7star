@@ -4,8 +4,7 @@
 #include "main.h"
 
 int main() {
-	struct datas Data;
-
+	datas Data;
 
     // VDPアクセス時の割り込みを無効にする
     SYS_disableInts();

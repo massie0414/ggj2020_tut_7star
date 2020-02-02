@@ -77,7 +77,7 @@ static u16 tests[TILE_Y][TILE_X] = {
 
 };
 
-struct datas game2(struct datas Data) {
+datas game2(datas Data) {
 
     // disable interrupt when accessing VDP
     SYS_disableInts();
