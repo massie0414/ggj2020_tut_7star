@@ -71,6 +71,18 @@ struct datas work(struct datas Data) {
     char str18[] = "★出口→";
     draw_sjis_text(PLAN_A, str18, TILE_ATTR_FULL(PAL0, 0, 0, 0, pattern), 32, 25, 0);
     pattern +=  strlen(str2) * 2;
+    char str19[] = "水";
+    draw_sjis_text(PLAN_A, str19, TILE_ATTR_FULL(PAL0, 0, 0, 0, pattern), 0, 0, 0);
+    pattern +=  strlen(str2) * 2;
+    char str20[] = "木";
+    draw_sjis_text(PLAN_A, str20, TILE_ATTR_FULL(PAL0, 0, 0, 0, pattern), 7, 0, 0);
+    pattern +=  strlen(str2) * 2;
+    char str21[] = "鉄";
+    draw_sjis_text(PLAN_A, str21, TILE_ATTR_FULL(PAL0, 0, 0, 0, pattern), 14, 0, 0);
+    pattern +=  strlen(str2) * 2;
+    char str22[] = "石";
+    draw_sjis_text(PLAN_A, str22, TILE_ATTR_FULL(PAL0, 0, 0, 0, pattern), 21, 0, 0);
+    pattern +=  strlen(str2) * 2;
 
     // fade in
     fadeIn();
@@ -80,7 +92,10 @@ struct datas work(struct datas Data) {
 
     while(1)
     {
-    	text(Data.water,0,0);
+    	text(Data.water,0,2);
+    	text(Data.wood,7,2);
+    	text(Data.metal,14,2);
+    	text(Data.stone,21,2);
 		pad1 = JOY_readJoypad(JOY_1);
 		if (pad0 != pad1) {
 					pad0 = pad1;
@@ -113,8 +128,9 @@ struct datas work(struct datas Data) {
 							x = 30;
 						}
            if (pad1 & BUTTON_START){
-            if((x==0 && y==10) && (Data.water>=1)&& Data.hammer<1 ){//ハンマー
-           		Data.water-=1;
+            if((x==0 && y==10) && (Data.wood>=10 && Data.stone>=10)&& Data.hammer<1 ){//ハンマー
+           		Data.wood-=10;
+           		Data.stone-=10;
            		Data.hammer+=1;
            	}
            	else if((x==0 && y==15)&& Data.wood>=20 && Data.bucket<1){//バケツ
