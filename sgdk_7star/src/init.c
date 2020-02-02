@@ -31,6 +31,8 @@ struct datas init(struct datas Data)
 	Data.sMansion=0;//Î‚Ì‹“@
 	Data.tank=0;
 	Data.date =1;
+	Data.explore_mode=0;
+	Data.money =0;
 
 	Data.gm = DAY;
 

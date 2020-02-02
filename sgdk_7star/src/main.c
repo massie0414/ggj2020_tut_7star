@@ -53,6 +53,9 @@ int main() {
         case DAY:
         	Data = day(Data);
         	break;
+        case AFTERDAY:
+        	Data = day(Data);
+        	break;
         case INIT:
         	Data = init(Data);
         	break;
