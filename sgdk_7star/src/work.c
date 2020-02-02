@@ -186,6 +186,7 @@ struct datas work(struct datas Data) {
 						else if(x==30 && y==25 ){
 							VDP_clearPlan(PLAN_A, TRUE);
 							VDP_clearPlan(PLAN_B, TRUE);
+							SPR_end();
 							Data.explore_mode=1;
 							Data.gm=GAME;
 							break;

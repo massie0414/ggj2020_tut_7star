@@ -12,7 +12,7 @@
 #define SOZAI_SUU 1
 #define HUMMER_RANGE 48
 #define CAMERA_MOVE 1
-#define goal_in 5000
+s16 goal_in=5000;
 
 struct playerScene
 {
