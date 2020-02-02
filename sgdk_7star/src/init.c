@@ -32,7 +32,7 @@ struct datas init(struct datas Data)
 	Data.tank=0;
 	Data.date =1;
 
-	Data.gm = GAME;
+	Data.gm = DAY;
 
 	return Data;
 
