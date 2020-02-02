@@ -498,6 +498,13 @@ int VDP_BG(
 ) {
 	Image image;
 
+	// スプライト領域を避ける
+	if ( ind + image.tileset->numTile > 800
+	  && ind < 1100
+	) {
+		ind = 1100;
+	}
+
 	switch ( type ) {
 	case 1:
 		image = image1;
@@ -532,10 +539,7 @@ int VDP_BG(
 //		ind = TILE_USERINDEX;
 //	}
 
-	// スプライト領域を避ける
-	if ( ind > 880 && ind < 980 ) {
-		ind = 980;
-	}
+
 //	if ( ind > 1350 ) {
 //		ind = 500;
 //	}
