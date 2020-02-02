@@ -10,7 +10,7 @@ struct datas afterDay(struct datas Data) {
     // disable interrupt when accessing VDP
     SYS_disableInts();
 
-    Data.gm = DAY;
+    Data.gm = AFTERDAY;
 
     u16 pad1;
 

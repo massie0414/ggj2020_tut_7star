@@ -54,7 +54,7 @@ int main() {
         	Data = day(Data);
         	break;
         case AFTERDAY:
-        	Data = day(Data);
+        	Data = afterDay(Data);
         	break;
         case INIT:
         	Data = init(Data);
