@@ -39,6 +39,9 @@ struct datas afterDay(struct datas Data) {
     	    	        pad1 = JOY_readJoypad(JOY_1); // @suppress("Symbol is not resolved")
     	    	        if (pad1 & BUTTON_START || count > WHAIT2) {
     	    	            Data.gm = GAME;
+
+    	    	            VDP_fadeOut(0, (4 * 16) - 1, 20, FALSE); // @suppress("Symbol is not resolved")
+
 	    	            break;
     	    	        }
     	        VDP_waitVSync();

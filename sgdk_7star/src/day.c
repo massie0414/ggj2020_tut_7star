@@ -16,7 +16,6 @@ struct datas day(struct datas Data) {
 
     int count = 0;
 
-    if(Data.explore_mode==0){
     	u16 pattern = TILE_USERINDEX; // @suppress("Symbol is not resolved")
     	text(Data.date,15,10);
     	    char str1[] = "“ú–Ú";
@@ -38,11 +37,13 @@ struct datas day(struct datas Data) {
     	    	         || count > WHAIT
     	    	        ) {
     	    	            Data.gm = GAME;
+
+    	    	            VDP_fadeOut(0, (4 * 16) - 1, 20, FALSE); // @suppress("Symbol is not resolved")
+
     	    	            break;
     	    	        }
     	        VDP_waitVSync();
     	    }
-    }
     return Data;
 }
 
