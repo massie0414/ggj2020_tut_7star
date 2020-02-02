@@ -15,9 +15,9 @@ struct datas day(struct datas Data) {
     u16 pad1;
 
     int count = 0;
-//    Data.date=0;
-//    Data.explore_mode=1;
-//    Data.money=180;
+    Data.date=0;
+    Data.explore_mode=1;
+    Data.money=180;
     if(Data.explore_mode==0){
     	u16 pattern = TILE_USERINDEX; // @suppress("Symbol is not resolved")
     	text(Data.date,15,10);
