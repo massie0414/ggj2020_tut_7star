@@ -1,6 +1,6 @@
 #include <genesis.h>
 
-#define SPRITE_SIZE 7
+#define SPRITE_SIZE 8
 
 // sprites structure (pointer of Sprite)
 Sprite* sprites[SPRITE_SIZE];

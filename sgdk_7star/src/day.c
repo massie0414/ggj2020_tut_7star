@@ -11,7 +11,7 @@ struct datas day(struct datas Data) {
     SYS_disableInts();
 
     Data.gm = DAY;
-
+    Data.explore_mode=0;
     u16 pad1;
 
     int count = 0;

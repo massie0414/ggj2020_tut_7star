@@ -175,12 +175,16 @@ struct datas game(struct datas Data) {
     	Irainins[i].reward = NPCs[i][2];
     }
     s16 completedSwitch=0;
-    Data.explore_mode=1;
+
+    sprites[7]=SPR_addSprite(&jump_coin,350,0,TILE_ATTR(PAL0, TRUE, FALSE, FALSE));
+	s16 coin_time=0;
+
 
     while(TRUE)
    {
 
-    	text(Data.addMoney,0,0);
+    	text(Sozais[0].x,0,0);
+    	text(PlayerData.x,0,1);
     	bg_b_count += CAMERA_MOVE;
 
     	if ( bg_b_count >= 64 * 8 ) {
@@ -228,10 +232,7 @@ struct datas game(struct datas Data) {
     	    bg_a_count -= 64;
     	}
 
-    	text( PlayerData.x, 0, 0 );
-    	text( Camera.x, 0, 1 );
-    	text( ind_b, 0, 2 );
-    	text( ind_a, 0, 3 );
+
 
     	u16 num=playerButton();
     	if(num & BUTTON_A==1)
@@ -282,7 +283,7 @@ struct datas game(struct datas Data) {
     	VDP_setHorizontalScroll(PLAN_A, -Camera.x);
 		VDP_setHorizontalScroll(PLAN_B,-Camera.x >> 3);
 
-		SPR_setPosition(sprites[0],160+PlayerData.x-Camera.x,PlayerData.y);
+		SPR_setPosition(sprites[0],PlayerData.x-Camera.x,PlayerData.y);
 		for(s16 i=0;i<SOZAI_SUU;i++)
 			{
 				if(Sozais[i].broke==1) continue;
@@ -304,11 +305,21 @@ struct datas game(struct datas Data) {
 					{
 						num2=0;
 
-						if ( PlayerData.x+24 > Sozais[i].x
-						  && PlayerData.x+24 < Sozais[i].x+48
-						  && PlayerData.y+24 > Sozais[i].y
-						  && PlayerData.y+24 < Sozais[i].y+48
-						)
+//						if ( PlayerData.x+24 > Sozais[i].x
+//						  && PlayerData.x+24 < Sozais[i].x+48
+//						  && PlayerData.y+24 > Sozais[i].y
+//						  && PlayerData.y+24 < Sozais[i].y+48
+
+//						)
+						if(PlayerData.x>Sozais[i].x && PlayerData.x<Sozais[i].x+48 && PlayerData.y>Sozais[i].y && PlayerData.y<Sozais[i].y+48) num2=1;
+						if(PlayerData.x>Sozais[i].x+24 && PlayerData.x+24<Sozais[i].x+48 && PlayerData.y>Sozais[i].y && PlayerData.y<Sozais[i].y+48) num2=1;
+						if(PlayerData.x>Sozais[i].x+48 && PlayerData.x+48<Sozais[i].x+48 && PlayerData.y>Sozais[i].y && PlayerData.y<Sozais[i].y+48) num2=1;
+						if(PlayerData.x>Sozais[i].x && PlayerData.x<Sozais[i].x+48 && PlayerData.y+24>Sozais[i].y && PlayerData.y+24<Sozais[i].y+48) num2=1;
+						if(PlayerData.x>Sozais[i].x+48 && PlayerData.x+48<Sozais[i].x+48 && PlayerData.y+24>Sozais[i].y && PlayerData.y+24<Sozais[i].y+48) num2=1;
+						if(PlayerData.x>Sozais[i].x && PlayerData.x<Sozais[i].x+48 && PlayerData.y+48>Sozais[i].y && PlayerData.y+48<Sozais[i].y+48) num2=1;
+						if(PlayerData.x>Sozais[i].x+24 && PlayerData.x+24<Sozais[i].x+48 && PlayerData.y+48>Sozais[i].y && PlayerData.y+48<Sozais[i].y+48) num2=1;
+						if(PlayerData.x>Sozais[i].x+48 && PlayerData.x+48<Sozais[i].x+48 && PlayerData.y+48>Sozais[i].y && PlayerData.y+48<Sozais[i].y+48) num2=1;
+
 						if(num2==1) {
 							Sozais[i].HP-=1;
 							if(Sozais[i].HP<=0){
@@ -324,6 +335,7 @@ struct datas game(struct datas Data) {
 								Data.wood=Sozais[i].genso[4];
 								Sozais[i].broke=1;
 								SPR_setPosition(sprites[i+3], 350 ,0);
+							}
 
 								// 効果音を鳴らしてみる
 
@@ -392,18 +404,23 @@ struct datas game(struct datas Data) {
 				Data.money+=Irainins[Data.date-1].reward;
 				Data.addMoney+=Irainins[Data.date-1].reward;
 				completedSwitch=1;
-//				SPR_setAnim(sprites[6],1);
+				SPR_setAnim(sprites[6],1);
 				SND_startPlay_4PCM_ENV(
 						SE_Explosion_8,
 						sizeof(SE_Explosion_8),
 						SOUND_PCM_CH2,
 						FALSE
 				);
+				SPR_setPosition(sprites[7],PlayerData.x,PlayerData.y);
+				SPR_setAnim(sprites[7],0);
+				coin_time=30;
 			}else
 			{
 				completedSwitch=1;
 			}
         }
+        if(coin_time>1) coin_time--;
+        if(coin_time==1) {coin_time--;SPR_setPosition(sprites[7],350,0);}
 
         // デバッグコマンド
         u16 pad1 =JOY_readJoypad(JOY_1);
