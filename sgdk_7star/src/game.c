@@ -244,7 +244,9 @@ struct datas game(struct datas Data) {
 			);
     		fightMode=1;
 			fightModeTimer=30;
-			SPR_setAnim(sprites[0],2);
+			if(Data.hammer>0)SPR_setAnim(sprites[0],3);
+			else SPR_setAnim(sprites[0],2);
+
     	}
     	s16 walkMode=playerMoveOn(&PlayerData.x,&PlayerData.y,Camera.x,Camera.y);
     	if(walkMode==1 && fightMode!=1) {
