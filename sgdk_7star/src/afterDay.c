@@ -41,6 +41,9 @@ struct datas afterDay(struct datas Data) {
     	    	         || count > WHAIT2
     	    	        ) {
     	    	            Data.gm = GAME;
+
+    	    	            VDP_fadeOut(0, (4 * 16) - 1, 20, FALSE); // @suppress("Symbol is not resolved")
+
 	    	            break;
     	    	        }
     	        VDP_waitVSync();
