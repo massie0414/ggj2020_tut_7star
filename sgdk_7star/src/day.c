@@ -71,7 +71,7 @@ struct datas day(struct datas Data) {
     	    	         || count > WHAIT
     	    	        ) {
     	    	            Data.gm = GAME;
-    	    	            break;
+	    	            break;
     	    	        }
     	        VDP_waitVSync();
     	    }

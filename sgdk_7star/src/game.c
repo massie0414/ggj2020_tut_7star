@@ -12,7 +12,7 @@
 #define SOZAI_SUU 1
 #define HUMMER_RANGE 48
 #define CAMERA_MOVE 1
-#define goal_in 5000
+s16 goal_in=5000;
 
 struct playerScene
 {
@@ -48,7 +48,7 @@ u16 playerButton();
 int VDP_BG( VDPPlan PLAN, int PAL, int ind, int type, int tile_x, int tile_y, Image image1, Image image2, Image image3, Image image4, Image image5 );
 
 struct datas game(struct datas Data) {
-	SPR_init();
+//	SPR_init();
     // disable interrupt when accessing VDP
 	s16 num2;
     SYS_disableInts();
@@ -133,7 +133,7 @@ struct datas game(struct datas Data) {
     // îwåiA
     int vdp_a_count = 0;
     int vdp_a_x = 0;
-    u16 ind_a = 800;
+    u16 ind_a = 450;
     ind_a = VDP_BG( PLAN_A, PAL3, ind_a, ++vdp_a_count, vdp_a_x, 0, zimensample_1_image, zimensample_2_image, zimensample_3_image, zimensample_4_image, zimensample_5_image );	vdp_a_count %= 5;	vdp_a_x += 8; vdp_a_x %= 64;
     ind_a = VDP_BG( PLAN_A, PAL3, ind_a, ++vdp_a_count, vdp_a_x, 0, zimensample_1_image, zimensample_2_image, zimensample_3_image, zimensample_4_image, zimensample_5_image );	vdp_a_count %= 5;	vdp_a_x += 8; vdp_a_x %= 64;
     ind_a = VDP_BG( PLAN_A, PAL3, ind_a, ++vdp_a_count, vdp_a_x, 0, zimensample_1_image, zimensample_2_image, zimensample_3_image, zimensample_4_image, zimensample_5_image );	vdp_a_count %= 5;	vdp_a_x += 8; vdp_a_x %= 64;
@@ -154,11 +154,11 @@ struct datas game(struct datas Data) {
 	int bg_b_count = 0;
 	int bg_a_count = 0;
 
-    int vdp_b_clean_x = 0;
-    int vdp_a_clean_x = 0;
+//    int vdp_b_clean_x = 0;
+//    int vdp_a_clean_x = 0;
 
-    u16 ind_c = 450;
-    u16 ind_d = 1200;
+//    u16 ind_c = 450;
+//    u16 ind_d = 1200;
 
     //àÀóäêlä÷åW
     s16 Irainin_showed=0;
@@ -184,23 +184,22 @@ struct datas game(struct datas Data) {
     	bg_b_count += CAMERA_MOVE;
 
     	if ( bg_b_count >= 64 * 8 ) {
-    		if ( Camera.x < 500 ) {
+//    		if ( Camera.x < 500 ) {
     			ind_b = VDP_BG( PLAN_B, PAL2, ind_b, ++vdp_b_count, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image );
-    		}
-       		else if ( Camera.x < 2500 ) {
-       			VDP_setPalette(2, soradoukutu_1_image.palette->data);
-       			ind_c = VDP_BG( PLAN_B, PAL2, ind_c, ++vdp_b_count, vdp_b_x, 0, soradoukutu_1_image, soradoukutu_2_image, soradoukutu_3_image, soradoukutu_4_image, soradoukutu_5_image );
-       		}
-       		else {
-       			VDP_setPalette(2, doukutu_1_image.palette->data);
-       			ind_b = VDP_BG( PLAN_B, PAL2, ind_b, ++vdp_b_count, vdp_b_x, 0, doukutu_1_image, doukutu_2_image, doukutu_3_image, doukutu_4_image, doukutu_5_image );
-       		}
+//    		}
+//       		else if ( Camera.x < 2500 ) {
+//       			VDP_setPalette(2, soradoukutu_1_image.palette->data);
+//       			ind_c = VDP_BG( PLAN_B, PAL2, ind_c, ++vdp_b_count, vdp_b_x, 0, soradoukutu_1_image, soradoukutu_2_image, soradoukutu_3_image, soradoukutu_4_image, soradoukutu_5_image );
+//       		}
+//       		else {
+//       			VDP_setPalette(2, doukutu_1_image.palette->data);
+//       			ind_b = VDP_BG( PLAN_B, PAL2, ind_b, ++vdp_b_count, vdp_b_x, 0, doukutu_1_image, doukutu_2_image, doukutu_3_image, doukutu_4_image, doukutu_5_image );
+//       		}
     		vdp_b_count %= 5;
     		if ( vdp_b_count == 0 ) {
     			ind_b = TILE_USERINDEX;
-    			ind_c = 450;
+//    			ind_c = 450;
     		}
-
     		vdp_b_x += 8;
     		vdp_b_x %= 64;
     	    bg_b_count -= 64 * 8;
@@ -208,21 +207,21 @@ struct datas game(struct datas Data) {
 
     	bg_a_count += CAMERA_MOVE;
     	if ( bg_a_count >= 64 ) {
-    		if ( Camera.x < 2800 ) {
+//    		if ( Camera.x < 2800 ) {
     			ind_a = VDP_BG( PLAN_A, PAL3, ind_a, ++vdp_a_count, vdp_a_x, 0, zimensample_1_image, zimensample_2_image, zimensample_3_image, zimensample_4_image, zimensample_5_image );
-    		}
-       		else if ( Camera.x < 3000 ) {
-       			VDP_setPalette(3, zimenntodoukutu_1_image.palette->data);
-       			ind_d = VDP_BG( PLAN_A, PAL3, ind_d, ++vdp_a_count, vdp_a_x, 0, zimenntodoukutu_1_image, zimenntodoukutu_2_image, zimenntodoukutu_3_image, zimenntodoukutu_4_image, zimenntodoukutu_5_image );
-      		}
-    		else {
-       			VDP_setPalette(3, doukutuzimen_1_image.palette->data);
-    			ind_a = VDP_BG( PLAN_A, PAL3, ind_a, ++vdp_a_count, vdp_a_x, 0, doukutuzimen_1_image, doukutuzimen_2_image, doukutuzimen_3_image, doukutuzimen_4_image, doukutuzimen_5_image );
-    		}
+//    		}
+//       		else if ( Camera.x < 3000 ) {
+//       			VDP_setPalette(3, zimenntodoukutu_1_image.palette->data);
+//       			ind_d = VDP_BG( PLAN_A, PAL3, ind_d, ++vdp_a_count, vdp_a_x, 0, zimenntodoukutu_1_image, zimenntodoukutu_2_image, zimenntodoukutu_3_image, zimenntodoukutu_4_image, zimenntodoukutu_5_image );
+//      		}
+//    		else {
+//       			VDP_setPalette(3, doukutuzimen_1_image.palette->data);
+//    			ind_a = VDP_BG( PLAN_A, PAL3, ind_a, ++vdp_a_count, vdp_a_x, 0, doukutuzimen_1_image, doukutuzimen_2_image, doukutuzimen_3_image, doukutuzimen_4_image, doukutuzimen_5_image );
+//    		}
     		vdp_a_count %= 5;
     		if ( vdp_a_count == 0 ) {
-    			ind_a = 800;
-    			ind_d = 1200;
+    			ind_a = 450;
+//    			ind_d = 1200;
     		}
     		vdp_a_x += 8;
     		vdp_a_x %= 64;
@@ -231,6 +230,8 @@ struct datas game(struct datas Data) {
 
     	text( PlayerData.x, 0, 0 );
     	text( Camera.x, 0, 1 );
+    	text( ind_b, 0, 2 );
+    	text( ind_a, 0, 3 );
 
     	u16 num=playerButton();
     	if(num & BUTTON_A==1)
@@ -331,7 +332,7 @@ struct datas game(struct datas Data) {
 
 							}
 													}
-//						if(Sozais[i].x<Camera.x){SPR_setAnim(sprites[i+3],-1); Sozais[i].broke=1;}
+						if(Sozais[i].x<Camera.x){SPR_releaseSprite(sprites[i+3]); Sozais[i].broke=1;}
 					}
 
 				}
@@ -354,6 +355,7 @@ struct datas game(struct datas Data) {
         //àÀóäêlÇÕÇ±ÇÃÇ÷ÇÒ
         if(Camera.x+320>=660 && Irainin_showed!=1){sprites[6] = SPR_addSprite(&NPC,660-Camera.x,124,TILE_ATTR(PAL0, TRUE, FALSE, FALSE));Irainin_showed=1;}
         if(Irainin_showed==1) SPR_setPosition(sprites[6],660-Camera.x,124);
+        if(Camera.x-160>=500){SPR_releaseSprite(sprites[6]);}
 
 
         //ÉvÉåÉCÉÑÅ[ÇÃàÀóäêlä÷åWèàóù
@@ -366,6 +368,13 @@ struct datas game(struct datas Data) {
 				Data.money+=Irainins[Data.date-1].reward;
 				Data.addMoney+=Irainins[Data.date-1].reward;
 				completedSwitch=1;
+				SPR_setAnim(sprites[6],1);
+				SND_startPlay_4PCM_ENV(
+						SE_Explosion_8,
+						sizeof(SE_Explosion_8),
+						SOUND_PCM_CH2,
+						FALSE
+				);
 			}else
 			{
 				completedSwitch=1;
@@ -381,6 +390,7 @@ struct datas game(struct datas Data) {
             VDP_setVerticalScroll(PLAN_B, 0);
             VDP_setHorizontalScroll(PLAN_A, 0);
             VDP_setVerticalScroll(PLAN_A, 0);
+            SPR_releaseSprite(sprites[0]);
             //SPR_end();
 			Data.gm=WORK;
 			break;
