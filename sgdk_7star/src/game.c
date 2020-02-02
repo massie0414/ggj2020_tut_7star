@@ -48,7 +48,7 @@ u16 playerButton();
 int VDP_BG( VDPPlan PLAN, int PAL, int ind, int type, int tile_x, int tile_y, Image image1, Image image2, Image image3, Image image4, Image image5 );
 
 struct datas game(struct datas Data) {
-	SPR_init();
+//	SPR_init();
     // disable interrupt when accessing VDP
 	s16 num2;
     SYS_disableInts();
