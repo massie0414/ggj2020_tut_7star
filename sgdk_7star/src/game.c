@@ -305,24 +305,23 @@ struct datas game(struct datas Data) {
 					{
 						num2=0;
 
-//						if ( PlayerData.x+24 > Sozais[i].x
-//						  && PlayerData.x+24 < Sozais[i].x+48
-//						  && PlayerData.y+24 > Sozais[i].y
-//						  && PlayerData.y+24 < Sozais[i].y+48
+						if ( PlayerData.x+24 > Sozais[i].x
+						  && PlayerData.x+24 < Sozais[i].x+48
+						  && PlayerData.y+24 > Sozais[i].y
+						  && PlayerData.y+24 < Sozais[i].y+48
 
-//						)
-						if(PlayerData.x>Sozais[i].x && PlayerData.x<Sozais[i].x+48 && PlayerData.y>Sozais[i].y && PlayerData.y<Sozais[i].y+48) num2=1;
-						if(PlayerData.x>Sozais[i].x+24 && PlayerData.x+24<Sozais[i].x+48 && PlayerData.y>Sozais[i].y && PlayerData.y<Sozais[i].y+48) num2=1;
-						if(PlayerData.x>Sozais[i].x+48 && PlayerData.x+48<Sozais[i].x+48 && PlayerData.y>Sozais[i].y && PlayerData.y<Sozais[i].y+48) num2=1;
-						if(PlayerData.x>Sozais[i].x && PlayerData.x<Sozais[i].x+48 && PlayerData.y+24>Sozais[i].y && PlayerData.y+24<Sozais[i].y+48) num2=1;
-						if(PlayerData.x>Sozais[i].x+48 && PlayerData.x+48<Sozais[i].x+48 && PlayerData.y+24>Sozais[i].y && PlayerData.y+24<Sozais[i].y+48) num2=1;
-						if(PlayerData.x>Sozais[i].x && PlayerData.x<Sozais[i].x+48 && PlayerData.y+48>Sozais[i].y && PlayerData.y+48<Sozais[i].y+48) num2=1;
-						if(PlayerData.x>Sozais[i].x+24 && PlayerData.x+24<Sozais[i].x+48 && PlayerData.y+48>Sozais[i].y && PlayerData.y+48<Sozais[i].y+48) num2=1;
-						if(PlayerData.x>Sozais[i].x+48 && PlayerData.x+48<Sozais[i].x+48 && PlayerData.y+48>Sozais[i].y && PlayerData.y+48<Sozais[i].y+48) num2=1;
+						)
+//						if(PlayerData.x>Sozais[i].x && PlayerData.x<Sozais[i].x+48 && PlayerData.y>Sozais[i].y && PlayerData.y<Sozais[i].y+48) num2=1;
+//						if(PlayerData.x>Sozais[i].x+24 && PlayerData.x+24<Sozais[i].x+48 && PlayerData.y>Sozais[i].y && PlayerData.y<Sozais[i].y+48) num2=1;
+//						if(PlayerData.x>Sozais[i].x+48 && PlayerData.x+48<Sozais[i].x+48 && PlayerData.y>Sozais[i].y && PlayerData.y<Sozais[i].y+48) num2=1;
+//						if(PlayerData.x>Sozais[i].x && PlayerData.x<Sozais[i].x+48 && PlayerData.y+24>Sozais[i].y && PlayerData.y+24<Sozais[i].y+48) num2=1;
+//						if(PlayerData.x>Sozais[i].x+48 && PlayerData.x+48<Sozais[i].x+48 && PlayerData.y+24>Sozais[i].y && PlayerData.y+24<Sozais[i].y+48) num2=1;
+//						if(PlayerData.x>Sozais[i].x && PlayerData.x<Sozais[i].x+48 && PlayerData.y+48>Sozais[i].y && PlayerData.y+48<Sozais[i].y+48) num2=1;
+//						if(PlayerData.x>Sozais[i].x+24 && PlayerData.x+24<Sozais[i].x+48 && PlayerData.y+48>Sozais[i].y && PlayerData.y+48<Sozais[i].y+48) num2=1;
+//						if(PlayerData.x>Sozais[i].x+48 && PlayerData.x+48<Sozais[i].x+48 && PlayerData.y+48>Sozais[i].y && PlayerData.y+48<Sozais[i].y+48) num2=1;
 
 						if(num2==1) {
 							Sozais[i].HP-=1;
-							if(Sozais[i].HP<=0){
 								SND_startPlay_4PCM_ENV(
 										SE_Explosion_8,
 										sizeof(SE_Explosion_8),
@@ -336,18 +335,13 @@ struct datas game(struct datas Data) {
 								Sozais[i].broke=1;
 								SPR_setPosition(sprites[i+3], 350 ,0);
 
-
-								// 効果音を鳴らしてみる
-
-
-
-							}
 							}
 						if(Sozais[i].x<Camera.x){SPR_releaseSprite(sprites[i+3]); Sozais[i].broke=1;}
 					}
 
 				}
-				else if(Sozais[i].x<=Camera.x+320 && Sozais[i].showed!=1)
+
+
 					{
 						Sozais[i].showed =1;
 						sprites[i+3] = SPR_addSprite(
@@ -364,9 +358,9 @@ struct datas game(struct datas Data) {
         VDP_waitVSync();
 
         //依頼人はこのへん
-        if(Camera.x+320>=660 && Irainin_showed!=1){sprites[6] = SPR_addSprite(&NPC,660-Camera.x,124,TILE_ATTR(PAL0, TRUE, FALSE, FALSE));Irainin_showed=1;}
-        if(Irainin_showed==1) SPR_setPosition(sprites[6],660-Camera.x,124);
-        if(Camera.x-160>=500){SPR_releaseSprite(sprites[6]);}
+        if(Camera.x>=0 && Irainin_showed!=1){sprites[6] = SPR_addSprite(&NPC,660-Camera.x,124,TILE_ATTR(PAL0, TRUE, FALSE, FALSE));Irainin_showed=1;}
+        if(Irainin_showed==1) SPR_setPosition(sprites[6],100-Camera.x,124);
+        if(Camera.x-160>=100){SPR_releaseSprite(sprites[6]);}
 
 
         //プレイヤーの依頼人関係処理
@@ -377,25 +371,25 @@ struct datas game(struct datas Data) {
         	switch(Irainins[Data.date-1].item_id)
         	{
         		case 0:
-        			ans=(Data.chair>Irainins[Data.date-1].amount? 1:0);
+        			ans=(Data.chair>=Irainins[Data.date-1].amount? 1:0);
         			break;
         		case 1:
-        			ans=(Data.desk>Irainins[Data.date-1].amount? 1:0);
+        			ans=(Data.desk>=Irainins[Data.date-1].amount? 1:0);
         			break;
         		case 2:
-        			ans=(Data.sculpture>Irainins[Data.date-1].amount? 1:0);
+        			ans=(Data.sculpture>=Irainins[Data.date-1].amount? 1:0);
         			break;
         		case 3:
-        			ans=(Data.tank>Irainins[Data.date-1].amount? 1:0);
+        			ans=(Data.tank>=Irainins[Data.date-1].amount? 1:0);
         			break;
         		case 4:
-        			ans=(Data.ring>Irainins[Data.date-1].amount? 1:0);
+        			ans=(Data.ring>=Irainins[Data.date-1].amount? 1:0);
         			break;
         		case 5:
-        			ans=(Data.sHouse>Irainins[Data.date-1].amount? 1:0);
+        			ans=(Data.sHouse>=Irainins[Data.date-1].amount? 1:0);
         			break;
         		case 6:
-        			ans=(Data.wMansion>Irainins[Data.date-1].amount? 1:0);
+        			ans=(Data.wMansion>=Irainins[Data.date-1].amount? 1:0);
         			break;
         	}
 			if(ans==1)
@@ -465,7 +459,7 @@ s16 playerMoveOn(s16 *x,s16 *y,s16 cameraX,s16 cameraY)
 	if(*y>BOTTOM_HEIGHT) *y=BOTTOM_HEIGHT;
 	if(*y<TOP_HEIGHT) *y=TOP_HEIGHT;
 	if(*x<0){*x=0; mode=1;}
-	if(*x<cameraX-160){*x=cameraX-160; mode=1;}
+	if(*x<cameraX){*x=cameraX; mode=1;}
 	if(*x>cameraX+160-48) *x=cameraX+160-48;
 	return mode;
 }
