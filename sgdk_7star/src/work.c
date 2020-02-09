@@ -3,7 +3,6 @@
 #include "resource_game.h"
 #include "main.h"
 #include "draw_sjis.h"
-#include "game.h"
 
 datas work(datas Data) {
 	int y=10;

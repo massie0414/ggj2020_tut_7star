@@ -3,7 +3,7 @@
 #include "resource_game.h"
 #include "main.h"
 #include "draw_sjis.h"
-#include "game.h"
+
 const int WHAIT = 180;
 
 datas day(datas Data) {

@@ -76,14 +76,6 @@ int VDP_BG( VDPPlan PLAN,
 		Image image4,
 		Image image5
 );
-//s16 playerMoveOn(
-//		u16 pad1,
-//		s16 *x,
-//		s16 *y,
-//		s16 cameraX,
-//		s16 cameraY
-//);
-
 
 struct camera
 {

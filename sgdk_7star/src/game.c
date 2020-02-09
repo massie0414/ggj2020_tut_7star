@@ -92,12 +92,12 @@ datas game(datas Data) {
 	   TRUE // @suppress("Symbol is not resolved")
    );
 
-//  SPR_init();
     memcpy(&palette[0], NPC.palette->data, 16 * 2);
     memcpy(&palette[16], rock01.palette->data, 16 * 2);
     memcpy(&palette[32], soradesu_1_image.palette->data, 16 * 2);
     memcpy(&palette[48], zimensample_1_image.palette->data, 16 * 2);
 
+    // プレイヤー
 	sprites[0] = SPR_addSprite(&Player, 0, 0, TILE_ATTR(PAL0, TRUE, FALSE, FALSE)); // @suppress("Symbol is not resolved")
 	SPR_setPosition(sprites[0], 0 ,0);
 
@@ -378,30 +378,30 @@ datas game(datas Data) {
 				) {
 					Data.hammer=1;
 					s16 ans=0;
-//					switch(Irainins[Data.date-1].item_id)
-//					{
-//						case 0:
-//							ans=(Data.chair>=Irainins[Data.date-1].amount? 1:0);
-//							break;
-//						case 1:
-//							ans=(Data.desk>=Irainins[Data.date-1].amount? 1:0);
-//							break;
-//						case 2:
-//							ans=(Data.sculpture>=Irainins[Data.date-1].amount? 1:0);
-//							break;
-//						case 3:
-//							ans=(Data.tank>=Irainins[Data.date-1].amount? 1:0);
-//							break;
-//						case 4:
-//							ans=(Data.ring>=Irainins[Data.date-1].amount? 1:0);
-//							break;
-//						case 5:
-//							ans=(Data.sHouse>=Irainins[Data.date-1].amount? 1:0);
-//							break;
-//						case 6:
-//							ans=(Data.wMansion>=Irainins[Data.date-1].amount? 1:0);
-//							break;
-//					}
+					switch(Irainins[Data.date-1].item_id)
+					{
+						case 0:
+							ans=(Data.chair>=Irainins[Data.date-1].amount? 1:0);
+							break;
+						case 1:
+							ans=(Data.desk>=Irainins[Data.date-1].amount? 1:0);
+							break;
+						case 2:
+							ans=(Data.sculpture>=Irainins[Data.date-1].amount? 1:0);
+							break;
+						case 3:
+							ans=(Data.tank>=Irainins[Data.date-1].amount? 1:0);
+							break;
+						case 4:
+							ans=(Data.ring>=Irainins[Data.date-1].amount? 1:0);
+							break;
+						case 5:
+							ans=(Data.sHouse>=Irainins[Data.date-1].amount? 1:0);
+							break;
+						case 6:
+							ans=(Data.wMansion>=Irainins[Data.date-1].amount? 1:0);
+							break;
+					}
 
 					ans = 1;
 					if(ans==1)
@@ -437,7 +437,6 @@ datas game(datas Data) {
         VDP_waitVSync();
 
         // デバッグコマンド
-//      u16 pad1 =JOY_readJoypad(JOY_1); // @suppress("Symbol is not resolved")
         if ( ( pad1 & BUTTON_START || Camera.x>goal_in ) && Data.explore_mode==1 ){ // @suppress("Suggested parenthesis around expression") // @suppress("Symbol is not resolved")
 			Data.gm=AFTERDAY;
 			break;
