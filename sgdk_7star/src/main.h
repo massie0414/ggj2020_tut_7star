@@ -1,5 +1,11 @@
 #include <genesis.h>
 
+#define WIDTH 320
+#define HEIGHT 224
+
+#define PLAYER_WIDTH 48
+#define PLAYER_HEIGHT 48
+
 #define SPRITE_NUM 64
 #define CAMERA_MOVE 1
 
@@ -11,6 +17,16 @@
 #define HUMMER_RANGE 48
 
 Sprite* sprites[SPRITE_NUM];
+
+// 0:player
+// 1:NPC
+// 2:Šâ1
+// 3:
+// 4:
+// 5:
+// 6:
+
+
 
 enum game_mode {
     LOGO,
