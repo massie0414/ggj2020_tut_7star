@@ -48,19 +48,19 @@ int VDP_BG(
 	}
 
 	switch ( type ) {
-	case 1:
+	case 0:
 		image = image1;
 		break;
-	case 2:
+	case 1:
 		image = image2;
 		break;
-	case 3:
+	case 2:
 		image = image3;
 		break;
-	case 4:
+	case 3:
 		image = image4;
 		break;
-	case 5:
+	case 4:
 		image = image5;
 		break;
 	}

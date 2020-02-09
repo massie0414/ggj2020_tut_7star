@@ -30,30 +30,16 @@ datas title(datas Data) {
     int count = 0;
     int y = 18;
 
-    u16 ind = TILE_USERINDEX; // @suppress("Symbol is not resolved")
-//    VDP_drawImageEx(
-//        PLAN_B,
-//        &soradesu_image,
-//        TILE_ATTR_FULL(PAL0, 0, 0, 0, ind), // @suppress("Symbol is not resolved")
-//        0,  // x
-//        1,  // y
-//        0,
-//		1
-//    );
-
     int vdp_b_count = 0;
     int vdp_b_x = 0;
-    ind = VDP_BG( PLAN_B, PAL2, ind, ++vdp_b_count, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image );	vdp_b_count %= 5;	vdp_b_x += 8; vdp_b_x %= 64; // @suppress("Symbol is not resolved")
-    ind = VDP_BG( PLAN_B, PAL2, ind, ++vdp_b_count, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image );	vdp_b_count %= 5;	vdp_b_x += 8; vdp_b_x %= 64; // @suppress("Symbol is not resolved")
-    ind = VDP_BG( PLAN_B, PAL2, ind, ++vdp_b_count, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image );	vdp_b_count %= 5;	vdp_b_x += 8; vdp_b_x %= 64; // @suppress("Symbol is not resolved")
-    ind = VDP_BG( PLAN_B, PAL2, ind, ++vdp_b_count, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image );	vdp_b_count %= 5;	vdp_b_x += 8; vdp_b_x %= 64; // @suppress("Symbol is not resolved")
-    ind = VDP_BG( PLAN_B, PAL2, ind, ++vdp_b_count, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image );	vdp_b_count %= 5;	vdp_b_x += 8; vdp_b_x %= 64; // @suppress("Symbol is not resolved")
+    u16 ind = TILE_USERINDEX; // @suppress("Symbol is not resolved")
+    ind = VDP_BG( PLAN_B, PAL2, ind, vdp_b_count++, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image );	vdp_b_count %= 5;	vdp_b_x += 8; vdp_b_x %= 64; // @suppress("Symbol is not resolved")
+    ind = VDP_BG( PLAN_B, PAL2, ind, vdp_b_count++, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image );	vdp_b_count %= 5;	vdp_b_x += 8; vdp_b_x %= 64; // @suppress("Symbol is not resolved")
+    ind = VDP_BG( PLAN_B, PAL2, ind, vdp_b_count++, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image );	vdp_b_count %= 5;	vdp_b_x += 8; vdp_b_x %= 64; // @suppress("Symbol is not resolved")
+    ind = VDP_BG( PLAN_B, PAL2, ind, vdp_b_count++, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image );	vdp_b_count %= 5;	vdp_b_x += 8; vdp_b_x %= 64; // @suppress("Symbol is not resolved")
+    ind = VDP_BG( PLAN_B, PAL2, ind, vdp_b_count++, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image );	vdp_b_count %= 5;	vdp_b_x += 8; vdp_b_x %= 64; // @suppress("Symbol is not resolved")
     ind = TILE_USERINDEX; // @suppress("Symbol is not resolved") // @suppress("Symbol is not resolved")
-    ind = VDP_BG( PLAN_B, PAL2, ind, ++vdp_b_count, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image );	vdp_b_count %= 5;	vdp_b_x += 8; vdp_b_x %= 64; // @suppress("Symbol is not resolved")
-
-
-
-
+    ind = VDP_BG( PLAN_B, PAL2, ind, vdp_b_count++, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image );	vdp_b_count %= 5;	vdp_b_x += 8; vdp_b_x %= 64; // @suppress("Symbol is not resolved")
 
     ind += soradesu_image.tileset->numTile;
     VDP_drawImageEx(
@@ -89,7 +75,7 @@ datas title(datas Data) {
     	bg_b_count += CAMERA_MOVE;
 
     	if ( bg_b_count >= 64 * 8 ) {
-    		ind = VDP_BG( PLAN_B, PAL2, ind, ++vdp_b_count, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image ); // @suppress("Symbol is not resolved")
+    		ind = VDP_BG( PLAN_B, PAL2, ind, vdp_b_count++, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image ); // @suppress("Symbol is not resolved")
 
     		vdp_b_count %= 5;
     		if ( vdp_b_count == 0 ) {
@@ -102,7 +88,6 @@ datas title(datas Data) {
 
     	Camera.x += CAMERA_MOVE;
 		VDP_setHorizontalScroll(PLAN_B,-Camera.x >> 3);
-
 
         count++;
         if ( count >= WAIT ) {
