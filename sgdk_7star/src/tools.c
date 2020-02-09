@@ -1,6 +1,5 @@
 #include <genesis.h>
 #include "resource.h"
-#include "resource_game.h"
 #include "main.h"
 
 void text( int num, int x, int y ) {
@@ -87,44 +86,3 @@ int VDP_BG(
 
 	return ind;
 }
-
-//s16 playerMoveOn(u16 pad1, s16 *x,s16 *y,s16 cameraX,s16 cameraY)
-//{
-//	s16 mode=0;
-//	if ( pad1 & BUTTON_LEFT ){ // @suppress("Symbol is not resolved")
-//		*x-=2;
-//		mode=1;
-//	}
-//	if ( pad1 & BUTTON_RIGHT ){ // @suppress("Symbol is not resolved")
-//		*x+=2;
-//		mode=1;
-//	}
-//	if ( pad1 & BUTTON_UP ){	// @suppress("Symbol is not resolved")
-//		*y-=1;
-//		mode=1;
-//	}
-//	if ( pad1 & BUTTON_DOWN ){ // @suppress("Symbol is not resolved")
-//		*y+=1;
-//		mode=1;
-//	}
-//
-//	//‚Í‚¶‚Á‚±ˆ—
-//	if ( *y > BOTTOM_HEIGHT ) {
-//		*y = BOTTOM_HEIGHT;
-//	}
-//	if ( *y < TOP_HEIGHT ) {
-//		*y = TOP_HEIGHT;
-//	}
-//	if ( *x < 0 ) {
-//		*x=0;
-//		mode=1;
-//	}
-//	if ( *x < cameraX ) {
-//		*x = cameraX;
-//		mode = 1;
-//	}
-//	if ( *x > cameraX + 320 - 48 ) {
-//		*x = cameraX + 320 - 48;
-//	}
-//	return mode;
-//}

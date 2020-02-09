@@ -1,8 +1,6 @@
 #include <genesis.h>
 
 #include "resource.h"
-#include "resource_game.h"
-
 #include "main.h"
 
 s16 goal_in=5000;
