@@ -11,7 +11,7 @@
 #define SCROLL_DIFF 32
 #define SOZAI_SUU 1
 #define HUMMER_RANGE 48
-#define CAMERA_MOVE 1
+
 s16 goal_in=5000;
 
 struct playerScene
@@ -19,11 +19,7 @@ struct playerScene
 	s16 x;
 	s16 y;
 };
-struct camera
-{
-	s16 x;
-	s16 y;
-};
+
 typedef struct sozai
 {
 	char name[64];
@@ -34,6 +30,7 @@ typedef struct sozai
 	s16 genso[4];
 	s16 HP;
 };
+
 struct irainin
 {
 	s16 amount;
@@ -46,7 +43,7 @@ struct irainin
 
 s16 playerMoveOn(s16 *x,s16 *y,s16 cameraX,s16 cameraY);
 void cameraScroll(s16 *cameraX,s16 *playerX);
-u16 playerButton();
+//u16 playerButton();
 int VDP_BG( VDPPlan PLAN, int PAL, int ind, int type, int tile_x, int tile_y, Image image1, Image image2, Image image3, Image image4, Image image5 );
 
 datas game(datas Data) {
@@ -103,8 +100,8 @@ datas game(datas Data) {
     SND_startPlay_4PCM_ENV(
 		BGM_Sub_8,
 	   sizeof(BGM_Sub_8),
-	   SOUND_PCM_CH1,
-	   TRUE
+	   SOUND_PCM_CH1, // @suppress("Symbol is not resolved")
+	   TRUE // @suppress("Symbol is not resolved")
    );
 
 //  SPR_init();
@@ -114,7 +111,7 @@ datas game(datas Data) {
     memcpy(&palette[48], zimensample_1_image.palette->data, 16 * 2);
 //  memcpy(&palette[64], NPC.palette->data, 16 * 2);
 
-	sprites[0] = SPR_addSprite(&Player, 0, 0, TILE_ATTR(PAL0, TRUE, FALSE, FALSE));
+	sprites[0] = SPR_addSprite(&Player, 0, 0, TILE_ATTR(PAL0, TRUE, FALSE, FALSE)); // @suppress("Symbol is not resolved")
 	SPR_setPosition(sprites[0], 0 ,0);
 //	SPR_setAnim(sprites[0], 0);
 
@@ -123,36 +120,36 @@ datas game(datas Data) {
 			&rock01,
 			Sozais[0].x-Camera.x,
 			Sozais[0].y,
-			TILE_ATTR(PAL1, TRUE, FALSE, FALSE)
+			TILE_ATTR(PAL1, TRUE, FALSE, FALSE) // @suppress("Symbol is not resolved")
 	);
 
 
     // ”wŒiB
     int vdp_b_count = 0;
     int vdp_b_x = 0;
-    u16 ind_b = TILE_USERINDEX;
-    ind_b = VDP_BG( PLAN_B, PAL2, ind_b, ++vdp_b_count, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image );	vdp_b_count %= 5;	vdp_b_x += 8; vdp_b_x %= 64;
-    ind_b = VDP_BG( PLAN_B, PAL2, ind_b, ++vdp_b_count, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image );	vdp_b_count %= 5;	vdp_b_x += 8; vdp_b_x %= 64;
-    ind_b = VDP_BG( PLAN_B, PAL2, ind_b, ++vdp_b_count, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image );	vdp_b_count %= 5;	vdp_b_x += 8; vdp_b_x %= 64;
-    ind_b = VDP_BG( PLAN_B, PAL2, ind_b, ++vdp_b_count, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image );	vdp_b_count %= 5;	vdp_b_x += 8; vdp_b_x %= 64;
-    ind_b = VDP_BG( PLAN_B, PAL2, ind_b, ++vdp_b_count, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image );	vdp_b_count %= 5;	vdp_b_x += 8; vdp_b_x %= 64;
-    ind_b = TILE_USERINDEX;
-    ind_b = VDP_BG( PLAN_B, PAL2, ind_b, ++vdp_b_count, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image );	vdp_b_count %= 5;	vdp_b_x += 8; vdp_b_x %= 64;
+    u16 ind_b = TILE_USERINDEX; // @suppress("Symbol is not resolved")
+    ind_b = VDP_BG( PLAN_B, PAL2, ind_b, ++vdp_b_count, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image );	vdp_b_count %= 5;	vdp_b_x += 8; vdp_b_x %= 64; // @suppress("Symbol is not resolved")
+    ind_b = VDP_BG( PLAN_B, PAL2, ind_b, ++vdp_b_count, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image );	vdp_b_count %= 5;	vdp_b_x += 8; vdp_b_x %= 64; // @suppress("Symbol is not resolved")
+    ind_b = VDP_BG( PLAN_B, PAL2, ind_b, ++vdp_b_count, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image );	vdp_b_count %= 5;	vdp_b_x += 8; vdp_b_x %= 64; // @suppress("Symbol is not resolved")
+    ind_b = VDP_BG( PLAN_B, PAL2, ind_b, ++vdp_b_count, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image );	vdp_b_count %= 5;	vdp_b_x += 8; vdp_b_x %= 64; // @suppress("Symbol is not resolved")
+    ind_b = VDP_BG( PLAN_B, PAL2, ind_b, ++vdp_b_count, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image );	vdp_b_count %= 5;	vdp_b_x += 8; vdp_b_x %= 64; // @suppress("Symbol is not resolved")
+    ind_b = TILE_USERINDEX; // @suppress("Symbol is not resolved")
+    ind_b = VDP_BG( PLAN_B, PAL2, ind_b, ++vdp_b_count, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image );	vdp_b_count %= 5;	vdp_b_x += 8; vdp_b_x %= 64; // @suppress("Symbol is not resolved")
 
     // ”wŒiA
     int vdp_a_count = 2;
     int vdp_a_x = 16;
     u16 ind_a = 450+100;
-    ind_a = VDP_BG( PLAN_A, PAL3, ind_a, ++vdp_a_count, vdp_a_x, 0, zimensample_1_image, zimensample_2_image, zimensample_3_image, zimensample_4_image, zimensample_5_image );	vdp_a_count %= 5;	vdp_a_x += 8; vdp_a_x %= 64;
-    ind_a = VDP_BG( PLAN_A, PAL3, ind_a, ++vdp_a_count, vdp_a_x, 0, zimensample_1_image, zimensample_2_image, zimensample_3_image, zimensample_4_image, zimensample_5_image );	vdp_a_count %= 5;	vdp_a_x += 8; vdp_a_x %= 64;
-    ind_a = VDP_BG( PLAN_A, PAL3, ind_a, ++vdp_a_count, vdp_a_x, 0, zimensample_1_image, zimensample_2_image, zimensample_3_image, zimensample_4_image, zimensample_5_image );	vdp_a_count %= 5;	vdp_a_x += 8; vdp_a_x %= 64;
-    ind_a = VDP_BG( PLAN_A, PAL3, ind_a, ++vdp_a_count, vdp_a_x, 0, zimensample_1_image, zimensample_2_image, zimensample_3_image, zimensample_4_image, zimensample_5_image );	vdp_a_count %= 5;	vdp_a_x += 8; vdp_a_x %= 64;
-    ind_a = VDP_BG( PLAN_A, PAL3, ind_a, ++vdp_a_count, vdp_a_x, 0, zimensample_1_image, zimensample_2_image, zimensample_3_image, zimensample_4_image, zimensample_5_image );	vdp_a_count %= 5;	vdp_a_x += 8; vdp_a_x %= 64;
+    ind_a = VDP_BG( PLAN_A, PAL3, ind_a, ++vdp_a_count, vdp_a_x, 0, zimensample_1_image, zimensample_2_image, zimensample_3_image, zimensample_4_image, zimensample_5_image );	vdp_a_count %= 5;	vdp_a_x += 8; vdp_a_x %= 64; // @suppress("Symbol is not resolved")
+    ind_a = VDP_BG( PLAN_A, PAL3, ind_a, ++vdp_a_count, vdp_a_x, 0, zimensample_1_image, zimensample_2_image, zimensample_3_image, zimensample_4_image, zimensample_5_image );	vdp_a_count %= 5;	vdp_a_x += 8; vdp_a_x %= 64; // @suppress("Symbol is not resolved")
+    ind_a = VDP_BG( PLAN_A, PAL3, ind_a, ++vdp_a_count, vdp_a_x, 0, zimensample_1_image, zimensample_2_image, zimensample_3_image, zimensample_4_image, zimensample_5_image );	vdp_a_count %= 5;	vdp_a_x += 8; vdp_a_x %= 64; // @suppress("Symbol is not resolved")
+    ind_a = VDP_BG( PLAN_A, PAL3, ind_a, ++vdp_a_count, vdp_a_x, 0, zimensample_1_image, zimensample_2_image, zimensample_3_image, zimensample_4_image, zimensample_5_image );	vdp_a_count %= 5;	vdp_a_x += 8; vdp_a_x %= 64; // @suppress("Symbol is not resolved")
+    ind_a = VDP_BG( PLAN_A, PAL3, ind_a, ++vdp_a_count, vdp_a_x, 0, zimensample_1_image, zimensample_2_image, zimensample_3_image, zimensample_4_image, zimensample_5_image );	vdp_a_count %= 5;	vdp_a_x += 8; vdp_a_x %= 64; // @suppress("Symbol is not resolved")
     ind_a = 450;
-    ind_a = VDP_BG( PLAN_A, PAL3, ind_a, ++vdp_a_count, vdp_a_x, 0, zimensample_1_image, zimensample_2_image, zimensample_3_image, zimensample_4_image, zimensample_5_image );	vdp_a_count %= 5;	vdp_a_x += 8; vdp_a_x %= 64;
+    ind_a = VDP_BG( PLAN_A, PAL3, ind_a, ++vdp_a_count, vdp_a_x, 0, zimensample_1_image, zimensample_2_image, zimensample_3_image, zimensample_4_image, zimensample_5_image );	vdp_a_count %= 5;	vdp_a_x += 8; vdp_a_x %= 64; // @suppress("Symbol is not resolved")
 
     SYS_enableInts();
-    VDP_fadeIn(0, (4 * 16) - 1, palette, 20, FALSE);
+    VDP_fadeIn(0, (4 * 16) - 1, palette, 20, FALSE); // @suppress("Symbol is not resolved")
 
 
 
@@ -187,11 +184,11 @@ datas game(datas Data) {
     }
     s16 completedSwitch=0;
 
-    sprites[7]=SPR_addSprite(&jump_coin,350,0,TILE_ATTR(PAL0, TRUE, FALSE, FALSE));
+    sprites[7]=SPR_addSprite(&jump_coin,350,0,TILE_ATTR(PAL0, TRUE, FALSE, FALSE)); // @suppress("Symbol is not resolved")
 	s16 coin_time=0;
 
 
-    while(TRUE)
+    while(TRUE) // @suppress("Symbol is not resolved")
    {
 
     //	text(Sozais[0].x,0,0);
@@ -199,11 +196,11 @@ datas game(datas Data) {
     	bg_b_count += CAMERA_MOVE;
 
     	if ( bg_b_count >= 64 * 8 ) {
-    		ind_b = VDP_BG( PLAN_B, PAL2, ind_b, ++vdp_b_count, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image );
+    		ind_b = VDP_BG( PLAN_B, PAL2, ind_b, ++vdp_b_count, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image ); // @suppress("Symbol is not resolved")
 
     		vdp_b_count %= 5;
     		if ( vdp_b_count == 0 ) {
-    			ind_b = TILE_USERINDEX;
+    			ind_b = TILE_USERINDEX; // @suppress("Symbol is not resolved")
     		}
     		vdp_b_x += 8;
     		vdp_b_x %= 64;
@@ -212,7 +209,7 @@ datas game(datas Data) {
 
     	bg_a_count += CAMERA_MOVE;
     	if ( bg_a_count >= 64 ) {
-    		ind_a = VDP_BG( PLAN_A, PAL3, ind_a, ++vdp_a_count, vdp_a_x, 0, zimensample_1_image, zimensample_2_image, zimensample_3_image, zimensample_4_image, zimensample_5_image );
+    		ind_a = VDP_BG( PLAN_A, PAL3, ind_a, ++vdp_a_count, vdp_a_x, 0, zimensample_1_image, zimensample_2_image, zimensample_3_image, zimensample_4_image, zimensample_5_image ); // @suppress("Symbol is not resolved")
 
     		vdp_a_count %= 5;
     		if ( vdp_a_count == 0 ) {
@@ -223,15 +220,15 @@ datas game(datas Data) {
     	    bg_a_count -= 64;
     	}
 
-    	u16 num=playerButton();
-    	if(num & BUTTON_A==1)
+    	u16 pad1 = JOY_readJoypad(JOY_1); // @suppress("Symbol is not resolved")
+    	if( pad1 & BUTTON_A ) // @suppress("Symbol is not resolved")
     	{
 
 			SND_startPlay_4PCM_ENV(
 				Punch_wav,
 				sizeof(Punch_wav),
-				SOUND_PCM_CH2,
-				FALSE
+				SOUND_PCM_CH2, // @suppress("Symbol is not resolved")
+				FALSE // @suppress("Symbol is not resolved")
 			);
     		fightMode=1;
 			fightModeTimer=30;
@@ -248,8 +245,8 @@ datas game(datas Data) {
 				SND_startPlay_4PCM_ENV(
 						SE_Footstep_8,
 						sizeof(SE_Footstep_8),
-						SOUND_PCM_CH3,
-						FALSE
+						SOUND_PCM_CH3, // @suppress("Symbol is not resolved")
+						FALSE // @suppress("Symbol is not resolved")
 				);
     		}
     	    walk_count++;
@@ -279,18 +276,18 @@ datas game(datas Data) {
 				if(Sozais[i].showed==1)
 				{
 					SPR_setPosition(sprites[i+3],(Sozais[i].x-Camera.x),Sozais[i].y);
-					u16 num=playerButton();
-					if(playerButton()&BUTTON_A)
+				//	u16 num=playerButton();
+					if(pad1 & BUTTON_A) // @suppress("Symbol is not resolved")
 					{
 
 						SND_startPlay_4PCM_ENV(
 							Punch_wav,
 							sizeof(Punch_wav),
-							SOUND_PCM_CH2,
-							FALSE
+							SOUND_PCM_CH2, // @suppress("Symbol is not resolved")
+							FALSE // @suppress("Symbol is not resolved")
 						);}
 
-					if(num & BUTTON_A)
+					if(pad1 & BUTTON_A) // @suppress("Symbol is not resolved")
 					{
 						num2=0;
 
@@ -305,8 +302,8 @@ datas game(datas Data) {
 								SND_startPlay_4PCM_ENV(
 										SE_Explosion_8,
 										sizeof(SE_Explosion_8),
-										SOUND_PCM_CH2,
-										FALSE
+										SOUND_PCM_CH2, // @suppress("Symbol is not resolved")
+										FALSE // @suppress("Symbol is not resolved")
 								);
 								Data.water=Sozais[i].genso[0];
 								Data.stone=Sozais[i].genso[1];
@@ -332,7 +329,7 @@ datas game(datas Data) {
 							&NPC,
 							Irainins[Data.date-1].x,
 							Irainins[Data.date-1].y,
-							TILE_ATTR(PAL0, TRUE, FALSE, FALSE)
+							TILE_ATTR(PAL0, TRUE, FALSE, FALSE) // @suppress("Symbol is not resolved")
 					);
 					Irainin_showed=1;
 				}
@@ -396,8 +393,8 @@ datas game(datas Data) {
 						SND_startPlay_4PCM_ENV(
 								SE_Explosion_8,
 								sizeof(SE_Explosion_8),
-								SOUND_PCM_CH2,
-								FALSE
+								SOUND_PCM_CH2, // @suppress("Symbol is not resolved")
+								FALSE // @suppress("Symbol is not resolved")
 						);
 						SPR_setPosition(sprites[7],PlayerData.x,PlayerData.y);
 						SPR_setAnim(sprites[7],0);
@@ -422,10 +419,10 @@ datas game(datas Data) {
         VDP_waitVSync();
 
         // ƒfƒoƒbƒOƒRƒ}ƒ“ƒh
-        u16 pad1 =JOY_readJoypad(JOY_1);
-        if ((pad1 & BUTTON_START || Camera.x>goal_in) &&Data.explore_mode==1){
-                   VDP_clearPlan(PLAN_A, TRUE);
-                   VDP_clearPlan(PLAN_B, TRUE);
+//      u16 pad1 =JOY_readJoypad(JOY_1); // @suppress("Symbol is not resolved")
+        if ((pad1 & BUTTON_START || Camera.x>goal_in) &&Data.explore_mode==1){ // @suppress("Suggested parenthesis around expression") // @suppress("Symbol is not resolved")
+                   VDP_clearPlan(PLAN_A, TRUE); // @suppress("Symbol is not resolved")
+                   VDP_clearPlan(PLAN_B, TRUE); // @suppress("Symbol is not resolved")
                    VDP_setHorizontalScroll(PLAN_B, 0);
                    VDP_setVerticalScroll(PLAN_B, 0);
                    VDP_setHorizontalScroll(PLAN_A, 0);
@@ -439,9 +436,9 @@ datas game(datas Data) {
        			Data.gm=AFTERDAY;
        			break;
                }
-        if ((pad1 & BUTTON_START || Camera.x>goal_in) &&Data.explore_mode==0 ){
-            VDP_clearPlan(PLAN_A, TRUE);
-            VDP_clearPlan(PLAN_B, TRUE);
+        if ((pad1 & BUTTON_START || Camera.x>goal_in) &&Data.explore_mode==0 ){ // @suppress("Symbol is not resolved") // @suppress("Suggested parenthesis around expression")
+            VDP_clearPlan(PLAN_A, TRUE); // @suppress("Symbol is not resolved")
+            VDP_clearPlan(PLAN_B, TRUE); // @suppress("Symbol is not resolved")
             VDP_setHorizontalScroll(PLAN_B, 0);
             VDP_setVerticalScroll(PLAN_B, 0);
             VDP_setHorizontalScroll(PLAN_A, 0);
@@ -464,11 +461,11 @@ datas game(datas Data) {
 s16 playerMoveOn(s16 *x,s16 *y,s16 cameraX,s16 cameraY)
 {
 	s16 mode=0;
-	u16 value = JOY_readJoypad(JOY_1);
-	if(value&BUTTON_LEFT){*x-=2;mode=1;}
-	if(value&BUTTON_RIGHT){ *x+=2;mode=1;}
-	if(value&BUTTON_UP){*y-=1;mode=1;}
-	if(value&BUTTON_DOWN){*y+=1;mode=1;}
+	u16 value = JOY_readJoypad(JOY_1); // @suppress("Symbol is not resolved")
+	if(value&BUTTON_LEFT){*x-=2;mode=1;} // @suppress("Symbol is not resolved")
+	if(value&BUTTON_RIGHT){ *x+=2;mode=1;} // @suppress("Symbol is not resolved")
+	if(value&BUTTON_UP){*y-=1;mode=1;} // @suppress("Symbol is not resolved")
+	if(value&BUTTON_DOWN){*y+=1;mode=1;} // @suppress("Symbol is not resolved")
 	//‚Í‚¶‚Á‚±ˆ—
 	if(*y>BOTTOM_HEIGHT) *y=BOTTOM_HEIGHT;
 	if(*y<TOP_HEIGHT) *y=TOP_HEIGHT;
@@ -477,84 +474,16 @@ s16 playerMoveOn(s16 *x,s16 *y,s16 cameraX,s16 cameraY)
 	if(*x>cameraX+320-48) *x=cameraX+320-48;
 	return mode;
 }
-u16 playerButton()
-{
-	s16 num=0;
-	return JOY_readJoypad(JOY_1);
+//u16 playerButton()
+//{
+//	return JOY_readJoypad(JOY_1); // @suppress("Symbol is not resolved")
+//}
 
-}
 //void cameraScroll(fix32 *cameraX,fix32 *playerX)
 //{
 //	*cameraX=cameraX+5;
 //	*playerX-=5;
 //
 //}
-
-//”wŒi‚Ì•`‰æ
-int VDP_BG(
-		VDPPlan PLAN,
-		int PAL,
-		int ind,
-		int type,
-		int tile_x,
-		int tile_y,
-		Image image1,
-		Image image2,
-		Image image3,
-		Image image4,
-		Image image5
-) {
-	Image image;
-
-	// ƒXƒvƒ‰ƒCƒg—Ìˆæ‚ð”ð‚¯‚é
-	if ( ind + image.tileset->numTile > 900
-	  && ind < 1100
-	) {
-		ind = 1100;
-	}
-
-	switch ( type ) {
-	case 1:
-		image = image1;
-		break;
-	case 2:
-		image = image2;
-		break;
-	case 3:
-		image = image3;
-		break;
-	case 4:
-		image = image4;
-		break;
-	case 5:
-		image = image5;
-		break;
-	}
-
-	VDP_drawImageEx(
-			PLAN,
-			&image,
-			TILE_ATTR_FULL(PAL, FALSE, FALSE, FALSE, ind),
-		//	TILE_ATTR_FULL(PAL, FALSE, FALSE, FALSE, 1),
-			tile_x,
-			tile_y,
-			FALSE,
-			TRUE
-	);
-	ind += image.tileset->numTile;
-
-//	if ( ind > 400 && ind < 500 ) {
-//		ind = TILE_USERINDEX;
-//	}
-
-
-//	if ( ind > 1350 ) {
-//		ind = 500;
-//	}
-
-//	text( ind, 0, 2 );
-
-	return ind;
-}
 
 

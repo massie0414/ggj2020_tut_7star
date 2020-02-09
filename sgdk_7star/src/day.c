@@ -1,5 +1,6 @@
 #include <genesis.h>
 #include "resource.h"
+#include "resource_game.h"
 #include "main.h"
 #include "draw_sjis.h"
 #include "game.h"
@@ -18,19 +19,25 @@ datas day(datas Data) {
 
     	u16 pattern = TILE_USERINDEX; // @suppress("Symbol is not resolved")
     	text(Data.date,15,10);
-    	    char str1[] = "“ú–Ú";
-    	    draw_sjis_text(PLAN_A, str1, TILE_ATTR_FULL(PAL0, 0, 0, 0, pattern), 20, 10, 0); // @suppress("Symbol is not resolved")
-    	    pattern +=  strlen(str1) * 2;
+		char str1[] = "“ú–Ú";
+		draw_sjis_text(PLAN_A, str1, TILE_ATTR_FULL(PAL0, 0, 0, 0, pattern), 20, 10, 0); // @suppress("Symbol is not resolved")
+		pattern +=  strlen(str1) * 2;
 
-    	    // fade in
-    	    fadeIn();
+		u16 palette[64];
+		memcpy(&palette[0], Player.palette->data, 16 * 2);
+		memcpy(&palette[16], rock01.palette->data, 16 * 2);
+		memcpy(&palette[32], soradesu_1_image.palette->data, 16 * 2);
+		memcpy(&palette[48], zimensample_1_image.palette->data, 16 * 2);
 
-    	    // VDP process done, we can re enable interrupts
-    	    SYS_enableInts();
+		// fade in
+		fadeIn( palette );
 
-    	    while(1)
-    	    {
-    	    	count++;
+		// VDP process done, we can re enable interrupts
+		SYS_enableInts();
+
+		while(1)
+		{
+			count++;
 
     	    	        pad1 = JOY_readJoypad(JOY_1); // @suppress("Symbol is not resolved")
     	    	        if (pad1 & BUTTON_START // @suppress("Symbol is not resolved") // @suppress("Suggested parenthesis around expression")

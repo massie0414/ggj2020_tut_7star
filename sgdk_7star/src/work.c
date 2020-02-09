@@ -1,5 +1,6 @@
 #include <genesis.h>
 #include "resource.h"
+#include "resource_game.h"
 #include "main.h"
 #include "draw_sjis.h"
 #include "game.h"
@@ -84,8 +85,14 @@ datas work(datas Data) {
     draw_sjis_text(PLAN_A, str22, TILE_ATTR_FULL(PAL0, 0, 0, 0, pattern), 21, 0, 0);
     pattern +=  strlen(str2) * 2;
 
-    // fade in
-    fadeIn();
+	u16 palette[64];
+	memcpy(&palette[0], Player.palette->data, 16 * 2);
+	memcpy(&palette[16], rock01.palette->data, 16 * 2);
+	memcpy(&palette[32], soradesu_1_image.palette->data, 16 * 2);
+	memcpy(&palette[48], zimensample_1_image.palette->data, 16 * 2);
+
+	// fade in
+	fadeIn( palette );
 
     // VDP process done, we can re enable interrupts
     SYS_enableInts();

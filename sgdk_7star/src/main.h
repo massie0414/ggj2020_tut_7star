@@ -1,9 +1,9 @@
 #include <genesis.h>
 
-#define SPRITE_SIZE 8
+#define SPRITE_NUM 64
+#define CAMERA_MOVE 1
 
-// sprites structure (pointer of Sprite)
-Sprite* sprites[SPRITE_SIZE];
+Sprite* sprites[SPRITE_NUM];
 
 enum game_mode {
     LOGO,
@@ -11,8 +11,6 @@ enum game_mode {
 	INIT,
 	DAY,
     GAME,
-	GAME2,
-	GAME3,
 	WORK,
 	AFTERDAY,
 };
@@ -55,8 +53,27 @@ datas init(datas Data);
 datas day(datas Data);
 datas afterDay(datas Data);
 datas game(datas Data);
-datas game2(datas Data);
-datas game3(datas Data);
 datas work(datas Data);
 void text( int num, int x, int y );
-void fadeIn();
+void fadeIn( u16 palette[] );
+int VDP_BG( VDPPlan PLAN,
+		int PAL,
+		int ind,
+		int type,
+		int tile_x,
+		int tile_y,
+		Image image1,
+		Image image2,
+		Image image3,
+		Image image4,
+		Image image5
+);
+
+
+
+struct camera
+{
+	s16 x;
+	s16 y;
+};
+

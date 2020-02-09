@@ -3,6 +3,7 @@
 #include "resource_game.h"
 #include "main.h"
 
+
 const int WAIT = 20;
 
 datas title(datas Data) {
@@ -14,8 +15,8 @@ datas title(datas Data) {
     SND_startPlay_4PCM_ENV(
     		BGM_Sub_8,
             sizeof(BGM_Sub_8),
-            SOUND_PCM_CH1,
-            FALSE
+            SOUND_PCM_CH1, // @suppress("Symbol is not resolved")
+            FALSE // @suppress("Symbol is not resolved")
     );
 
     u16 palette[64];
@@ -29,16 +30,31 @@ datas title(datas Data) {
     int count = 0;
     int y = 18;
 
-    u16 ind = TILE_USERINDEX;
-    VDP_drawImageEx(
-        PLAN_B,
-        &soradesu_image,
-        TILE_ATTR_FULL(PAL0, 0, 0, 0, ind), // @suppress("Symbol is not resolved")
-        0,  // x
-        1,  // y
-        0,
-		1
-    );
+    u16 ind = TILE_USERINDEX; // @suppress("Symbol is not resolved")
+//    VDP_drawImageEx(
+//        PLAN_B,
+//        &soradesu_image,
+//        TILE_ATTR_FULL(PAL0, 0, 0, 0, ind), // @suppress("Symbol is not resolved")
+//        0,  // x
+//        1,  // y
+//        0,
+//		1
+//    );
+
+    int vdp_b_count = 0;
+    int vdp_b_x = 0;
+    ind = VDP_BG( PLAN_B, PAL2, ind, ++vdp_b_count, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image );	vdp_b_count %= 5;	vdp_b_x += 8; vdp_b_x %= 64; // @suppress("Symbol is not resolved")
+    ind = VDP_BG( PLAN_B, PAL2, ind, ++vdp_b_count, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image );	vdp_b_count %= 5;	vdp_b_x += 8; vdp_b_x %= 64; // @suppress("Symbol is not resolved")
+    ind = VDP_BG( PLAN_B, PAL2, ind, ++vdp_b_count, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image );	vdp_b_count %= 5;	vdp_b_x += 8; vdp_b_x %= 64; // @suppress("Symbol is not resolved")
+    ind = VDP_BG( PLAN_B, PAL2, ind, ++vdp_b_count, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image );	vdp_b_count %= 5;	vdp_b_x += 8; vdp_b_x %= 64; // @suppress("Symbol is not resolved")
+    ind = VDP_BG( PLAN_B, PAL2, ind, ++vdp_b_count, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image );	vdp_b_count %= 5;	vdp_b_x += 8; vdp_b_x %= 64; // @suppress("Symbol is not resolved")
+    ind = TILE_USERINDEX; // @suppress("Symbol is not resolved") // @suppress("Symbol is not resolved")
+    ind = VDP_BG( PLAN_B, PAL2, ind, ++vdp_b_count, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image );	vdp_b_count %= 5;	vdp_b_x += 8; vdp_b_x %= 64; // @suppress("Symbol is not resolved")
+
+
+
+
+
     ind += soradesu_image.tileset->numTile;
     VDP_drawImageEx(
         PLAN_A,
@@ -52,9 +68,9 @@ datas title(datas Data) {
     ind += title_image.tileset->numTile;
 
     // prepare palettes
-    memcpy(&palette[0], soradesu_image.palette->data, 16 * 2);
+    memcpy(&palette[0], soradesu_1_image.palette->data, 16 * 2);
     memcpy(&palette[16], title_image.palette->data, 16 * 2);
-    memcpy(&palette[32], title_image.palette->data, 16 * 2);
+    memcpy(&palette[32], soradesu_1_image.palette->data, 16 * 2);
     memcpy(&palette[48], title_image.palette->data, 16 * 2);
 
     // fade in
@@ -63,8 +79,31 @@ datas title(datas Data) {
     // VDP process done, we can re enable interrupts
     SYS_enableInts();
 
+	int bg_b_count = 0;
+    struct camera Camera;
+    Camera.x=0;
+    Camera.y=122;
+
     while(1)
     {
+    	bg_b_count += CAMERA_MOVE;
+
+    	if ( bg_b_count >= 64 * 8 ) {
+    		ind = VDP_BG( PLAN_B, PAL2, ind, ++vdp_b_count, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image ); // @suppress("Symbol is not resolved")
+
+    		vdp_b_count %= 5;
+    		if ( vdp_b_count == 0 ) {
+    			ind = TILE_USERINDEX; // @suppress("Symbol is not resolved")
+    		}
+    		vdp_b_x += 8;
+    		vdp_b_x %= 64;
+    	    bg_b_count -= 64 * 8;
+    	}
+
+    	Camera.x += CAMERA_MOVE;
+		VDP_setHorizontalScroll(PLAN_B,-Camera.x >> 3);
+
+
         count++;
         if ( count >= WAIT ) {
             count = WAIT;
@@ -78,7 +117,6 @@ datas title(datas Data) {
             }
             if (pad1 & BUTTON_DOWN) { // @suppress("Symbol is not resolved")
                 y++;
-
             }
 
             if ( y < 18 ) {
@@ -88,39 +126,6 @@ datas title(datas Data) {
                 y = 20;
             }
 
-            if (pad1 & BUTTON_LEFT) { // @suppress("Symbol is not resolved")
-
-            }
-            if (pad1 & BUTTON_RIGHT) { // @suppress("Symbol is not resolved")
-
-            }
-//            if (pad1 & BUTTON_A) { // @suppress("Symbol is not resolved")
-//                // 効果音を鳴らしてみる
-//                SND_startPlay_4PCM_ENV(
-//                		SE_Explosion_8,
-//                        sizeof(SE_Explosion_8),
-//                        SOUND_PCM_CH2,
-//                        FALSE
-//                );
-//            }
-//            if (pad1 & BUTTON_B) { // @suppress("Symbol is not resolved")
-//                // 効果音を鳴らしてみる
-//                SND_startPlay_4PCM_ENV(
-//                		SE_Footstep_8,
-//                        sizeof(SE_Footstep_8),
-//                        SOUND_PCM_CH3,
-//                        FALSE
-//                );
-//            }
-//            if (pad1 & BUTTON_C) { // @suppress("Symbol is not resolved")
-//                // 効果音を鳴らしてみる
-//                SND_startPlay_4PCM_ENV(
-//                		SE_Footsteps_cave_8,
-//                        sizeof(SE_Footsteps_cave_8),
-//                        SOUND_PCM_CH4,
-//                        FALSE
-//                );
-//            }
             if (pad1 & BUTTON_START // @suppress("Suggested parenthesis around expression") // @suppress("Symbol is not resolved")
              && count >= WAIT
             ) {
@@ -128,8 +133,8 @@ datas title(datas Data) {
                     // ゲームスタート
 
                 	// BGMストップ
-                    if (SND_isPlaying_4PCM_ENV(SOUND_PCM_CH1_MSK)){
-                        SND_stopPlay_4PCM_ENV(SOUND_PCM_CH1);
+                    if (SND_isPlaying_4PCM_ENV(SOUND_PCM_CH1_MSK)){ // @suppress("Symbol is not resolved")
+                        SND_stopPlay_4PCM_ENV(SOUND_PCM_CH1); // @suppress("Symbol is not resolved")
                     }
 
                     VDP_fadeOut(0, (4 * 16) - 1, 20, FALSE); // @suppress("Symbol is not resolved")
