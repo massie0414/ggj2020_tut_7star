@@ -26,6 +26,19 @@ void fadeIn( u16 palette[] ) {
 	);
 }
 
+void fadeOut() {
+	u16 fromcol = 0;	// Start color index for the fade operation (0-63).
+	u16 tocol = (4 * 16) - 1;	// End color index for the fade operation (0-63 and >= fromcol).
+	u16 numframe = 20;
+	u8 async = FALSE; // @suppress("Symbol is not resolved")
+	VDP_fadeOut(
+		fromcol,
+		tocol,
+		numframe,
+		async
+	);
+}
+
 //”wŒi‚Ì•`‰æ
 int VDP_BG(
 		VDPPlan PLAN,
@@ -41,11 +54,6 @@ int VDP_BG(
 		Image image5
 ) {
 	Image image;
-
-	// ƒXƒvƒ‰ƒCƒg—Ìˆæ‚ð”ð‚¯‚é
-	if ( 900 < ind  && ind < 1100 ) {
-		ind = 1100;
-	}
 
 	switch ( type ) {
 	case 0:
@@ -69,25 +77,54 @@ int VDP_BG(
 			PLAN,
 			&image,
 			TILE_ATTR_FULL(PAL, FALSE, FALSE, FALSE, ind), // @suppress("Symbol is not resolved")
-		//	TILE_ATTR_FULL(PAL, FALSE, FALSE, FALSE, 1),
 			tile_x,
 			tile_y,
 			FALSE, // @suppress("Symbol is not resolved")
 			TRUE // @suppress("Symbol is not resolved")
 	);
+
 	ind += image.tileset->numTile;
-
-//	if ( ind > 400 && ind < 500 ) {
-//		ind = TILE_USERINDEX;
-//	}
-
-
-//	if ( ind > 1350 ) {
-//		ind = 500;
-//	}
-
-//	text( ind, 0, 2 );
 
 	return ind;
 }
 
+//s16 playerMoveOn(u16 pad1, s16 *x,s16 *y,s16 cameraX,s16 cameraY)
+//{
+//	s16 mode=0;
+//	if ( pad1 & BUTTON_LEFT ){ // @suppress("Symbol is not resolved")
+//		*x-=2;
+//		mode=1;
+//	}
+//	if ( pad1 & BUTTON_RIGHT ){ // @suppress("Symbol is not resolved")
+//		*x+=2;
+//		mode=1;
+//	}
+//	if ( pad1 & BUTTON_UP ){	// @suppress("Symbol is not resolved")
+//		*y-=1;
+//		mode=1;
+//	}
+//	if ( pad1 & BUTTON_DOWN ){ // @suppress("Symbol is not resolved")
+//		*y+=1;
+//		mode=1;
+//	}
+//
+//	//‚Í‚¶‚Á‚±ˆ—
+//	if ( *y > BOTTOM_HEIGHT ) {
+//		*y = BOTTOM_HEIGHT;
+//	}
+//	if ( *y < TOP_HEIGHT ) {
+//		*y = TOP_HEIGHT;
+//	}
+//	if ( *x < 0 ) {
+//		*x=0;
+//		mode=1;
+//	}
+//	if ( *x < cameraX ) {
+//		*x = cameraX;
+//		mode = 1;
+//	}
+//	if ( *x > cameraX + 320 - 48 ) {
+//		*x = cameraX + 320 - 48;
+//	}
+//	return mode;
+//}

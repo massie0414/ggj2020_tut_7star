@@ -3,6 +3,13 @@
 #define SPRITE_NUM 64
 #define CAMERA_MOVE 1
 
+#define TOP_HEIGHT 124
+#define BOTTOM_HEIGHT 224-48
+#define CAMERA_SCROLL
+#define SCROLL_DIFF 32
+#define SOZAI_SUU 1
+#define HUMMER_RANGE 48
+
 Sprite* sprites[SPRITE_NUM];
 
 enum game_mode {
@@ -56,6 +63,7 @@ datas game(datas Data);
 datas work(datas Data);
 void text( int num, int x, int y );
 void fadeIn( u16 palette[] );
+void fadeOut();
 int VDP_BG( VDPPlan PLAN,
 		int PAL,
 		int ind,
@@ -68,7 +76,13 @@ int VDP_BG( VDPPlan PLAN,
 		Image image4,
 		Image image5
 );
-
+//s16 playerMoveOn(
+//		u16 pad1,
+//		s16 *x,
+//		s16 *y,
+//		s16 cameraX,
+//		s16 cameraY
+//);
 
 
 struct camera

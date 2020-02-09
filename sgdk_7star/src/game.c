@@ -5,13 +5,6 @@
 
 #include "main.h"
 
-#define TOP_HEIGHT 124
-#define BOTTOM_HEIGHT 224-48
-#define CAMERA_SCROLL
-#define SCROLL_DIFF 32
-#define SOZAI_SUU 1
-#define HUMMER_RANGE 48
-
 s16 goal_in=5000;
 
 struct playerScene
@@ -41,31 +34,6 @@ struct irainin
 	s16 y;
 };
 
-s16 playerMoveOn(
-		s16 *x,
-		s16 *y,
-		s16 cameraX,
-		s16 cameraY
-);
-
-//void cameraScroll(
-//		s16 *cameraX,
-//		s16 *playerX
-//);
-
-int VDP_BG(
-		VDPPlan PLAN,
-		int PAL,
-		int ind,
-		int type,
-		int tile_x,
-		int tile_y,
-		Image image1,
-		Image image2,
-		Image image3,
-		Image image4,
-		Image image5
-);
 
 datas game(datas Data) {
 
@@ -125,7 +93,7 @@ datas game(datas Data) {
    );
 
 //  SPR_init();
-    memcpy(&palette[0], Player.palette->data, 16 * 2);
+    memcpy(&palette[0], NPC.palette->data, 16 * 2);
     memcpy(&palette[16], rock01.palette->data, 16 * 2);
     memcpy(&palette[32], soradesu_1_image.palette->data, 16 * 2);
     memcpy(&palette[48], zimensample_1_image.palette->data, 16 * 2);
@@ -249,7 +217,46 @@ datas game(datas Data) {
 			else SPR_setAnim(sprites[0],2);
 
     	}
-    	s16 walkMode=playerMoveOn(&PlayerData.x,&PlayerData.y,Camera.x,Camera.y);
+    //	s16 walkMode=playerMoveOn(pad1, &PlayerData.x,&PlayerData.y,Camera.x,Camera.y);
+
+    	s16 walkMode=0;
+    	if ( pad1 & BUTTON_LEFT ){ // @suppress("Symbol is not resolved")
+    		PlayerData.x-=2;
+    		walkMode=1;
+    	}
+    	if ( pad1 & BUTTON_RIGHT ){ // @suppress("Symbol is not resolved")
+    		PlayerData.x+=2;
+    		walkMode=1;
+    	}
+    	if ( pad1 & BUTTON_UP ){	// @suppress("Symbol is not resolved")
+    		PlayerData.y-=1;
+    		walkMode=1;
+    	}
+    	if ( pad1 & BUTTON_DOWN ){ // @suppress("Symbol is not resolved")
+    		PlayerData.y+=1;
+    		walkMode=1;
+    	}
+
+    	//はじっこ処理
+    	if ( PlayerData.y > BOTTOM_HEIGHT ) {
+    		PlayerData.y = BOTTOM_HEIGHT;
+    	}
+    	if ( PlayerData.y < TOP_HEIGHT ) {
+    		PlayerData.y = TOP_HEIGHT;
+    	}
+    	if ( PlayerData.x < 0 ) {
+    		PlayerData.x=0;
+    		walkMode=1;
+    	}
+    	if ( PlayerData.x < Camera.x ) {
+    		PlayerData.x = Camera.x;
+    		walkMode = 1;
+    	}
+    	if ( PlayerData.x > Camera.x + 320 - 48 ) {
+    		PlayerData.x = Camera.x + 320 - 48;
+    	}
+
+
     	if(walkMode==1 && fightMode!=1) {
     		SPR_setAnim(sprites[0], 1);
 
@@ -426,77 +433,35 @@ datas game(datas Data) {
 				}
 		    }
 
-
-
         SPR_update();
         VDP_waitVSync();
 
         // デバッグコマンド
 //      u16 pad1 =JOY_readJoypad(JOY_1); // @suppress("Symbol is not resolved")
-        if ((pad1 & BUTTON_START || Camera.x>goal_in) &&Data.explore_mode==1){ // @suppress("Suggested parenthesis around expression") // @suppress("Symbol is not resolved")
-                   VDP_clearPlan(PLAN_A, TRUE); // @suppress("Symbol is not resolved")
-                   VDP_clearPlan(PLAN_B, TRUE); // @suppress("Symbol is not resolved")
-                   VDP_setHorizontalScroll(PLAN_B, 0);
-                   VDP_setVerticalScroll(PLAN_B, 0);
-                   VDP_setHorizontalScroll(PLAN_A, 0);
-                   VDP_setVerticalScroll(PLAN_A, 0);
-                   s16 i = 0;
-                   for (i = 0; i < 7; i++) {
-                   	SPR_releaseSprite(sprites[i]);
-                   }
-                   //SPR_end();
-
-       			Data.gm=AFTERDAY;
-       			break;
-               }
-        if ((pad1 & BUTTON_START || Camera.x>goal_in) &&Data.explore_mode==0 ){ // @suppress("Symbol is not resolved") // @suppress("Suggested parenthesis around expression")
-            VDP_clearPlan(PLAN_A, TRUE); // @suppress("Symbol is not resolved")
-            VDP_clearPlan(PLAN_B, TRUE); // @suppress("Symbol is not resolved")
-            VDP_setHorizontalScroll(PLAN_B, 0);
-            VDP_setVerticalScroll(PLAN_B, 0);
-            VDP_setHorizontalScroll(PLAN_A, 0);
-            VDP_setVerticalScroll(PLAN_A, 0);
-            SPR_releaseSprite(sprites[0]);
-            //SPR_end();
-            s16 i = 0;
-            for (i = 0; i < 7; i++) {
-            	SPR_releaseSprite(sprites[i]);
-            }
-
+        if ( ( pad1 & BUTTON_START || Camera.x>goal_in ) && Data.explore_mode==1 ){ // @suppress("Suggested parenthesis around expression") // @suppress("Symbol is not resolved")
+			Data.gm=AFTERDAY;
+			break;
+		}
+        if ( ( pad1 & BUTTON_START || Camera.x>goal_in ) && Data.explore_mode==0 ){ // @suppress("Symbol is not resolved") // @suppress("Suggested parenthesis around expression")
 			Data.gm=WORK;
 			break;
         }
+    }
 
-   }
+    // 後処理
+	VDP_clearPlan(PLAN_A, TRUE); // @suppress("Symbol is not resolved")
+	VDP_clearPlan(PLAN_B, TRUE); // @suppress("Symbol is not resolved")
+	VDP_setHorizontalScroll(PLAN_B, 0);
+	VDP_setVerticalScroll(PLAN_B, 0);
+	VDP_setHorizontalScroll(PLAN_A, 0);
+	VDP_setVerticalScroll(PLAN_A, 0);
+
+	s16 i = 0;
+	for (i = 0; i < SPRITE_NUM; i++) {
+		SPR_releaseSprite(sprites[i]);
+	}
+	SPR_update();
+	fadeOut();
 
     return Data;
 }
-s16 playerMoveOn(s16 *x,s16 *y,s16 cameraX,s16 cameraY)
-{
-	s16 mode=0;
-	u16 value = JOY_readJoypad(JOY_1); // @suppress("Symbol is not resolved")
-	if(value&BUTTON_LEFT){*x-=2;mode=1;} // @suppress("Symbol is not resolved")
-	if(value&BUTTON_RIGHT){ *x+=2;mode=1;} // @suppress("Symbol is not resolved")
-	if(value&BUTTON_UP){*y-=1;mode=1;} // @suppress("Symbol is not resolved")
-	if(value&BUTTON_DOWN){*y+=1;mode=1;} // @suppress("Symbol is not resolved")
-	//はじっこ処理
-	if(*y>BOTTOM_HEIGHT) *y=BOTTOM_HEIGHT;
-	if(*y<TOP_HEIGHT) *y=TOP_HEIGHT;
-	if(*x<0){*x=0; mode=1;}
-	if(*x<cameraX){*x=cameraX; mode=1;}
-	if(*x>cameraX+320-48) *x=cameraX+320-48;
-	return mode;
-}
-//u16 playerButton()
-//{
-//	return JOY_readJoypad(JOY_1); // @suppress("Symbol is not resolved")
-//}
-
-//void cameraScroll(fix32 *cameraX,fix32 *playerX)
-//{
-//	*cameraX=cameraX+5;
-//	*playerX-=5;
-//
-//}
-
-

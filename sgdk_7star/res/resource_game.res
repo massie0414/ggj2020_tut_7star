@@ -5,7 +5,6 @@ SPRITE jump_coin "Picture/jump_coin.png" 1 4 LZ4W 5 NONE SPRITE 100
 SPRITE ki "Picture/ki2.png" 6 6 LZ4W 5 NONE SPRITE 100
 SPRITE ice "Picture/koori3.png" 4 4 LZ4W 5 NONE SPRITE 100
 
-IMAGE soradesu_image "gfx/soradesu.png" LZ4W
 IMAGE soradesu_1_image "gfx/soradesu_1.png" LZ4W
 IMAGE soradesu_2_image "gfx/soradesu_2.png" LZ4W
 IMAGE soradesu_3_image "gfx/soradesu_3.png" LZ4W

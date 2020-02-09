@@ -3,7 +3,7 @@
 #include "resource_game.h"
 #include "main.h"
 #include "draw_sjis.h"
-#include "game.h"
+
 const int WHAIT2 = 180;
 
 datas afterDay(datas Data) {
@@ -36,27 +36,32 @@ datas afterDay(datas Data) {
 	// fade in
 	fadeIn( palette );
 
-		// VDP process done, we can re enable interrupts
-		SYS_enableInts();
+	// VDP process done, we can re enable interrupts
+	SYS_enableInts();
 
-    	    while(1)
-    	    {
-    	    	count++;
+	while(1)
+	{
+		count++;
 
-    	    	        pad1 = JOY_readJoypad(JOY_1); // @suppress("Symbol is not resolved")
-    	    	        if (pad1 & BUTTON_START || count > WHAIT2) {
-    	    	            Data.gm = DAY;
+		pad1 = JOY_readJoypad(JOY_1); // @suppress("Symbol is not resolved")
+		if (pad1 & BUTTON_START // @suppress("Symbol is not resolved")
+		 || count > WHAIT2
+		) {
+			Data.gm = DAY;
 
-    	    	            VDP_fadeOut(0, (4 * 16) - 1, 20, FALSE); // @suppress("Symbol is not resolved")
-    	                    VDP_clearPlan(PLAN_A, TRUE); // @suppress("Symbol is not resolved")
-    	                    VDP_clearPlan(PLAN_B, TRUE); // @suppress("Symbol is not resolved")
+			fadeOut();
 
-    	                    Data.date ++;
+			VDP_clearPlan(PLAN_A, TRUE); // @suppress("Symbol is not resolved")
+			VDP_clearPlan(PLAN_B, TRUE); // @suppress("Symbol is not resolved")
 
-	    	            break;
-    	    	        }
-    	        VDP_waitVSync();
-    	    }
+			Data.date ++;
+
+			break;
+		}
+
+		VDP_waitVSync();
+	}
+
     return Data;
 }
 

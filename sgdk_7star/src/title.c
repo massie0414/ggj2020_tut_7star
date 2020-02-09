@@ -38,10 +38,7 @@ datas title(datas Data) {
     ind = VDP_BG( PLAN_B, PAL2, ind, vdp_b_count++, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image );	vdp_b_count %= 5;	vdp_b_x += 8; vdp_b_x %= 64; // @suppress("Symbol is not resolved")
     ind = VDP_BG( PLAN_B, PAL2, ind, vdp_b_count++, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image );	vdp_b_count %= 5;	vdp_b_x += 8; vdp_b_x %= 64; // @suppress("Symbol is not resolved")
     ind = VDP_BG( PLAN_B, PAL2, ind, vdp_b_count++, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image );	vdp_b_count %= 5;	vdp_b_x += 8; vdp_b_x %= 64; // @suppress("Symbol is not resolved")
-    ind = TILE_USERINDEX; // @suppress("Symbol is not resolved") // @suppress("Symbol is not resolved")
-    ind = VDP_BG( PLAN_B, PAL2, ind, vdp_b_count++, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image );	vdp_b_count %= 5;	vdp_b_x += 8; vdp_b_x %= 64; // @suppress("Symbol is not resolved")
 
-    ind += soradesu_image.tileset->numTile;
     VDP_drawImageEx(
         PLAN_A,
         &title_image,
@@ -51,7 +48,9 @@ datas title(datas Data) {
         0,
 		1
     );
-    ind += title_image.tileset->numTile;
+
+    ind = TILE_USERINDEX; // @suppress("Symbol is not resolved") // @suppress("Symbol is not resolved")
+    ind = VDP_BG( PLAN_B, PAL2, ind, vdp_b_count++, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image );	vdp_b_count %= 5;	vdp_b_x += 8; vdp_b_x %= 64; // @suppress("Symbol is not resolved")
 
     // prepare palettes
     memcpy(&palette[0], soradesu_1_image.palette->data, 16 * 2);

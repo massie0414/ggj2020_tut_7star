@@ -9,7 +9,6 @@ extern const SpriteDefinition NPC;
 extern const SpriteDefinition jump_coin;
 extern const SpriteDefinition ki;
 extern const SpriteDefinition ice;
-extern const Image soradesu_image;
 extern const Image soradesu_1_image;
 extern const Image soradesu_2_image;
 extern const Image soradesu_3_image;
