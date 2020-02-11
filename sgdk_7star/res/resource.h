@@ -8,8 +8,26 @@ extern const u8 SE_Footstep_8[4352];
 extern const u8 SE_Footsteps_cave_8[108544];
 extern const u8 SE_Punch_8[6912];
 extern const u8 SE_Hammer_8[20480];
+extern const u8 Punch_wav[17664];
+extern const u8 Explosion_wav[133120];
 extern const TileSet sjis_font;
+extern const SpriteDefinition Player;
+extern const SpriteDefinition rock01;
+extern const SpriteDefinition NPC;
+extern const SpriteDefinition jump_coin;
+extern const SpriteDefinition ki;
+extern const SpriteDefinition ice;
 extern const Image logo16;
 extern const Image title_image;
+extern const Image soradesu_1_image;
+extern const Image soradesu_2_image;
+extern const Image soradesu_3_image;
+extern const Image soradesu_4_image;
+extern const Image soradesu_5_image;
+extern const Image zimensample_1_image;
+extern const Image zimensample_2_image;
+extern const Image zimensample_3_image;
+extern const Image zimensample_4_image;
+extern const Image zimensample_5_image;
 
 #endif // _RES_RESOURCE_H_

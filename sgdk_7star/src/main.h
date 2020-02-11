@@ -1,9 +1,32 @@
 #include <genesis.h>
 
-#define SPRITE_SIZE 8
+#define WIDTH 320
+#define HEIGHT 224
 
-// sprites structure (pointer of Sprite)
-Sprite* sprites[SPRITE_SIZE];
+#define PLAYER_WIDTH 48
+#define PLAYER_HEIGHT 48
+
+#define SPRITE_NUM 64
+#define CAMERA_MOVE 1
+
+#define TOP_HEIGHT 124
+#define BOTTOM_HEIGHT 224-48
+#define CAMERA_SCROLL
+#define SCROLL_DIFF 32
+#define SOZAI_SUU 1
+#define HUMMER_RANGE 48
+
+Sprite* sprites[SPRITE_NUM];
+
+// 0:player
+// 1:NPC
+// 2:Šâ1
+// 3:
+// 4:
+// 5:
+// 6:
+
+
 
 enum game_mode {
     LOGO,
@@ -11,8 +34,6 @@ enum game_mode {
 	INIT,
 	DAY,
     GAME,
-	GAME2,
-	GAME3,
 	WORK,
 	AFTERDAY,
 };
@@ -55,8 +76,26 @@ datas init(datas Data);
 datas day(datas Data);
 datas afterDay(datas Data);
 datas game(datas Data);
-datas game2(datas Data);
-datas game3(datas Data);
 datas work(datas Data);
 void text( int num, int x, int y );
-void fadeIn();
+void fadeIn( u16 palette[] );
+void fadeOut();
+int VDP_BG( VDPPlan PLAN,
+		int PAL,
+		int ind,
+		int type,
+		int tile_x,
+		int tile_y,
+		Image image1,
+		Image image2,
+		Image image3,
+		Image image4,
+		Image image5
+);
+
+struct camera
+{
+	s16 x;
+	s16 y;
+};
+

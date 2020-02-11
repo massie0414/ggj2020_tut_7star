@@ -1,6 +1,5 @@
 #include <genesis.h>
 #include "resource.h"
-#include "resource_game.h"
 #include "main.h"
 
 int main() {
@@ -21,15 +20,15 @@ int main() {
 
     // BGMÇÃèâä˙âª
     SND_setVolume_4PCM_ENV(
-            SOUND_PCM_CH1,
+            SOUND_PCM_CH1, // @suppress("Symbol is not resolved")
             15    // Volume to set : 16 possible level from 0 (minimum) to 15 (maximum).
     );
     SND_setVolume_4PCM_ENV(
-            SOUND_PCM_CH2,
+            SOUND_PCM_CH2, // @suppress("Symbol is not resolved")
             15    // Volume to set : 16 possible level from 0 (minimum) to 15 (maximum).
     );
     SND_setVolume_4PCM_ENV(
-            SOUND_PCM_CH3,
+            SOUND_PCM_CH3, // @suppress("Symbol is not resolved")
             15    // Volume to set : 16 possible level from 0 (minimum) to 15 (maximum).
     );
     SND_setVolume_4PCM_ENV(
@@ -60,12 +59,6 @@ int main() {
         	break;
         case GAME:
         	Data = game(Data);
-            break;
-        case GAME2:
-        	Data = game2(Data);
-            break;
-        case GAME3:
-        	Data = game3(Data);
             break;
         case WORK:
         	Data=work(Data);

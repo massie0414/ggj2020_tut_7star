@@ -16,8 +16,11 @@ datas logo(datas Data){
 
     int count = 0;
 
-    u16 x = 15;
-    u16 y = 10;
+    // ‚¢‚Á‚½‚ñˆÃ‚­‚·‚é
+	VDP_fadeOut(0,63,1,FALSE); // @suppress("Symbol is not resolved")
+
+    u16 x = 12;
+    u16 y = 6;
     u16 loadpal = FALSE; // @suppress("Symbol is not resolved")
     TransferMethod tm = TRUE; // @suppress("Symbol is not resolved")
     VDP_drawImageEx(
@@ -43,7 +46,7 @@ datas logo(datas Data){
     memcpy(&palette[48], logo16.palette->data, 16 * 2);
 
     // fade in
-    VDP_fadeIn(0, (4 * 16) - 1, palette, 20, FALSE); // @suppress("Symbol is not resolved")
+    fadeIn( palette );
 
     // VDP process done, we can re enable interrupts
     SYS_enableInts();
@@ -65,33 +68,6 @@ datas logo(datas Data){
             break;
         }
 
-//        if (pad1 & BUTTON_A) { // @suppress("Symbol is not resolved")
-//            // Œø‰Ê‰¹‚ð–Â‚ç‚µ‚Ä‚Ý‚é
-//            SND_startPlay_4PCM_ENV(
-//            		SE_Punch_8,
-//                    sizeof(SE_Punch_8),
-//                    SOUND_PCM_CH2,
-//                    FALSE
-//            );
-//        }
-//        if (pad1 & BUTTON_B) { // @suppress("Symbol is not resolved")
-//            // Œø‰Ê‰¹‚ð–Â‚ç‚µ‚Ä‚Ý‚é
-//            SND_startPlay_4PCM_ENV(
-//            		SE_Explosion_8,
-//                    sizeof(SE_Explosion_8),
-//                    SOUND_PCM_CH3,
-//                    FALSE
-//            );
-//        }
-//        if (pad1 & BUTTON_C) { // @suppress("Symbol is not resolved")
-//            // Œø‰Ê‰¹‚ð–Â‚ç‚µ‚Ä‚Ý‚é
-//            SND_startPlay_4PCM_ENV(
-//            		SE_Hammer_8,
-//                    sizeof(SE_Hammer_8),
-//                    SOUND_PCM_CH3,
-//                    FALSE
-//            );
-//        }
         VDP_waitVSync();
     }
     return Data;

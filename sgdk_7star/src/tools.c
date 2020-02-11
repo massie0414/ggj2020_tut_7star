@@ -1,6 +1,5 @@
 #include <genesis.h>
 #include "resource.h"
-#include "resource_game.h"
 #include "main.h"
 
 void text( int num, int x, int y ) {
@@ -12,15 +11,7 @@ void text( int num, int x, int y ) {
     VDP_drawText(texts[ num /  10000 % 10 ], x+0, y);
 }
 
-void fadeIn() {
-
-    u16 palette[64];
-
-//    memcpy(&palette[ 0], test2.palette->data, 16 * 2);
-//    memcpy(&palette[16], bgb_image.palette->data, 16 * 2);
-//    memcpy(&palette[32], bga_image.palette->data, 16 * 2);
-//    memcpy(&palette[48], sonic_sprite.palette->data, 16 * 2);
-
+void fadeIn( u16 palette[] ) {
     u16 fromcol = 0;
     u16 tocol = (4 * 16) - 1;
     u16 numframe = 20;
@@ -32,4 +23,66 @@ void fadeIn() {
 		numframe,
 		async
 	);
+}
+
+void fadeOut() {
+	u16 fromcol = 0;	// Start color index for the fade operation (0-63).
+	u16 tocol = (4 * 16) - 1;	// End color index for the fade operation (0-63 and >= fromcol).
+	u16 numframe = 20;
+	u8 async = FALSE; // @suppress("Symbol is not resolved")
+	VDP_fadeOut(
+		fromcol,
+		tocol,
+		numframe,
+		async
+	);
+}
+
+//”wŒi‚Ì•`‰æ
+int VDP_BG(
+		VDPPlan PLAN,
+		int PAL,
+		int ind,
+		int type,
+		int tile_x,
+		int tile_y,
+		Image image1,
+		Image image2,
+		Image image3,
+		Image image4,
+		Image image5
+) {
+	Image image;
+
+	switch ( type ) {
+	case 0:
+		image = image1;
+		break;
+	case 1:
+		image = image2;
+		break;
+	case 2:
+		image = image3;
+		break;
+	case 3:
+		image = image4;
+		break;
+	case 4:
+		image = image5;
+		break;
+	}
+
+	VDP_drawImageEx(
+			PLAN,
+			&image,
+			TILE_ATTR_FULL(PAL, FALSE, FALSE, FALSE, ind), // @suppress("Symbol is not resolved")
+			tile_x,
+			tile_y,
+			FALSE, // @suppress("Symbol is not resolved")
+			TRUE // @suppress("Symbol is not resolved")
+	);
+
+	ind += image.tileset->numTile;
+
+	return ind;
 }

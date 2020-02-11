@@ -1,6 +1,5 @@
 #include <genesis.h>
 #include "main.h"
-#include "game.h"
 
 datas init(datas Data)
 {
