@@ -6,10 +6,10 @@ datas init(datas Data)
 	//enum game_mode gm;
 	Data.gm = INIT;
 
-	Data.water=100;
-	Data.stone=100;
-	Data.metal=100;
-	Data.wood=100;
+	Data.water=0;
+	Data.stone=0;
+	Data.metal=0;
+	Data.wood=0;
 
 	Data.attack=1;
 

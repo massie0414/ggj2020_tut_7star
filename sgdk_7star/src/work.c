@@ -303,11 +303,8 @@ datas work(datas Data) {
 			}
 		}
 
-		text(x, 35,0);
-		text(y, 35,1);
-
-	    VDP_drawText(">", x, y);
-        VDP_waitVSync();
-    }
-    return Data;
+		VDP_drawText(">", x, y);
+		VDP_waitVSync();
+	}
+	return Data;
 }

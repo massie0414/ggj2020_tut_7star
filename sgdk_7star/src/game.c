@@ -17,9 +17,13 @@ struct sozai
 	s16 x;
 	s16 y;
 	char showed;	// 表示
-	char broke;
-	s16 genso[4];
+//	char broke;
+	s16 water;
+	s16 stone;
+	s16 metal;
+	s16 wood;
 	s16 HP;
+	s16 width;
 };
 
 struct irainin
@@ -47,26 +51,27 @@ datas game(datas Data) {
 	struct camera Camera;
 	Camera.x=0;
 	Camera.y=122;
-	u16 tests[SOZAI_SUU][10]=
-	{
-			//item_id,   x,   y,showed,broke, water, stone, metal,  wood, HP
-			{       1, 400, 180, FALSE,FALSE,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
-			{       2, 500, 180, FALSE,FALSE,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
-			{       3, 600, 180, FALSE,FALSE,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
-			{       4, 700, 180, FALSE,FALSE,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
-			{       5, 800, 180, FALSE,FALSE,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
-			{       6, 900, 180, FALSE,FALSE,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
-			{       7,1000, 180, FALSE,FALSE,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
-			{       8,1100, 180, FALSE,FALSE,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
-			{       9,1200, 180, FALSE,FALSE,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
-			{      10,1300, 180, FALSE,FALSE,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
-			{      11,1400, 180, FALSE,FALSE,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
-			{      12,1500, 180, FALSE,FALSE,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
-			{      13,1600, 180, FALSE,FALSE,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
-			{      14,1700, 180, FALSE,FALSE,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
-			{      15,1800, 180, FALSE,FALSE,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
-			{      16,1900, 180, FALSE,FALSE,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
-	};
+//	u16 tests[3][10]=
+//	{
+//			//item_id,   x,   y,showed,broke, water, stone, metal,  wood, HP
+//			{       1, 400, 170,     0,    0,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
+//			{       2, 500, 180,     0,    0,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
+//			{       3, 600, 180,     0,    0,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
+//			{       4,1400, 170,     0,    0,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
+//			{       5,1500, 170,     0,    0,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
+//			{       6,1600, 180,     0,    0,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
+//			{       7,1200, 190,     0,    0,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
+//			{       8,1300, 200,     0,    0,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
+//			{       9,1400, 170,     0,    0,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
+//			{      10,1300, 180,     0,    0,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
+//			{      11,1400, 190,     0,    0,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
+//			{      12,1500, 200,     0,    0,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
+//			{      13,1600, 170,     0,    0,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
+//			{      14,1700, 180,     0,    0,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
+//			{      15,1800, 190,     0,    0,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
+//			{      16,1900, 200,     0,    0,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
+//	};
+
 	u16 NPCs[1][5]=
 	{
 			//アイテムID,個数,報酬,   X,   Y
@@ -74,19 +79,22 @@ datas game(datas Data) {
 	};
 
 	struct sozai Sozais[SOZAI_SUU];
-	for(s16 i;i<SOZAI_SUU;i++)
+	for(s16 i=0;i<SOZAI_SUU;i++)
 	{
-		Sozais[i].item_id = tests[i][0];
-		Sozais[i].x = tests[i][1];
-		Sozais[i].y = tests[i][2];
-		Sozais[i].showed=tests[i][3];
-		Sozais[i].broke=tests[i][4];
-		Sozais[i].genso[0]=tests[i][5];
-		Sozais[i].genso[1]=tests[i][6];
-		Sozais[i].genso[2]=tests[i][7];
-		Sozais[i].genso[3]=tests[i][8];
-		Sozais[i].HP=tests[i][9];
+//		Sozais[i].item_id = tests[i][0];
+//		Sozais[i].x = tests[i][1];
+//		Sozais[i].y = tests[i][2];
+//		Sozais[i].showed=tests[i][3];
+//		Sozais[i].broke=tests[i][4];
+//		Sozais[i].genso[0]=tests[i][5];
+//		Sozais[i].genso[1]=tests[i][6];
+//		Sozais[i].genso[2]=tests[i][7];
+//		Sozais[i].genso[3]=tests[i][8];
+//		Sozais[i].HP=tests[i][9];
+
+		Sozais[i].showed=0;
 	}
+	s16 next_sozai = SOZAI_SUU;
 
 	Data.gm = GAME;
 
@@ -108,18 +116,6 @@ datas game(datas Data) {
 	// プレイヤー
 	sprites[0] = SPR_addSprite(&Player, 0, 0, TILE_ATTR(PAL0, TRUE, FALSE, FALSE)); // @suppress("Symbol is not resolved")
 	SPR_setPosition(sprites[0], 0 ,0);
-
-	// 岩
-	for (s16 i = 0; i < SOZAI_SUU; i++) {
-		Sozais[i].showed =1;
-
-		sprites[i+3] = SPR_addSprite(
-				&rock01,
-				Sozais[i].x-Camera.x,
-				Sozais[i].y,
-				TILE_ATTR(PAL1, TRUE, FALSE, FALSE) // @suppress("Symbol is not resolved")
-		);
-	}
 
 	// 背景B
 	int vdp_b_count = 0;
@@ -345,17 +341,187 @@ datas game(datas Data) {
 			PlayerData.y
 		);
 
+		text( next_sozai, 30, 0 );
+		text( Sozais[0].item_id, 30, 1 );
+		text( Sozais[0].x      , 30, 2 );
+
 		// 素材
 		for ( s16 i = 0; i < SOZAI_SUU; i++ ) {
-			if ( Sozais[i].broke == 1 ) {
-				// 壊れていたら処理しない
-				continue;
+
+//			if ( Sozais[i].broke == 1 && next_sozai < 16 ) {
+//				Sozais[i].item_id = tests[3][0];
+//				Sozais[i].x       = tests[3][1];
+//				Sozais[i].y       = tests[3][2];
+//				Sozais[i].showed  = tests[3][3];
+//				Sozais[i].broke   = tests[3][4];
+//				Sozais[i].genso[0]= tests[3][5];
+//				Sozais[i].genso[1]= tests[3][6];
+//				Sozais[i].genso[2]= tests[3][7];
+//				Sozais[i].genso[3]= tests[3][8];
+//				Sozais[i].HP      = tests[3][9];
+//				next_sozai++;
+//			}
+
+			// 生成
+			if ( Sozais[i].showed == 0 ) {
+
+				Sozais[i].item_id = (int)random() % 16 + 1;
+				Sozais[i].x = WIDTH + Camera.x + (int)random() % 128;
+				Sozais[i].y = 160 + (int)random() % 24;
+
+				switch ( Sozais[i].item_id ) {
+				case ITEM_ID_KI01:
+					// 木の苗
+					sprites[i+1] = SPR_addSprite(&ki01,Sozais[i].x-Camera.x,Sozais[i].y,TILE_ATTR(PAL1, TRUE, FALSE, FALSE)); // @suppress("Symbol is not resolved")
+					Sozais[i].width = 32;
+					Sozais[i].water = 0;
+					Sozais[i].stone = 0;
+					Sozais[i].metal = 0;
+					Sozais[i].wood = 1;
+					break;
+				case ITEM_ID_KI02:
+					// 木（小）
+					sprites[i+1] = SPR_addSprite(&ki02,Sozais[i].x-Camera.x,Sozais[i].y,TILE_ATTR(PAL1, TRUE, FALSE, FALSE)); // @suppress("Symbol is not resolved")
+					Sozais[i].width = 32;
+					Sozais[i].water = 0;
+					Sozais[i].stone = 0;
+					Sozais[i].metal = 0;
+					Sozais[i].wood = 5;
+					break;
+				case ITEM_ID_KI03:
+					// 木（中）
+					sprites[i+1] = SPR_addSprite(&ki03,Sozais[i].x-Camera.x,Sozais[i].y,TILE_ATTR(PAL1, TRUE, FALSE, FALSE)); // @suppress("Symbol is not resolved")
+					Sozais[i].width = 32;
+					Sozais[i].water = 1;
+					Sozais[i].stone = 0;
+					Sozais[i].metal = 0;
+					Sozais[i].wood = 20;
+					break;
+				case ITEM_ID_KI04:
+					// 木（大）
+					sprites[i+1] = SPR_addSprite(&ki04,Sozais[i].x-Camera.x,Sozais[i].y,TILE_ATTR(PAL1, TRUE, FALSE, FALSE)); // @suppress("Symbol is not resolved")
+					Sozais[i].width = 32;
+					Sozais[i].water = 5;
+					Sozais[i].stone = 0;
+					Sozais[i].metal = 0;
+					Sozais[i].wood = 50;
+					break;
+				case ITEM_ID_KINNZANN01:
+					// 金山
+					sprites[i+1] = SPR_addSprite(&kinnzann01,Sozais[i].x-Camera.x,Sozais[i].y,TILE_ATTR(PAL1, TRUE, FALSE, FALSE)); // @suppress("Symbol is not resolved")
+					Sozais[i].width = 32;
+					Sozais[i].water = 0;
+					Sozais[i].stone = 30;
+					Sozais[i].metal = 15;
+					Sozais[i].wood = 30;
+					break;
+				case ITEM_ID_koori01:
+					// 氷（小）
+					sprites[i+1] = SPR_addSprite(&koori01,Sozais[i].x-Camera.x,Sozais[i].y,TILE_ATTR(PAL1, TRUE, FALSE, FALSE)); // @suppress("Symbol is not resolved")
+					Sozais[i].width = 32;
+					Sozais[i].water = 1;
+					Sozais[i].stone = 0;
+					Sozais[i].metal = 0;
+					Sozais[i].wood = 0;
+					break;
+				case ITEM_ID_koori02:
+					// 氷（中）
+					sprites[i+1] = SPR_addSprite(&koori02,Sozais[i].x-Camera.x,Sozais[i].y,TILE_ATTR(PAL1, TRUE, FALSE, FALSE)); // @suppress("Symbol is not resolved")
+					Sozais[i].width = 32;
+					Sozais[i].water = 5;
+					Sozais[i].stone = 0;
+					Sozais[i].metal = 0;
+					Sozais[i].wood = 0;
+					break;
+				case ITEM_ID_koori03:
+					// 氷（大）
+					sprites[i+1] = SPR_addSprite(&koori02,Sozais[i].x-Camera.x,Sozais[i].y,TILE_ATTR(PAL1, TRUE, FALSE, FALSE)); // @suppress("Symbol is not resolved")
+					Sozais[i].width = 32;
+					Sozais[i].water = 20;
+					Sozais[i].stone = 0;
+					Sozais[i].metal = 0;
+					Sozais[i].wood = 0;
+					break;
+				case ITEM_ID_KOUMYAKU01:
+					// 鉱脈（小）
+					sprites[i+1] = SPR_addSprite(&koumyaku01,Sozais[i].x-Camera.x,Sozais[i].y,TILE_ATTR(PAL1, TRUE, FALSE, FALSE)); // @suppress("Symbol is not resolved")
+					Sozais[i].width = 32;
+					Sozais[i].water = 0;
+					Sozais[i].stone = 0;
+					Sozais[i].metal = 5;
+					Sozais[i].wood = 0;
+					break;
+				case ITEM_ID_KOUMYAKU02:
+					// 鉱脈（中）
+					sprites[i+1] = SPR_addSprite(&koumyaku02,Sozais[i].x-Camera.x,Sozais[i].y,TILE_ATTR(PAL1, TRUE, FALSE, FALSE)); // @suppress("Symbol is not resolved")
+					Sozais[i].width = 32;
+					Sozais[i].water = 0;
+					Sozais[i].stone = 0;
+					Sozais[i].metal = 10;
+					Sozais[i].wood = 0;
+					break;
+				case ITEM_ID_MIZU01:
+					// 池（小）
+					sprites[i+1] = SPR_addSprite(&mizu01,Sozais[i].x-Camera.x,Sozais[i].y,TILE_ATTR(PAL1, TRUE, FALSE, FALSE)); // @suppress("Symbol is not resolved")
+					Sozais[i].width = 32;
+					Sozais[i].water = 5;
+					Sozais[i].stone = 0;
+					Sozais[i].metal = 0;
+					Sozais[i].wood = 0;
+					break;
+				case ITEM_ID_MIZU02:
+					// 池（大）
+					sprites[i+1] = SPR_addSprite(&mizu02,Sozais[i].x-Camera.x,Sozais[i].y,TILE_ATTR(PAL1, TRUE, FALSE, FALSE)); // @suppress("Symbol is not resolved")
+					Sozais[i].width = 32;
+					Sozais[i].water = 20;
+					Sozais[i].stone = 0;
+					Sozais[i].metal = 0;
+					Sozais[i].wood = 0;
+					break;
+				case ITEM_ID_ROCK01:
+					// 岩（小）
+					sprites[i+1] = SPR_addSprite(&rock01,Sozais[i].x-Camera.x,Sozais[i].y,TILE_ATTR(PAL1, TRUE, FALSE, FALSE)); // @suppress("Symbol is not resolved")
+					Sozais[i].width = 32;
+					Sozais[i].water = 0;
+					Sozais[i].stone = 5;
+					Sozais[i].metal = 0;
+					Sozais[i].wood = 0;
+					break;
+				case ITEM_ID_ROCK02:
+					// 岩（中）
+					sprites[i+1] = SPR_addSprite(&rock02,Sozais[i].x-Camera.x,Sozais[i].y,TILE_ATTR(PAL1, TRUE, FALSE, FALSE)); // @suppress("Symbol is not resolved")
+					Sozais[i].width = 32;
+					Sozais[i].water = 0;
+					Sozais[i].stone = 20;
+					Sozais[i].metal = 0;
+					Sozais[i].wood = 0;
+					break;
+				case ITEM_ID_ROCK03:
+					// 岩（大）
+					sprites[i+1] = SPR_addSprite(&rock03,Sozais[i].x-Camera.x,Sozais[i].y,TILE_ATTR(PAL1, TRUE, FALSE, FALSE)); // @suppress("Symbol is not resolved")
+					Sozais[i].width = 32;
+					Sozais[i].water = 0;
+					Sozais[i].stone = 50;
+					Sozais[i].metal = 0;
+					Sozais[i].wood = 0;
+					break;
+				case ITEM_ID_TETUKUZU01:
+					// 鉄くず
+					sprites[i+1] = SPR_addSprite(&tetukuzu01,Sozais[i].x-Camera.x,Sozais[i].y,TILE_ATTR(PAL1, TRUE, FALSE, FALSE)); // @suppress("Symbol is not resolved")
+					Sozais[i].width = 32;
+					Sozais[i].water = 0;
+					Sozais[i].stone = 0;
+					Sozais[i].metal = 1;
+					Sozais[i].wood = 0;
+					break;
+				}
+				Sozais[i].showed = 1;
 			}
 
 			if ( Sozais[i].showed == 1 ) {
 				// 素材を移動する
 				SPR_setPosition(
-					sprites[i+3],
+					sprites[i+1],
 					(Sozais[i].x-Camera.x),
 					Sozais[i].y
 				);
@@ -383,23 +549,23 @@ datas game(datas Data) {
 									FALSE 			// @suppress("Symbol is not resolved")
 							);
 
-							Data.water += Sozais[i].genso[0];
-							Data.stone += Sozais[i].genso[1];
-							Data.metal += Sozais[i].genso[2];
-							Data.wood  += Sozais[i].genso[3];
+							Data.water += Sozais[i].water;
+							Data.stone += Sozais[i].stone;
+							Data.metal += Sozais[i].metal;
+							Data.wood  += Sozais[i].wood;
 
 							// スプライトの消滅
-							SPR_releaseSprite(sprites[i+3]);
-							Sozais[i].broke=1;
+							SPR_releaseSprite(sprites[i+1]);
+							Sozais[i].showed = 0;
 						}
 					}
 				}
 
 				// 画面外
-				if ( Sozais[i].x < Camera.x && Sozais[i].broke == 0 ) {
+				if ( Sozais[i].x + Sozais[i].width - Camera.x < 0 && Sozais[i].showed == 1 ) {
 					// スプライトの消滅
-					SPR_releaseSprite(sprites[i+3]);
-					Sozais[i].broke=1;
+					SPR_releaseSprite(sprites[i+1]);
+					Sozais[i].showed = 0;
 				}
 			}
 		}
