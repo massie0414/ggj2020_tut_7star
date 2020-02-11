@@ -61,7 +61,10 @@ int main() {
         	Data = game(Data);
             break;
         case WORK:
-        	Data=work(Data);
+        	Data = work(Data);
+        	break;
+        case HOW_TO_PLAY:
+        	Data = howToPlay(Data);
         	break;
         }
     }

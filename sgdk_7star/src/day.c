@@ -9,6 +9,11 @@ datas day(datas Data) {
 
 	SYS_disableInts();
 
+	VDP_setWindowHPos(FALSE, 0); // @suppress("Symbol is not resolved")
+	VDP_setWindowVPos(FALSE, 0); // @suppress("Symbol is not resolved")
+	VDP_setTextPlan(PLAN_A);
+	VDP_setTextPriority(TRUE); // @suppress("Symbol is not resolved")
+
 	Data.gm = DAY;
 	Data.explore_mode=0;
 	u16 pad1;
@@ -16,9 +21,35 @@ datas day(datas Data) {
 	int count = 0;
 
 	u16 pattern = TILE_USERINDEX; // @suppress("Symbol is not resolved")
-	text(Data.date,15,10);
-	char str1[] = "“ú–Ú";
-	draw_sjis_text(PLAN_A, str1, TILE_ATTR_FULL(PAL0, 0, 0, 0, pattern), 20, 10, 0); // @suppress("Symbol is not resolved")
+//	text(Data.date,15,10);
+
+	char *str1;
+
+	switch ( Data.date ) {
+	case 1:
+		str1 = "‚P“ú–Ú";
+		break;
+	case 2:
+		str1 = "‚Q“ú–Ú";
+		break;
+	case 3:
+		str1 = "‚R“ú–Ú";
+		break;
+	case 4:
+		str1 = "‚S“ú–Ú";
+		break;
+	case 5:
+		str1 = "‚T“ú–Ú";
+		break;
+	case 6:
+		str1 = "‚U“ú–Ú";
+		break;
+	case 7:
+		str1 = "ÅI“ú";
+		break;
+	}
+
+	draw_sjis_text(PLAN_A, str1, TILE_ATTR_FULL(PAL0, 0, 0, 0, pattern), 17, 10, 0); // @suppress("Symbol is not resolved")
 	pattern +=  strlen(str1) * 2;
 
 	u16 palette[64];

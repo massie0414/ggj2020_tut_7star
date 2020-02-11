@@ -105,8 +105,8 @@ datas title(datas Data) {
             if ( y < 18 ) {
                 y = 18;
             }
-            else if ( y > 20 ) {
-                y = 20;
+            else if ( y > 19 ) {
+                y = 19;
             }
 
             if (pad1 & BUTTON_START // @suppress("Suggested parenthesis around expression") // @suppress("Symbol is not resolved")
@@ -114,24 +114,13 @@ datas title(datas Data) {
             ) {
                 if ( y == 18 ) {
                     // ゲームスタート
-
-                	// BGMストップ
-                    if (SND_isPlaying_4PCM_ENV(SOUND_PCM_CH1_MSK)){ // @suppress("Symbol is not resolved")
-                        SND_stopPlay_4PCM_ENV(SOUND_PCM_CH1); // @suppress("Symbol is not resolved")
-                    }
-
-                    VDP_fadeOut(0, (4 * 16) - 1, 20, FALSE); // @suppress("Symbol is not resolved")
-
-                    VDP_clearPlan(PLAN_A, TRUE); // @suppress("Symbol is not resolved")
-                    VDP_clearPlan(PLAN_B, TRUE); // @suppress("Symbol is not resolved")
                     Data.gm = INIT;
                     break;
                 }
                 else if ( y == 19 ) {
-
-                }
-                else if ( y == 20 ) {
-
+                	// 遊び方
+                    Data.gm = HOW_TO_PLAY;
+                    break;
                 }
             }
         }
@@ -144,12 +133,26 @@ datas title(datas Data) {
 
         VDP_drawText("GAME START ", 23, 18);
         VDP_drawText("HOW TO PLAY", 23, 19);
-        VDP_drawText("CREDIT"     , 23, 20);
 
-        VDP_drawText("(C)2020 7STAR", 22, 22);
+        VDP_drawText("(C)2020 7STAR", 22, 21);
 
         VDP_waitVSync();
     }
+
+    // 後処理
+	// BGMストップ
+    if (SND_isPlaying_4PCM_ENV(SOUND_PCM_CH1_MSK)){ // @suppress("Symbol is not resolved")
+        SND_stopPlay_4PCM_ENV(SOUND_PCM_CH1); // @suppress("Symbol is not resolved")
+    }
+
+    // 背景クリア
+    VDP_clearPlan(PLAN_A, TRUE); // @suppress("Symbol is not resolved")
+    VDP_clearPlan(PLAN_B, TRUE); // @suppress("Symbol is not resolved")
+	VDP_setHorizontalScroll(PLAN_B, 0);
+	VDP_setVerticalScroll(PLAN_B, 0);
+	VDP_setHorizontalScroll(PLAN_A, 0);
+	VDP_setVerticalScroll(PLAN_A, 0);
+    fadeOut();
 
     return Data;
 }

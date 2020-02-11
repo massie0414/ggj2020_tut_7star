@@ -13,11 +13,25 @@ WAV SE_Hammer_8 "sound/SE_Hammer_8.wav" XGM
 TILESET sjis_font "sjis_font.png" 0
 
 SPRITE Player "Picture/bouanim.png" 6 6 LZ4W 5 NONE SPRITE 100
-SPRITE rock01 "Picture/rock01.png" 4 4 LZ4W 5 NONE SPRITE 100
-SPRITE NPC "Picture/NPCanim.png" 6 6 LZ4W 5 NONE SPRITE 100
+SPRITE fukidashi "Picture/fukidashi.png" 8 4 LZ4W 5 NONE SPRITE 100
 SPRITE jump_coin "Picture/jump_coin.png" 1 4 LZ4W 5 NONE SPRITE 100
-SPRITE ki "Picture/ki2.png" 6 6 LZ4W 5 NONE SPRITE 100
-SPRITE ice "Picture/koori3.png" 4 4 LZ4W 5 NONE SPRITE 100
+SPRITE ki01 "Picture/ki01.png" 2 2 LZ4W 5 NONE SPRITE 100
+SPRITE ki02 "Picture/ki02.png" 3 3 LZ4W 5 NONE SPRITE 100
+SPRITE ki03 "Picture/ki03.png" 6 6 LZ4W 5 NONE SPRITE 100
+SPRITE ki04 "Picture/ki04.png" 8 8 LZ4W 5 NONE SPRITE 100
+SPRITE kinnzann01 "Picture/kinnzann01.png" 4 4 LZ4W 5 NONE SPRITE 100
+SPRITE koori01 "Picture/koori01.png" 4 4 LZ4W 5 NONE SPRITE 100
+SPRITE koori02 "Picture/koori02.png" 4 4 LZ4W 5 NONE SPRITE 100
+SPRITE koori03 "Picture/koori03.png" 4 4 LZ4W 5 NONE SPRITE 100
+SPRITE koumyaku01 "Picture/koumyaku01.png" 3 3 LZ4W 5 NONE SPRITE 100
+SPRITE koumyaku02 "Picture/koumyaku02.png" 4 4 LZ4W 5 NONE SPRITE 100
+SPRITE mizu01 "Picture/mizu01.png" 4 4 LZ4W 5 NONE SPRITE 100
+SPRITE mizu02 "Picture/mizu02.png" 8 8 LZ4W 5 NONE SPRITE 100
+SPRITE NPC "Picture/NPCanim.png" 6 6 LZ4W 5 NONE SPRITE 100
+SPRITE rock01 "Picture/rock01.png" 4 4 LZ4W 5 NONE SPRITE 100
+SPRITE rock02 "Picture/rock01.png" 4 4 LZ4W 5 NONE SPRITE 100
+SPRITE rock03 "Picture/rock01.png" 4 4 LZ4W 5 NONE SPRITE 100
+SPRITE tetukuzu01 "Picture/tetukuzu01.png" 2 2 LZ4W 5 NONE SPRITE 100
 
 IMAGE soradesu_1_image "gfx/soradesu_1.png" LZ4W
 IMAGE soradesu_2_image "gfx/soradesu_2.png" LZ4W
@@ -54,6 +68,10 @@ IMAGE zimensample_5_image "gfx/zimensample_5.png" LZ4W
 #IMAGE doukutuzimen_3_image "gfx/doukutuzimen_3.png" LZ4W
 #IMAGE doukutuzimen_4_image "gfx/doukutuzimen_4.png" LZ4W
 #IMAGE doukutuzimen_5_image "gfx/doukutuzimen_5.png" LZ4W
+
+IMAGE how_to_play_image "gfx/HowToPlay.png" LZ4W
+#IMAGE sorayuugata "gfx/sorayuugata.png" LZ4W
+#IMAGE zimenyuugata "gfx/zimenyuugata.png" LZ4W
 
 WAV Punch_wav "Sound/SE_Punch.wav" XGM
 WAV Explosion_wav "Sound/SE_Explosion.wav" XGM

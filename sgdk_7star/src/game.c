@@ -13,7 +13,7 @@ struct playerScene
 
 struct sozai
 {
-	char name[64];
+	s16 item_id;
 	s16 x;
 	s16 y;
 	char showed;	// 表示
@@ -26,7 +26,6 @@ struct irainin
 {
 	s16 amount;
 	s16 item_id;
-	char name[64];
 	s16 reward;
 	s16 x;
 	s16 y;
@@ -37,47 +36,56 @@ datas game(datas Data) {
 
 	SYS_disableInts();
 
+	VDP_setWindowHPos(FALSE, 0); // @suppress("Symbol is not resolved")
+	VDP_setWindowVPos(FALSE, 5); // @suppress("Symbol is not resolved")
+	VDP_setTextPlan(PLAN_WINDOW);
+	VDP_setTextPriority(TRUE); // @suppress("Symbol is not resolved")
+
 	struct playerScene PlayerData;
 	PlayerData.x=0;
 	PlayerData.y=122;
 	struct camera Camera;
 	Camera.x=0;
 	Camera.y=122;
-	u16 tests[SOZAI_SUU][9]=
+	u16 tests[SOZAI_SUU][10]=
 	{
-			//  x,   y,showed,broke,genso1,genso2,genso3,genso4,HP
-			{ 400, 180, FALSE,FALSE,     1,     2,     4,     8, 60 } // @suppress("Symbol is not resolved")
+			//item_id,   x,   y,showed,broke, water, stone, metal,  wood, HP
+			{       1, 400, 180, FALSE,FALSE,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
+			{       2, 500, 180, FALSE,FALSE,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
+			{       3, 600, 180, FALSE,FALSE,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
+			{       4, 700, 180, FALSE,FALSE,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
+			{       5, 800, 180, FALSE,FALSE,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
+			{       6, 900, 180, FALSE,FALSE,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
+			{       7,1000, 180, FALSE,FALSE,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
+			{       8,1100, 180, FALSE,FALSE,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
+			{       9,1200, 180, FALSE,FALSE,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
+			{      10,1300, 180, FALSE,FALSE,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
+			{      11,1400, 180, FALSE,FALSE,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
+			{      12,1500, 180, FALSE,FALSE,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
+			{      13,1600, 180, FALSE,FALSE,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
+			{      14,1700, 180, FALSE,FALSE,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
+			{      15,1800, 180, FALSE,FALSE,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
+			{      16,1900, 180, FALSE,FALSE,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
 	};
-	char tests_name[SOZAI_SUU][64]=
+	u16 NPCs[1][5]=
 	{
-			"てごろないわ"
-	};
-	u16 NPCs[7][5]=
-	{
-			//アイテムID/個数/報酬/X/Y
-			{1,1,100, 400, 124}
-	};
-	char NPCsItemName[7][64]=
-	{
-			"ハンマー"
+			//アイテムID,個数,報酬,   X,   Y
+			{        1,  1,100, 400, 124}
 	};
 
 	struct sozai Sozais[SOZAI_SUU];
 	for(s16 i;i<SOZAI_SUU;i++)
 	{
-		for(s16 h;h<64;h++)
-		{
-			Sozais[i].name[h]=tests_name[i][h];
-		}
-		Sozais[i].x = tests[i][0];
-		Sozais[i].y = tests[i][1];
-		Sozais[i].showed=tests[i][2];
-		Sozais[i].broke=tests[i][3];
-		Sozais[i].genso[0]=tests[i][4];
-		Sozais[i].genso[1]=tests[i][5];
-		Sozais[i].genso[2]=tests[i][6];
-		Sozais[i].genso[3]=tests[i][7];
-		Sozais[i].HP=tests[i][8];
+		Sozais[i].item_id = tests[i][0];
+		Sozais[i].x = tests[i][1];
+		Sozais[i].y = tests[i][2];
+		Sozais[i].showed=tests[i][3];
+		Sozais[i].broke=tests[i][4];
+		Sozais[i].genso[0]=tests[i][5];
+		Sozais[i].genso[1]=tests[i][6];
+		Sozais[i].genso[2]=tests[i][7];
+		Sozais[i].genso[3]=tests[i][8];
+		Sozais[i].HP=tests[i][9];
 	}
 
 	Data.gm = GAME;
@@ -102,13 +110,16 @@ datas game(datas Data) {
 	SPR_setPosition(sprites[0], 0 ,0);
 
 	// 岩
-	Sozais[0].showed =1;
-	sprites[3] = SPR_addSprite(
-			&rock01,
-			Sozais[0].x-Camera.x,
-			Sozais[0].y,
-			TILE_ATTR(PAL1, TRUE, FALSE, FALSE) // @suppress("Symbol is not resolved")
-	);
+	for (s16 i = 0; i < SOZAI_SUU; i++) {
+		Sozais[i].showed =1;
+
+		sprites[i+3] = SPR_addSprite(
+				&rock01,
+				Sozais[i].x-Camera.x,
+				Sozais[i].y,
+				TILE_ATTR(PAL1, TRUE, FALSE, FALSE) // @suppress("Symbol is not resolved")
+		);
+	}
 
 	// 背景B
 	int vdp_b_count = 0;
@@ -137,6 +148,22 @@ datas game(datas Data) {
 	// 追加背景A
 	VDP_BG( PLAN_A, PAL3, ind_a[vdp_a_count], vdp_a_count, vdp_a_x, 0, zimensample_1_image, zimensample_2_image, zimensample_3_image, zimensample_4_image, zimensample_5_image );	vdp_a_count++;	vdp_a_count %= 5;	vdp_a_x += 8; vdp_a_x %= 64; // @suppress("Symbol is not resolved")
 
+    char str19[] = "水";
+    draw_sjis_text(PLAN_WINDOW, str19, TILE_ATTR_FULL(PAL0, 0, 0, 0, ind), 0, 0, 0); // @suppress("Symbol is not resolved")
+    ind +=  strlen(str19) * 2;
+
+    char str20[] = "木";
+    draw_sjis_text(PLAN_WINDOW, str20, TILE_ATTR_FULL(PAL0, 0, 0, 0, ind), 7, 0, 0); // @suppress("Symbol is not resolved")
+    ind +=  strlen(str20) * 2;
+
+    char str21[] = "鉄";
+    draw_sjis_text(PLAN_WINDOW, str21, TILE_ATTR_FULL(PAL0, 0, 0, 0, ind), 14, 0, 0); // @suppress("Symbol is not resolved")
+    ind +=  strlen(str21) * 2;
+
+    char str22[] = "石";
+    draw_sjis_text(PLAN_WINDOW, str22, TILE_ATTR_FULL(PAL0, 0, 0, 0, ind), 21, 0, 0); // @suppress("Symbol is not resolved")
+    ind +=  strlen(str22) * 2;
+
 	SYS_enableInts();
 
 	fadeIn( palette );
@@ -152,9 +179,6 @@ datas game(datas Data) {
 	s16 Irainin_showed=0;
 	struct irainin Irainins[1];
 	for (s16 i = 0; i < 1; i++ ) {
-		for ( s16 h = 0; h < 64; h++ ) {
-			Irainins[i].name[h] = NPCsItemName[i][h];
-		}
 		Irainins[i].item_id = NPCs[i][0];
 		Irainins[i].amount = NPCs[i][1];
 		Irainins[i].reward = NPCs[i][2];
@@ -164,13 +188,15 @@ datas game(datas Data) {
 	s16 completedSwitch = 0;
 
 	// コイン
-	sprites[7]=SPR_addSprite(
-			&jump_coin,
-			350,
-			0,
-			TILE_ATTR(PAL0, TRUE, FALSE, FALSE) // @suppress("Symbol is not resolved")
-	);
+//	sprites[7]=SPR_addSprite(
+//			&jump_coin,
+//			350,
+//			0,
+//			TILE_ATTR(PAL0, TRUE, FALSE, FALSE) // @suppress("Symbol is not resolved")
+//	);
 	s16 coin_time=0;
+
+	int action = PLAYER_PUNCH;
 
 	while ( TRUE ) { // @suppress("Symbol is not resolved")
 		bg_b_count += CAMERA_MOVE;
@@ -196,6 +222,12 @@ datas game(datas Data) {
 			bg_a_count -= 64;
 		}
 
+		// 素材数
+		text(Data.water, 0,2);
+		text(Data.wood , 7,2);
+		text(Data.metal,14,2);
+		text(Data.stone,21,2);
+
 		u16 pad1 = JOY_readJoypad(JOY_1);	// @suppress("Symbol is not resolved")
 
 		if( ( pad1 & BUTTON_A ) && fightMode == 0 ) {	// @suppress("Symbol is not resolved")
@@ -208,12 +240,25 @@ datas game(datas Data) {
 			);
 
 			fightMode=1;
-			fightModeTimer=30;
 			if ( Data.hammer > 0 ) {
-				SPR_setAnim(sprites[0],3);
+				action = PLAYER_HAMMER;
+				fightModeTimer=30;
+			}
+			else if ( Data.bucket > 0 ) {
+				action = PLAYER_BUCKET;
+				fightModeTimer=25;
+			}
+			else if ( Data.bomb > 0 ) {
+				action = PLAYER_BOMB;
+				fightModeTimer=30;
+			}
+			else if ( Data.saw > 0 ) {
+				action = PLAYER_SAW;
+				fightModeTimer=30;
 			}
 			else {
-				SPR_setAnim(sprites[0],2);
+				action = PLAYER_PUNCH;
+				fightModeTimer=30;
 			}
 		}
 
@@ -257,7 +302,7 @@ datas game(datas Data) {
 
 		if ( walkMode == 1 && fightMode != 1 ) {
 			// 歩いている
-			SPR_setAnim(sprites[0], 1);
+			SPR_setAnim(sprites[0], PLAYER_WALK);
 
 			// 30フレームに１回、足音を鳴らす
 			if ( walk_count == 0 ) {
@@ -277,13 +322,13 @@ datas game(datas Data) {
 		}
 		else if ( fightMode != 1 && walkMode != 1 ) {
 			// 止まっている
-			SPR_setAnim(sprites[0], 0);
+			SPR_setAnim(sprites[0], PLAYER_WAIT);
 			walk_count = 0;
 		}
 		else if ( fightMode == 1 ) {
 			// 攻撃
 			fightModeTimer--;
-			SPR_setAnim(sprites[0],2);
+			SPR_setAnim(sprites[0],action);
 			if ( fightModeTimer <= 0 ) {
 				fightMode = 0;
 			}
@@ -338,10 +383,10 @@ datas game(datas Data) {
 									FALSE 			// @suppress("Symbol is not resolved")
 							);
 
-							Data.water=Sozais[i].genso[0];
-							Data.stone=Sozais[i].genso[1];
-							Data.metal=Sozais[i].genso[2];
-							Data.wood=Sozais[i].genso[3];
+							Data.water += Sozais[i].genso[0];
+							Data.stone += Sozais[i].genso[1];
+							Data.metal += Sozais[i].genso[2];
+							Data.wood  += Sozais[i].genso[3];
 
 							// スプライトの消滅
 							SPR_releaseSprite(sprites[i+3]);
@@ -365,7 +410,7 @@ datas game(datas Data) {
 
 			//依頼人
 			if ( Camera.x >= 0 && Irainin_showed != 1 ) {
-				sprites[6] = SPR_addSprite(
+				sprites[17] = SPR_addSprite(
 						&NPC,
 						Irainins[Data.date-1].x,
 						Irainins[Data.date-1].y,
@@ -375,7 +420,7 @@ datas game(datas Data) {
 			}
 			if ( Irainin_showed == 1 ) {
 				SPR_setPosition(
-					sprites[6],
+					sprites[17],
 					Irainins[Data.date-1].x - Camera.x,	// カメラ移動を意識するため、毎フレーム処理
 					Irainins[Data.date-1].y
 				);
@@ -383,7 +428,7 @@ datas game(datas Data) {
 
 			// 画面外にいったらリリース
 			if ( Irainins[Data.date-1].x - Camera.x + PLAYER_WIDTH < 0){
-				SPR_releaseSprite(sprites[6]);
+				SPR_releaseSprite(sprites[17]);
 			}
 
 			//プレイヤーの依頼人関係処理
@@ -433,11 +478,11 @@ datas game(datas Data) {
 				if ( ans == 1 ) {
 					// 依頼人の欲しいものを持っていた
 					Data.hammer -= Irainins[Data.date-1].amount;
-					Data.money += Irainins[Data.date-1].reward;
+					Data.money -= Irainins[Data.date-1].reward;
 					Data.addMoney += Irainins[Data.date-1].reward;
 
 					// 喜んでいるアニメーション
-					SPR_setAnim(sprites[6],1);
+					SPR_setAnim(sprites[17],1);
 
 					// 効果音（コイン）
 					SND_startPlay_4PCM_ENV(
@@ -448,8 +493,8 @@ datas game(datas Data) {
 					);
 
 					// コイン
-					SPR_setPosition(sprites[7],PlayerData.x,PlayerData.y);
-					SPR_setAnim(sprites[7],0);
+					SPR_setPosition(sprites[18],PlayerData.x,PlayerData.y);
+					SPR_setAnim(sprites[18],0);
 					coin_time = 30;
 				}
 				completedSwitch = 1;
@@ -461,7 +506,7 @@ datas game(datas Data) {
 
 			if ( coin_time == 1 ) {
 				coin_time--;
-				SPR_setPosition(sprites[7],350,0);
+				SPR_setPosition(sprites[18],350,0);
 			}
 		}
 
