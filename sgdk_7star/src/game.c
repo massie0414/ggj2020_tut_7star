@@ -341,9 +341,9 @@ datas game(datas Data) {
 			PlayerData.y
 		);
 
-		text( next_sozai, 30, 0 );
-		text( Sozais[0].item_id, 30, 1 );
-		text( Sozais[0].x      , 30, 2 );
+//		text( next_sozai, 30, 0 );
+//		text( Sozais[0].item_id, 30, 1 );
+//		text( Sozais[0].x      , 30, 2 );
 
 		// 素材
 		for ( s16 i = 0; i < SOZAI_SUU; i++ ) {
@@ -378,6 +378,7 @@ datas game(datas Data) {
 					Sozais[i].stone = 0;
 					Sozais[i].metal = 0;
 					Sozais[i].wood = 1;
+					Sozais[i].HP = 15;
 					break;
 				case ITEM_ID_KI02:
 					// 木（小）
@@ -387,6 +388,7 @@ datas game(datas Data) {
 					Sozais[i].stone = 0;
 					Sozais[i].metal = 0;
 					Sozais[i].wood = 5;
+					Sozais[i].HP = 60;
 					break;
 				case ITEM_ID_KI03:
 					// 木（中）
@@ -396,6 +398,7 @@ datas game(datas Data) {
 					Sozais[i].stone = 0;
 					Sozais[i].metal = 0;
 					Sozais[i].wood = 20;
+					Sozais[i].HP = 150;
 					break;
 				case ITEM_ID_KI04:
 					// 木（大）
@@ -405,6 +408,7 @@ datas game(datas Data) {
 					Sozais[i].stone = 0;
 					Sozais[i].metal = 0;
 					Sozais[i].wood = 50;
+					Sozais[i].HP = 300;
 					break;
 				case ITEM_ID_KINNZANN01:
 					// 金山
@@ -414,6 +418,7 @@ datas game(datas Data) {
 					Sozais[i].stone = 30;
 					Sozais[i].metal = 15;
 					Sozais[i].wood = 30;
+					Sozais[i].HP = 100;
 					break;
 				case ITEM_ID_koori01:
 					// 氷（小）
@@ -423,6 +428,7 @@ datas game(datas Data) {
 					Sozais[i].stone = 0;
 					Sozais[i].metal = 0;
 					Sozais[i].wood = 0;
+					Sozais[i].HP = 10;
 					break;
 				case ITEM_ID_koori02:
 					// 氷（中）
@@ -432,6 +438,7 @@ datas game(datas Data) {
 					Sozais[i].stone = 0;
 					Sozais[i].metal = 0;
 					Sozais[i].wood = 0;
+					Sozais[i].HP = 30;
 					break;
 				case ITEM_ID_koori03:
 					// 氷（大）
@@ -441,6 +448,7 @@ datas game(datas Data) {
 					Sozais[i].stone = 0;
 					Sozais[i].metal = 0;
 					Sozais[i].wood = 0;
+					Sozais[i].HP = 60;
 					break;
 				case ITEM_ID_KOUMYAKU01:
 					// 鉱脈（小）
@@ -450,6 +458,7 @@ datas game(datas Data) {
 					Sozais[i].stone = 0;
 					Sozais[i].metal = 5;
 					Sozais[i].wood = 0;
+					Sozais[i].HP = 150;
 					break;
 				case ITEM_ID_KOUMYAKU02:
 					// 鉱脈（中）
@@ -459,6 +468,7 @@ datas game(datas Data) {
 					Sozais[i].stone = 0;
 					Sozais[i].metal = 10;
 					Sozais[i].wood = 0;
+					Sozais[i].HP = 500;
 					break;
 				case ITEM_ID_MIZU01:
 					// 池（小）
@@ -468,15 +478,17 @@ datas game(datas Data) {
 					Sozais[i].stone = 0;
 					Sozais[i].metal = 0;
 					Sozais[i].wood = 0;
+					Sozais[i].HP = 30;
 					break;
 				case ITEM_ID_MIZU02:
 					// 池（大）
 					sprites[i+1] = SPR_addSprite(&mizu02,Sozais[i].x-Camera.x,Sozais[i].y,TILE_ATTR(PAL1, TRUE, FALSE, FALSE)); // @suppress("Symbol is not resolved")
 					Sozais[i].width = 32;
 					Sozais[i].water = 20;
-					Sozais[i].stone = 0;
+					Sozais[i].stone = 1;
 					Sozais[i].metal = 0;
 					Sozais[i].wood = 0;
+					Sozais[i].HP = 60;
 					break;
 				case ITEM_ID_ROCK01:
 					// 岩（小）
@@ -486,6 +498,7 @@ datas game(datas Data) {
 					Sozais[i].stone = 5;
 					Sozais[i].metal = 0;
 					Sozais[i].wood = 0;
+					Sozais[i].HP = 60;
 					break;
 				case ITEM_ID_ROCK02:
 					// 岩（中）
@@ -495,6 +508,7 @@ datas game(datas Data) {
 					Sozais[i].stone = 20;
 					Sozais[i].metal = 0;
 					Sozais[i].wood = 0;
+					Sozais[i].HP = 150;
 					break;
 				case ITEM_ID_ROCK03:
 					// 岩（大）
@@ -504,6 +518,7 @@ datas game(datas Data) {
 					Sozais[i].stone = 50;
 					Sozais[i].metal = 0;
 					Sozais[i].wood = 0;
+					Sozais[i].HP = 300;
 					break;
 				case ITEM_ID_TETUKUZU01:
 					// 鉄くず
@@ -513,6 +528,7 @@ datas game(datas Data) {
 					Sozais[i].stone = 0;
 					Sozais[i].metal = 1;
 					Sozais[i].wood = 0;
+					Sozais[i].HP = 30;
 					break;
 				}
 				Sozais[i].showed = 1;
