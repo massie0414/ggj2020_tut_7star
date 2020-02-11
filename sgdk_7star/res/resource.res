@@ -12,9 +12,6 @@ WAV SE_Hammer_8 "sound/SE_Hammer_8.wav" XGM
 
 TILESET sjis_font "sjis_font.png" 0
 
-
-
-
 SPRITE Player "Picture/bouanim.png" 6 6 LZ4W 5 NONE SPRITE 100
 SPRITE rock01 "Picture/rock01.png" 4 4 LZ4W 5 NONE SPRITE 100
 SPRITE NPC "Picture/NPCanim.png" 6 6 LZ4W 5 NONE SPRITE 100
