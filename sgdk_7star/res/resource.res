@@ -1,14 +1,15 @@
 IMAGE logo16 "gfx/logo16.png" -1
 IMAGE title_image "gfx/title.png" 0 0
 
-WAV BGM_short_01_8 "Sound/BGM_short_01_8.wav" XGM
-WAV BGM_Sub_8 "Sound/BGM_Sub_8.wav" XGM
+WAV BGM_Main_short_8 "Sound/BGM_Main_short_8.wav" 4PCM
+#WAV BGM_short_01_8 "Sound/BGM_short_01_8.wav" 4PCM
+#WAV BGM_Sub_8 "Sound/BGM_Sub_8.wav" 4PCM
 
-WAV SE_Explosion_8 "Sound/SE_Explosion_8.wav" XGM
-WAV SE_Footstep_8 "Sound/SE_Footstep_8.wav" XGM
-WAV SE_Footsteps_cave_8 "Sound/SE_Footsteps_cave_8.wav" XGM
-WAV SE_Punch_8 "Sound/SE_Punch_8.wav" XGM
-WAV SE_Hammer_8 "sound/SE_Hammer_8.wav" XGM
+WAV SE_Explosion_8 "Sound/SE_Explosion_8.wav" 4PCM
+WAV SE_Footstep_8 "Sound/SE_Footstep_8.wav" 4PCM
+WAV SE_Footsteps_cave_8 "Sound/SE_Footsteps_cave_8.wav" 4PCM
+WAV SE_Punch_8 "Sound/SE_Punch_8.wav" 4PCM
+WAV SE_Hammer_8 "sound/SE_Hammer_8.wav" 4PCM
 
 TILESET sjis_font "sjis_font.png" 0
 
@@ -72,8 +73,4 @@ IMAGE zimensample_5_image "gfx/zimensample_5.png" LZ4W
 IMAGE how_to_play_image "gfx/HowToPlay.png" LZ4W
 #IMAGE sorayuugata "gfx/sorayuugata.png" LZ4W
 #IMAGE zimenyuugata "gfx/zimenyuugata.png" LZ4W
-
-WAV Punch_wav "Sound/SE_Punch.wav" XGM
-WAV Explosion_wav "Sound/SE_Explosion.wav" XGM
-
 

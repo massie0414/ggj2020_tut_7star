@@ -12,10 +12,10 @@ datas title(datas Data) {
 
     // start music
     SND_startPlay_4PCM_ENV(
-    		BGM_Sub_8,
-            sizeof(BGM_Sub_8),
+    		BGM_Main_short_8,
+            sizeof(BGM_Main_short_8),
             SOUND_PCM_CH1, // @suppress("Symbol is not resolved")
-            FALSE // @suppress("Symbol is not resolved")
+            TRUE // @suppress("Symbol is not resolved")
     );
 
     u16 palette[64];

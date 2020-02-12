@@ -102,8 +102,8 @@ datas game(datas Data) {
 
 	// BGMçƒê∂
 	SND_startPlay_4PCM_ENV(
-		BGM_Sub_8,
-		sizeof(BGM_Sub_8),
+		BGM_Main_short_8,
+		sizeof(BGM_Main_short_8),
 		SOUND_PCM_CH1,	// @suppress("Symbol is not resolved")
 		TRUE 			// @suppress("Symbol is not resolved")
 	);
@@ -229,8 +229,8 @@ datas game(datas Data) {
 		if( ( pad1 & BUTTON_A ) && fightMode == 0 ) {	// @suppress("Symbol is not resolved")
 			// å¯â âπÅiçUåÇÅj
 			SND_startPlay_4PCM_ENV(
-				Punch_wav,
-				sizeof(Punch_wav),
+				SE_Punch_8,
+				sizeof(SE_Punch_8),
 				SOUND_PCM_CH2,	// @suppress("Symbol is not resolved")
 				FALSE 			// @suppress("Symbol is not resolved")
 			);
