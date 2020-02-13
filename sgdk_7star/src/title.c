@@ -7,16 +7,16 @@ const int WAIT = 20;
 
 datas title(datas Data) {
 
-    // VDPアクセス時の割り込みを無効にする
-    SYS_disableInts();
+	// VDPアクセス時の割り込みを無効にする
+	SYS_disableInts();
 
-    // start music
-    SND_startPlay_4PCM_ENV(
-    		BGM_Main_short_8,
-            sizeof(BGM_Main_short_8),
-            SOUND_PCM_CH1, // @suppress("Symbol is not resolved")
-            TRUE // @suppress("Symbol is not resolved")
-    );
+	// start music
+	SND_startPlay_4PCM_ENV(
+			BGM_Main_8,
+			sizeof(BGM_Main_8),
+			SOUND_PCM_CH1, // @suppress("Symbol is not resolved")
+			TRUE // @suppress("Symbol is not resolved")
+	);
 
     u16 palette[64];
 

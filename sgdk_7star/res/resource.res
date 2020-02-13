@@ -1,9 +1,9 @@
 IMAGE logo16 "gfx/logo16.png" -1
 IMAGE title_image "gfx/title.png" 0 0
 
-WAV BGM_Main_short_8 "Sound/BGM_Main_short_8.wav" 4PCM
-#WAV BGM_short_01_8 "Sound/BGM_short_01_8.wav" 4PCM
-#WAV BGM_Sub_8 "Sound/BGM_Sub_8.wav" 4PCM
+WAV BGM_Main_8 "Sound/BGM_Main_8.wav" 4PCM
+WAV BGM_Sub_8 "Sound/BGM_Sub_8.wav" 4PCM
+WAV BGM_short_8 "Sound/BGM_short_8.wav" 4PCM
 
 WAV SE_Explosion_8 "Sound/SE_Explosion_8.wav" 4PCM
 WAV SE_Footstep_8 "Sound/SE_Footstep_8.wav" 4PCM
