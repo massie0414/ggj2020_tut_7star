@@ -323,26 +323,8 @@ datas game(datas Data) {
 			PlayerData.y
 		);
 
-//		text( next_sozai, 30, 0 );
-//		text( Sozais[0].item_id, 30, 1 );
-//		text( Sozais[0].x      , 30, 2 );
-
 		// ëfçﬁ
 		for ( s16 i = 0; i < SOZAI_SUU; i++ ) {
-
-//			if ( Sozais[i].broke == 1 && next_sozai < 16 ) {
-//				Sozais[i].item_id = tests[3][0];
-//				Sozais[i].x       = tests[3][1];
-//				Sozais[i].y       = tests[3][2];
-//				Sozais[i].showed  = tests[3][3];
-//				Sozais[i].broke   = tests[3][4];
-//				Sozais[i].genso[0]= tests[3][5];
-//				Sozais[i].genso[1]= tests[3][6];
-//				Sozais[i].genso[2]= tests[3][7];
-//				Sozais[i].genso[3]= tests[3][8];
-//				Sozais[i].HP      = tests[3][9];
-//				next_sozai++;
-//			}
 
 			// ê∂ê¨
 			if ( Sozais[i].showed == 0 && next_x < WIDTH + Camera.x ) {
