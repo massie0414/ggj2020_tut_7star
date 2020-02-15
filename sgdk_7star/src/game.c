@@ -504,7 +504,7 @@ datas game(datas Data) {
 				// ‘fŞ‚ğˆÚ“®‚·‚é
 				SPR_setPosition(
 					sprites[i+1],
-					(Sozais[i].x-Camera.x),
+					(Sozais[i].x-Camera.x) + Sozais[i].HP % 5,	// ƒ_ƒ[ƒW‚ğó‚¯‚½‚Ì—h‚ê
 					Sozais[i].y
 				);
 
