@@ -17,7 +17,6 @@ struct sozai
 	s16 x;
 	s16 y;
 	char showed;	// •\Ž¦
-//	char broke;
 	s16 water;
 	s16 stone;
 	s16 metal;
@@ -372,7 +371,7 @@ datas game(datas Data) {
 
 				Sozais[i].item_id = (int)random() % 16 + 1;
 				Sozais[i].x = WIDTH + Camera.x + (int)random() % 128;
-				Sozais[i].y = 160 + (int)random() % 24;
+				Sozais[i].y = 150 + (int)random() % 24;
 
 				switch ( Sozais[i].item_id ) {
 				case ITEM_ID_KI01:
