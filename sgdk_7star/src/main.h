@@ -118,6 +118,7 @@ int VDP_BG( VDPPlan PLAN,
 		Image image4,
 		Image image5
 );
+float sqrt( float s );
 
 struct camera
 {

@@ -91,3 +91,17 @@ int VDP_BG(
 
 	return ind;
 }
+
+// (C) ç]ìYó∫
+float sqrt( float s )
+{
+	float x = s / 2.0 ; // Is there any better way to determine initial value?
+	float last_x = 0.0 ; // the value one before the last step
+    while ( x != last_x ) // until the difference is not significant
+    { // apply Babylonian method step
+        last_x = x ;
+        x = (x + s / x) / 2.0 ;
+    }
+
+    return x ;
+}

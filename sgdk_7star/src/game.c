@@ -511,11 +511,15 @@ datas game(datas Data) {
 				if ( fightMode == 1 ) { // @suppress("Symbol is not resolved")
 					// 攻撃中
 
-					// 当たり判定 TODO 距離で判定した方が良い気がする
-					if ( PlayerData.x+24 > Sozais[i].x
-					  && PlayerData.x+24 < Sozais[i].x+48
-					  && PlayerData.y+48 > Sozais[i].y
-					  && PlayerData.y+48 < Sozais[i].y+48
+					// 距離を求める TODO 重すぎる！！
+//					int dx = abs( PlayerData.x - Sozais[i].x );
+//					int dy = abs( PlayerData.y - Sozais[i].y );
+//					int distance = sqrt( dx * dx + dy * dy );
+//					text( distance, 30, 4 );
+
+					// 当たり判定（攻撃が少し前なので、X軸をずらしています）
+					if ( Sozais[i].x <= PlayerData.x+36 && PlayerData.x+36 <= Sozais[i].x + Sozais[i].width
+					  && Sozais[i].y <= PlayerData.y+24 && PlayerData.y+24 <= Sozais[i].y + Sozais[i].width
 					) {
 						// 当たった
 						Sozais[i].HP -= 1;
