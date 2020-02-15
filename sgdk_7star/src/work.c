@@ -92,19 +92,19 @@ datas work(datas Data) {
 	pattern +=  strlen(str2) * 2;
 
 	char str19[] = "…";
-	draw_sjis_text(PLAN_A, str19, TILE_ATTR_FULL(PAL0, 0, 0, 0, pattern), 0, 0, 0); // @suppress("Symbol is not resolved")
+	draw_sjis_text(PLAN_A, str19, TILE_ATTR_FULL(PAL0, 0, 0, 0, pattern), 3, 0, 0); // @suppress("Symbol is not resolved")
 	pattern +=  strlen(str2) * 2;
 
 	char str20[] = "–Ø";
-	draw_sjis_text(PLAN_A, str20, TILE_ATTR_FULL(PAL0, 0, 0, 0, pattern), 7, 0, 0); // @suppress("Symbol is not resolved")
+	draw_sjis_text(PLAN_A, str20, TILE_ATTR_FULL(PAL0, 0, 0, 0, pattern), 10, 0, 0); // @suppress("Symbol is not resolved")
 	pattern +=  strlen(str2) * 2;
 
 	char str21[] = "“S";
-	draw_sjis_text(PLAN_A, str21, TILE_ATTR_FULL(PAL0, 0, 0, 0, pattern), 14, 0, 0); // @suppress("Symbol is not resolved")
+	draw_sjis_text(PLAN_A, str21, TILE_ATTR_FULL(PAL0, 0, 0, 0, pattern), 17, 0, 0); // @suppress("Symbol is not resolved")
 	pattern +=  strlen(str2) * 2;
 
 	char str22[] = "Î";
-	draw_sjis_text(PLAN_A, str22, TILE_ATTR_FULL(PAL0, 0, 0, 0, pattern), 21, 0, 0); // @suppress("Symbol is not resolved")
+	draw_sjis_text(PLAN_A, str22, TILE_ATTR_FULL(PAL0, 0, 0, 0, pattern), 24, 0, 0); // @suppress("Symbol is not resolved")
 	pattern +=  strlen(str2) * 2;
 
 	u16 palette[64];
@@ -123,49 +123,49 @@ datas work(datas Data) {
 
 	while(1)
 	{
-		text(Data.water , 0,2);
-		text(Data.wood  , 7,2);
-		text(Data.metal , 14,2);
-		text(Data.stone , 21,2);
+		text(Data.water ,  5,2);
+		text(Data.wood  , 12,2);
+		text(Data.metal , 19,2);
+		text(Data.stone , 26,2);
 
 		if ( Data.hammer >= 1 ) {
-			VDP_drawText("E", 2, 12);
-			VDP_drawText(" ", 2, 17);
-			VDP_drawText(" ", 2, 22);
-			VDP_drawText(" ", 2, 27);
+			VDP_drawText("E", 6, 12);
+			VDP_drawText(" ", 6, 17);
+			VDP_drawText(" ", 6, 22);
+			VDP_drawText(" ", 6, 27);
 		}
 		else if ( Data.bucket >= 1 ) {
-			VDP_drawText(" ", 2, 12);
-			VDP_drawText("E", 2, 17);
-			VDP_drawText(" ", 2, 22);
-			VDP_drawText(" ", 2, 27);
+			VDP_drawText(" ", 6, 12);
+			VDP_drawText("E", 6, 17);
+			VDP_drawText(" ", 6, 22);
+			VDP_drawText(" ", 6, 27);
 		}
 		else if ( Data.bomb >= 1 ) {
-			VDP_drawText(" ", 2, 12);
-			VDP_drawText(" ", 2, 17);
-			VDP_drawText("E", 2, 22);
-			VDP_drawText(" ", 2, 27);
+			VDP_drawText(" ", 6, 12);
+			VDP_drawText(" ", 6, 17);
+			VDP_drawText("E", 6, 22);
+			VDP_drawText(" ", 6, 27);
 		}
 		else if ( Data.saw >= 1 ) {
-			VDP_drawText(" ", 2, 12);
-			VDP_drawText(" ", 2, 17);
-			VDP_drawText(" ", 2, 22);
-			VDP_drawText("E", 2, 27);
+			VDP_drawText(" ", 6, 12);
+			VDP_drawText(" ", 6, 17);
+			VDP_drawText(" ", 6, 22);
+			VDP_drawText("E", 6, 27);
 		}
 
-		text(Data.chair , 12,12);
-		text(Data.desk  , 12,17);
-		text(Data.chest , 12,22);
-		text(Data.brick , 12,27);
+		text(Data.chair , 16,12);
+		text(Data.desk  , 16,17);
+		text(Data.chest , 16,22);
+		text(Data.brick , 16,27);
 
-		text(Data.ring     , 22,12);
-		text(Data.sculpture, 22,17);
-		text(Data.wHouse   , 22,22);
-		text(Data.sHouse   , 22,27);
+		text(Data.ring     , 26,12);
+		text(Data.sculpture, 26,17);
+		text(Data.wHouse   , 26,22);
+		text(Data.sHouse   , 26,27);
 
-		text(Data.wMansion, 32,12);
-		text(Data.sMansion, 32,17);
-		text(Data.tank    , 32,22);
+		text(Data.wMansion, 36,12);
+		text(Data.sMansion, 36,17);
+		text(Data.tank    , 36,22);
 
 		pad1 = JOY_readJoypad(JOY_1); // @suppress("Symbol is not resolved")
 		if (pad0 != pad1) {

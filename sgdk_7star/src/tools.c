@@ -3,12 +3,17 @@
 #include "main.h"
 
 void text( int num, int x, int y ) {
-    char texts[10][2] = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
-    VDP_drawText(texts[ num /      1 % 10 ], x+4, y);
-    VDP_drawText(texts[ num /     10 % 10 ], x+3, y);
-    VDP_drawText(texts[ num /    100 % 10 ], x+2, y);
-    VDP_drawText(texts[ num /   1000 % 10 ], x+1, y);
-    VDP_drawText(texts[ num /  10000 % 10 ], x+0, y);
+//    char texts[10][2] = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+//    VDP_drawText(texts[ num /      1 % 10 ], x+4, y);
+//    VDP_drawText(texts[ num /     10 % 10 ], x+3, y);
+//    VDP_drawText(texts[ num /    100 % 10 ], x+2, y);
+//    VDP_drawText(texts[ num /   1000 % 10 ], x+1, y);
+//    VDP_drawText(texts[ num /  10000 % 10 ], x+0, y);
+    char str[16];
+    intToStr(num, str, 1);
+    //VDP_clearTextLine(y);
+    VDP_clearTextArea(x - 5, y, 5, 1);
+    VDP_drawText(str    , x - strlen(str), y);
 }
 
 void fadeIn( u16 palette[] ) {

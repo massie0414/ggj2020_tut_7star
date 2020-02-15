@@ -145,19 +145,19 @@ datas game(datas Data) {
 	VDP_BG( PLAN_A, PAL3, ind_a[vdp_a_count], vdp_a_count, vdp_a_x, 0, zimensample_1_image, zimensample_2_image, zimensample_3_image, zimensample_4_image, zimensample_5_image );	vdp_a_count++;	vdp_a_count %= 5;	vdp_a_x += 8; vdp_a_x %= 64; // @suppress("Symbol is not resolved")
 
     char str19[] = "êÖ";
-    draw_sjis_text(PLAN_WINDOW, str19, TILE_ATTR_FULL(PAL0, 0, 0, 0, ind), 0, 0, 0); // @suppress("Symbol is not resolved")
+    draw_sjis_text(PLAN_WINDOW, str19, TILE_ATTR_FULL(PAL0, 0, 0, 0, ind),  3, 0, 0); // @suppress("Symbol is not resolved")
     ind +=  strlen(str19) * 2;
 
     char str20[] = "ñÿ";
-    draw_sjis_text(PLAN_WINDOW, str20, TILE_ATTR_FULL(PAL0, 0, 0, 0, ind), 7, 0, 0); // @suppress("Symbol is not resolved")
+    draw_sjis_text(PLAN_WINDOW, str20, TILE_ATTR_FULL(PAL0, 0, 0, 0, ind), 10, 0, 0); // @suppress("Symbol is not resolved")
     ind +=  strlen(str20) * 2;
 
     char str21[] = "ìS";
-    draw_sjis_text(PLAN_WINDOW, str21, TILE_ATTR_FULL(PAL0, 0, 0, 0, ind), 14, 0, 0); // @suppress("Symbol is not resolved")
+    draw_sjis_text(PLAN_WINDOW, str21, TILE_ATTR_FULL(PAL0, 0, 0, 0, ind), 17, 0, 0); // @suppress("Symbol is not resolved")
     ind +=  strlen(str21) * 2;
 
     char str22[] = "êŒ";
-    draw_sjis_text(PLAN_WINDOW, str22, TILE_ATTR_FULL(PAL0, 0, 0, 0, ind), 21, 0, 0); // @suppress("Symbol is not resolved")
+    draw_sjis_text(PLAN_WINDOW, str22, TILE_ATTR_FULL(PAL0, 0, 0, 0, ind), 24, 0, 0); // @suppress("Symbol is not resolved")
     ind +=  strlen(str22) * 2;
 
 	SYS_enableInts();
@@ -219,10 +219,10 @@ datas game(datas Data) {
 		}
 
 		// ëfçﬁêî
-		text(Data.water, 0,2);
-		text(Data.wood , 7,2);
-		text(Data.metal,14,2);
-		text(Data.stone,21,2);
+		text(Data.water, 5,2);
+		text(Data.wood ,12,2);
+		text(Data.metal,19,2);
+		text(Data.stone,26,2);
 
 		u16 pad1 = JOY_readJoypad(JOY_1);	// @suppress("Symbol is not resolved")
 
