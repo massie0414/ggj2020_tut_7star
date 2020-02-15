@@ -57,8 +57,6 @@ datas afterDay(datas Data) {
 	draw_sjis_text(PLAN_A, str2, TILE_ATTR_FULL(PAL0, 0, 0, 0, pattern), 10, 16, 0); // @suppress("Symbol is not resolved")
 	pattern +=  strlen(str2) * 2;
 
-//	text(Data.money,20,20);
-
 	char texts[10][3] = {"‚O", "‚P", "‚Q", "‚R", "‚S", "‚T", "‚U", "‚V", "‚W", "‚X" };
 	draw_sjis_text(PLAN_A, texts[Data.addMoney/ 1 % 10], TILE_ATTR_FULL(PAL0, 0, 0, 0, pattern), 24, 18, 0); // @suppress("Symbol is not resolved")
 	pattern +=  strlen(texts[Data.addMoney/ 1 % 10]) * 2;
@@ -91,23 +89,25 @@ datas afterDay(datas Data) {
 	draw_sjis_text(PLAN_A, str5, TILE_ATTR_FULL(PAL0, 0, 0, 0, pattern), 10, 22, 0); // @suppress("Symbol is not resolved")
 	pattern +=  strlen(str5) * 2;
 
-	draw_sjis_text(PLAN_A, texts[Data.money/ 1 % 10], TILE_ATTR_FULL(PAL0, 0, 0, 0, pattern), 24, 22, 0); // @suppress("Symbol is not resolved")
-	pattern +=  strlen(texts[Data.money/ 1 % 10]) * 2;
-	if ( Data.money >= 10 ) {
-		draw_sjis_text(PLAN_A, texts[Data.money/ 10 % 10], TILE_ATTR_FULL(PAL0, 0, 0, 0, pattern), 22, 22, 0); // @suppress("Symbol is not resolved")
-		pattern +=  strlen(texts[Data.money/ 10 % 10]) * 2;
+	int debt = DEBT_NUM - Data.money;
+
+	draw_sjis_text(PLAN_A, texts[debt/ 1 % 10], TILE_ATTR_FULL(PAL0, 0, 0, 0, pattern), 24, 22, 0); // @suppress("Symbol is not resolved")
+	pattern +=  strlen(texts[debt/ 1 % 10]) * 2;
+	if ( debt >= 10 ) {
+		draw_sjis_text(PLAN_A, texts[debt / 10 % 10], TILE_ATTR_FULL(PAL0, 0, 0, 0, pattern), 22, 22, 0); // @suppress("Symbol is not resolved")
+		pattern +=  strlen(texts[debt / 10 % 10]) * 2;
 	}
-	if ( Data.money >= 100 ) {
-		draw_sjis_text(PLAN_A, texts[Data.money/ 100 % 10], TILE_ATTR_FULL(PAL0, 0, 0, 0, pattern), 20, 22, 0); // @suppress("Symbol is not resolved")
-		pattern +=  strlen(texts[Data.money/ 100 % 10]) * 2;
+	if ( debt >= 100 ) {
+		draw_sjis_text(PLAN_A, texts[debt/ 100 % 10], TILE_ATTR_FULL(PAL0, 0, 0, 0, pattern), 20, 22, 0); // @suppress("Symbol is not resolved")
+		pattern +=  strlen(texts[debt/ 100 % 10]) * 2;
 	}
-	if ( Data.money >= 1000 ) {
-		draw_sjis_text(PLAN_A, texts[Data.money/ 1000 % 10], TILE_ATTR_FULL(PAL0, 0, 0, 0, pattern), 18, 22, 0); // @suppress("Symbol is not resolved")
-		pattern +=  strlen(texts[Data.money/ 1000 % 10]) * 2;
+	if ( debt >= 1000 ) {
+		draw_sjis_text(PLAN_A, texts[debt/ 1000 % 10], TILE_ATTR_FULL(PAL0, 0, 0, 0, pattern), 18, 22, 0); // @suppress("Symbol is not resolved")
+		pattern +=  strlen(texts[debt/ 1000 % 10]) * 2;
 	}
-	if ( Data.money >= 10000 ) {
-		draw_sjis_text(PLAN_A, texts[Data.money/ 10000 % 10], TILE_ATTR_FULL(PAL0, 0, 0, 0, pattern), 16, 22, 0); // @suppress("Symbol is not resolved")
-		pattern +=  strlen(texts[Data.money/ 10000 % 10]) * 2;
+	if ( debt >= 10000 ) {
+		draw_sjis_text(PLAN_A, texts[debt/ 10000 % 10], TILE_ATTR_FULL(PAL0, 0, 0, 0, pattern), 16, 22, 0); // @suppress("Symbol is not resolved")
+		pattern +=  strlen(texts[debt/ 10000 % 10]) * 2;
 	}
 
 	char str6[] = "‰~";

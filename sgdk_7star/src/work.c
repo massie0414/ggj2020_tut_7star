@@ -25,87 +25,91 @@ datas work(datas Data) {
 
 	char str2[] = "ƒnƒ“ƒ}[";
 	draw_sjis_text(PLAN_A, str2, TILE_ATTR_FULL(PAL0, 0, 0, 0, pattern), 2, 10, 0); // @suppress("Symbol is not resolved")
-	pattern +=  strlen(str1) * 4;
+	pattern +=  strlen(str2) * 2;
 
 	char str3[] = "ƒoƒPƒc";
 	draw_sjis_text(PLAN_A, str3, TILE_ATTR_FULL(PAL0, 0, 0, 0, pattern), 2, 15, 0); // @suppress("Symbol is not resolved")
-	pattern +=  strlen(str2) * 2;
+	pattern +=  strlen(str3) * 2;
 
 	char str4[] = "”š’e";
 	draw_sjis_text(PLAN_A, str4, TILE_ATTR_FULL(PAL0, 0, 0, 0, pattern), 2, 20, 0); // @suppress("Symbol is not resolved")
-	pattern +=  strlen(str2) * 2;
+	pattern +=  strlen(str4) * 2;
 
 	char str5[] = "ƒmƒRƒMƒŠ";
 	draw_sjis_text(PLAN_A, str5, TILE_ATTR_FULL(PAL0, 0, 0, 0, pattern), 2, 25, 0); // @suppress("Symbol is not resolved")
-	pattern +=  strlen(str2) * 2;
+	pattern +=  strlen(str5) * 2;
 
 	char str6[] = "šƒAƒCƒeƒ€";
 	draw_sjis_text(PLAN_A, str6, TILE_ATTR_FULL(PAL0, 0, 0, 0, pattern), 10, 5, 0); // @suppress("Symbol is not resolved")
-	pattern +=  strlen(str2) * 4;
+	pattern +=  strlen(str6) * 2;
 
 	char str7[] = "ˆÖŽq";
 	draw_sjis_text(PLAN_A, str7, TILE_ATTR_FULL(PAL0, 0, 0, 0, pattern), 12, 10, 0); // @suppress("Symbol is not resolved")
-	pattern +=  strlen(str2) * 2;
+	pattern +=  strlen(str7) * 2;
 
 	char str8[] = "Š÷";
 	draw_sjis_text(PLAN_A, str8, TILE_ATTR_FULL(PAL0, 0, 0, 0, pattern), 12, 15, 0); // @suppress("Symbol is not resolved")
-	pattern +=  strlen(str2) * 2;
+	pattern +=  strlen(str8) * 2;
 
 	char str9[] = "ƒ^ƒ“ƒX";
 	draw_sjis_text(PLAN_A, str9, TILE_ATTR_FULL(PAL0, 0, 0, 0, pattern), 12, 20, 0); // @suppress("Symbol is not resolved")
-	pattern +=  strlen(str2) * 2;
+	pattern +=  strlen(str9) * 2;
 
 	char str10[] = "ƒŒƒ“ƒK";
 	draw_sjis_text(PLAN_A, str10, TILE_ATTR_FULL(PAL0, 0, 0, 0, pattern), 12, 25, 0); // @suppress("Symbol is not resolved")
-	pattern +=  strlen(str2) * 2;
+	pattern +=  strlen(str10) * 2;
 
 	char str11[] = "Žw—Ö";
 	draw_sjis_text(PLAN_A, str11, TILE_ATTR_FULL(PAL0, 0, 0, 0, pattern), 22, 10, 0); // @suppress("Symbol is not resolved")
-	pattern +=  strlen(str2) * 2;
+	pattern +=  strlen(str11) * 2;
 
 	char str12[] = "’¤";
 	draw_sjis_text(PLAN_A, str12, TILE_ATTR_FULL(PAL0, 0, 0, 0, pattern), 22, 15, 0); // @suppress("Symbol is not resolved")
-	pattern +=  strlen(str2) * 2;
+	pattern +=  strlen(str12) * 2;
 
 	char str13[] = "–Ø‚Ì‰Æ";
 	draw_sjis_text(PLAN_A, str13, TILE_ATTR_FULL(PAL0, 0, 0, 0, pattern), 22, 20, 0); // @suppress("Symbol is not resolved")
-	pattern +=  strlen(str2) * 2;
+	pattern +=  strlen(str13) * 2;
 
 	char str14[] = "Î‚Ì‰Æ";
 	draw_sjis_text(PLAN_A, str14, TILE_ATTR_FULL(PAL0, 0, 0, 0, pattern), 22, 25, 0); // @suppress("Symbol is not resolved")
-	pattern +=  strlen(str2) * 2;
+	pattern +=  strlen(str14) * 2;
 
 	char str15[] = "–Ø‚Ì‹“@";
 	draw_sjis_text(PLAN_A, str15, TILE_ATTR_FULL(PAL0, 0, 0, 0, pattern), 32, 10, 0); // @suppress("Symbol is not resolved")
-	pattern +=  strlen(str2) * 2;
+	pattern +=  strlen(str15) * 2;
 
 	char str16[] = "Î‚Ì‹“@";
 	draw_sjis_text(PLAN_A, str16, TILE_ATTR_FULL(PAL0, 0, 0, 0, pattern), 32, 15, 0); // @suppress("Symbol is not resolved")
-	pattern +=  strlen(str2) * 2;
+	pattern +=  strlen(str16) * 2;
 
 	char str17[] = "…‘…";
 	draw_sjis_text(PLAN_A, str17, TILE_ATTR_FULL(PAL0, 0, 0, 0, pattern), 32, 20, 0); // @suppress("Symbol is not resolved")
-	pattern +=  strlen(str2) * 2;
+	pattern +=  strlen(str17) * 2;
 
 	char str18[] = "šoŒû¨";
 	draw_sjis_text(PLAN_A, str18, TILE_ATTR_FULL(PAL0, 0, 0, 0, pattern), 32, 25, 0); // @suppress("Symbol is not resolved")
-	pattern +=  strlen(str2) * 2;
+	pattern +=  strlen(str18) * 2;
 
 	char str19[] = "…";
 	draw_sjis_text(PLAN_A, str19, TILE_ATTR_FULL(PAL0, 0, 0, 0, pattern), 3, 0, 0); // @suppress("Symbol is not resolved")
-	pattern +=  strlen(str2) * 2;
+	pattern +=  strlen(str19) * 2;
 
 	char str20[] = "–Ø";
 	draw_sjis_text(PLAN_A, str20, TILE_ATTR_FULL(PAL0, 0, 0, 0, pattern), 10, 0, 0); // @suppress("Symbol is not resolved")
-	pattern +=  strlen(str2) * 2;
+	pattern +=  strlen(str20) * 2;
 
 	char str21[] = "“S";
 	draw_sjis_text(PLAN_A, str21, TILE_ATTR_FULL(PAL0, 0, 0, 0, pattern), 17, 0, 0); // @suppress("Symbol is not resolved")
-	pattern +=  strlen(str2) * 2;
+	pattern +=  strlen(str21) * 2;
 
 	char str22[] = "Î";
 	draw_sjis_text(PLAN_A, str22, TILE_ATTR_FULL(PAL0, 0, 0, 0, pattern), 24, 0, 0); // @suppress("Symbol is not resolved")
-	pattern +=  strlen(str2) * 2;
+	pattern +=  strlen(str22) * 2;
+
+    char str23[] = "‚¨‹à";
+    draw_sjis_text(PLAN_A, str23, TILE_ATTR_FULL(PAL0, 0, 0, 0, pattern), 31, 0, 0); // @suppress("Symbol is not resolved")
+    pattern +=  strlen(str23) * 2;
 
 	u16 palette[64];
 	memcpy(&palette[0], Player.palette->data, 16 * 2);
@@ -127,6 +131,7 @@ datas work(datas Data) {
 		text(Data.wood  , 12,2);
 		text(Data.metal , 19,2);
 		text(Data.stone , 26,2);
+		text(Data.money , 35,2);
 
 		if ( Data.hammer >= 1 ) {
 			VDP_drawText("E", 6, 12);

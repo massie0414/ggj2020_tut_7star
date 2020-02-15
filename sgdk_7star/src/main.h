@@ -41,6 +41,8 @@
 #define ITEM_ID_ROCK03 15
 #define ITEM_ID_TETUKUZU01 16
 
+#define DEBT_NUM 10000	// ŽØ‹à‚ÌŠz
+
 Sprite* sprites[SPRITE_NUM];
 
 // 0:player

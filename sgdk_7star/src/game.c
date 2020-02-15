@@ -160,6 +160,10 @@ datas game(datas Data) {
     draw_sjis_text(PLAN_WINDOW, str22, TILE_ATTR_FULL(PAL0, 0, 0, 0, ind), 24, 0, 0); // @suppress("Symbol is not resolved")
     ind +=  strlen(str22) * 2;
 
+    char str23[] = "‚¨‹à";
+    draw_sjis_text(PLAN_WINDOW, str23, TILE_ATTR_FULL(PAL0, 0, 0, 0, ind), 31, 0, 0); // @suppress("Symbol is not resolved")
+    ind +=  strlen(str23) * 2;
+
 	SYS_enableInts();
 
 	fadeIn( palette );
@@ -218,11 +222,12 @@ datas game(datas Data) {
 			bg_a_count -= 64;
 		}
 
-		// ‘fŞ”
+		// ‘fŞ”•‚¨‹à
 		text(Data.water, 5,2);
 		text(Data.wood ,12,2);
 		text(Data.metal,19,2);
 		text(Data.stone,26,2);
+		text(Data.money,35,2);
 
 		u16 pad1 = JOY_readJoypad(JOY_1);	// @suppress("Symbol is not resolved")
 
@@ -660,7 +665,7 @@ datas game(datas Data) {
 				if ( ans == 1 ) {
 					// ˆË—Šl‚Ì—~‚µ‚¢‚à‚Ì‚ğ‚Á‚Ä‚¢‚½
 					Data.hammer -= Irainins[Data.date-1].amount;
-					Data.money -= Irainins[Data.date-1].reward;
+					Data.money += Irainins[Data.date-1].reward;
 					Data.addMoney += Irainins[Data.date-1].reward;
 
 					// Šì‚ñ‚Å‚¢‚éƒAƒjƒ[ƒVƒ‡ƒ“

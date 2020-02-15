@@ -31,7 +31,7 @@ datas init(datas Data)
 	Data.tank=0;//…‘…
 	Data.date =1;
 	Data.explore_mode=0;
-	Data.money =10000;
+	Data.money =0;
 
 	Data.gm = DAY;
 
