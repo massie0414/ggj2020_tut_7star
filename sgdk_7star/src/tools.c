@@ -12,7 +12,7 @@ void text( int num, int x, int y ) {
     char str[16];
     intToStr(num, str, 1);
     //VDP_clearTextLine(y);
-    VDP_clearTextArea(x - 5, y, 5, 1);
+    VDP_clearTextArea(x - 5, y, 5 - strlen(str), 1);
     VDP_drawText(str    , x - strlen(str), y);
 }
 
