@@ -43,5 +43,7 @@ extern const Image zimensample_3_image;
 extern const Image zimensample_4_image;
 extern const Image zimensample_5_image;
 extern const Image how_to_play_image;
+extern const Image sorayuugata_image;
+extern const Image zimenyuugata_image;
 
 #endif // _RES_RESOURCE_H_

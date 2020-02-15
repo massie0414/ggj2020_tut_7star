@@ -71,6 +71,6 @@ IMAGE zimensample_5_image "gfx/zimensample_5.png" LZ4W
 #IMAGE doukutuzimen_5_image "gfx/doukutuzimen_5.png" LZ4W
 
 IMAGE how_to_play_image "gfx/HowToPlay.png" LZ4W
-#IMAGE sorayuugata "gfx/sorayuugata.png" LZ4W
-#IMAGE zimenyuugata "gfx/zimenyuugata.png" LZ4W
+IMAGE sorayuugata_image "gfx/sorayuugata.png" LZ4W
+IMAGE zimenyuugata_image "gfx/zimenyuugata.png" LZ4W
 

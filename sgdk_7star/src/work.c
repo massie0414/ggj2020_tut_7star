@@ -10,6 +10,7 @@ datas work(datas Data) {
 
 	SYS_disableInts();
 
+	// Window—Ìˆæ‚Ì’è‹`
 	VDP_setWindowHPos(FALSE, 0); // @suppress("Symbol is not resolved")
 	VDP_setWindowVPos(FALSE, 0); // @suppress("Symbol is not resolved")
 	VDP_setTextPlan(PLAN_A);

@@ -39,6 +39,7 @@ datas game(datas Data) {
 
 	SYS_disableInts();
 
+	// Window領域の定義
 	VDP_setWindowHPos(FALSE, 0); // @suppress("Symbol is not resolved")
 	VDP_setWindowVPos(FALSE, 5); // @suppress("Symbol is not resolved")
 	VDP_setTextPlan(PLAN_WINDOW);
@@ -50,26 +51,6 @@ datas game(datas Data) {
 	struct camera Camera;
 	Camera.x=0;
 	Camera.y=122;
-//	u16 tests[3][10]=
-//	{
-//			//item_id,   x,   y,showed,broke, water, stone, metal,  wood, HP
-//			{       1, 400, 170,     0,    0,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
-//			{       2, 500, 180,     0,    0,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
-//			{       3, 600, 180,     0,    0,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
-//			{       4,1400, 170,     0,    0,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
-//			{       5,1500, 170,     0,    0,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
-//			{       6,1600, 180,     0,    0,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
-//			{       7,1200, 190,     0,    0,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
-//			{       8,1300, 200,     0,    0,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
-//			{       9,1400, 170,     0,    0,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
-//			{      10,1300, 180,     0,    0,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
-//			{      11,1400, 190,     0,    0,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
-//			{      12,1500, 200,     0,    0,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
-//			{      13,1600, 170,     0,    0,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
-//			{      14,1700, 180,     0,    0,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
-//			{      15,1800, 190,     0,    0,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
-//			{      16,1900, 200,     0,    0,     1,     2,     4,     8, 60 }, // @suppress("Symbol is not resolved")
-//	};
 
 	u16 NPCs[1][5]=
 	{
@@ -80,17 +61,6 @@ datas game(datas Data) {
 	struct sozai Sozais[SOZAI_SUU];
 	for(s16 i=0;i<SOZAI_SUU;i++)
 	{
-//		Sozais[i].item_id = tests[i][0];
-//		Sozais[i].x = tests[i][1];
-//		Sozais[i].y = tests[i][2];
-//		Sozais[i].showed=tests[i][3];
-//		Sozais[i].broke=tests[i][4];
-//		Sozais[i].genso[0]=tests[i][5];
-//		Sozais[i].genso[1]=tests[i][6];
-//		Sozais[i].genso[2]=tests[i][7];
-//		Sozais[i].genso[3]=tests[i][8];
-//		Sozais[i].HP=tests[i][9];
-
 		Sozais[i].showed=0;
 	}
 	s16 next_sozai = SOZAI_SUU;
@@ -111,6 +81,13 @@ datas game(datas Data) {
 	memcpy(&palette[16], rock01.palette->data, 16 * 2);
 	memcpy(&palette[32], soradesu_1_image.palette->data, 16 * 2);
 	memcpy(&palette[48], zimensample_1_image.palette->data, 16 * 2);
+
+	// 行きか帰りか
+	if ( Data.explore_mode == 1 ) {
+		// 帰り
+		memcpy(&palette[32], sorayuugata_image.palette->data, 16 * 2);
+		memcpy(&palette[48], zimenyuugata_image.palette->data, 16 * 2);
+	}
 
 	// プレイヤー
 	sprites[0] = SPR_addSprite(&Player, 0, 0, TILE_ATTR(PAL0, TRUE, FALSE, FALSE)); // @suppress("Symbol is not resolved")
@@ -196,6 +173,7 @@ datas game(datas Data) {
 	s16 coin_time=0;
 
 	int action = PLAYER_PUNCH;
+	int next_x = 0;
 
 	while ( TRUE ) { // @suppress("Symbol is not resolved")
 		bg_b_count += CAMERA_MOVE;
@@ -367,11 +345,13 @@ datas game(datas Data) {
 //			}
 
 			// 生成
-			if ( Sozais[i].showed == 0 ) {
+			if ( Sozais[i].showed == 0 && next_x < WIDTH + Camera.x ) {
 
 				Sozais[i].item_id = (int)random() % 16 + 1;
 				Sozais[i].x = WIDTH + Camera.x + (int)random() % 128;
 				Sozais[i].y = 150 + (int)random() % 24;
+
+				next_x = Sozais[i].x + Sozais[i].width;
 
 				switch ( Sozais[i].item_id ) {
 				case ITEM_ID_KI01:
