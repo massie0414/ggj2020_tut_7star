@@ -63,7 +63,7 @@ datas game(datas Data) {
 	{
 		Sozais[i].showed=0;
 	}
-	s16 next_sozai = SOZAI_SUU;
+//	s16 next_sozai = SOZAI_SUU;
 
 	Data.gm = GAME;
 
@@ -94,9 +94,9 @@ datas game(datas Data) {
 	SPR_setPosition(sprites[0], 0 ,0);
 
 	// ”wŒiB
-	int vdp_b_count = 0;
-	int vdp_b_x = 0;
-	int ind_b[5];
+	s16 vdp_b_count = 0;
+	s16 vdp_b_x = 0;
+	s16 ind_b[5];
 	u16 ind = TILE_USERINDEX; // @suppress("Symbol is not resolved")
 	ind_b[vdp_b_count] = ind; ind = VDP_BG( PLAN_B, PAL2, ind_b[vdp_b_count], vdp_b_count, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image ); vdp_b_count++; vdp_b_count %= 5;	vdp_b_x += 8; vdp_b_x %= 64; // @suppress("Symbol is not resolved")
 	ind_b[vdp_b_count] = ind; ind = VDP_BG( PLAN_B, PAL2, ind_b[vdp_b_count], vdp_b_count, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image );	vdp_b_count++; vdp_b_count %= 5;	vdp_b_x += 8; vdp_b_x %= 64; // @suppress("Symbol is not resolved")
@@ -105,9 +105,9 @@ datas game(datas Data) {
 	ind_b[vdp_b_count] = ind; ind = VDP_BG( PLAN_B, PAL2, ind_b[vdp_b_count], vdp_b_count, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image );	vdp_b_count++; vdp_b_count %= 5;	vdp_b_x += 8; vdp_b_x %= 64; // @suppress("Symbol is not resolved")
 
 	// ”wŒiA
-	int vdp_a_count = 0;
-	int vdp_a_x = 0;
-	int ind_a[5];
+	s16 vdp_a_count = 0;
+	s16 vdp_a_x = 0;
+	s16 ind_a[5];
 	ind_a[vdp_a_count] = ind; ind = VDP_BG( PLAN_A, PAL3, ind_a[vdp_a_count], vdp_a_count, vdp_a_x, 0, zimensample_1_image, zimensample_2_image, zimensample_3_image, zimensample_4_image, zimensample_5_image );	vdp_a_count++;	vdp_a_count %= 5;	vdp_a_x += 8; vdp_a_x %= 64; // @suppress("Symbol is not resolved")
 	ind_a[vdp_a_count] = ind; ind = VDP_BG( PLAN_A, PAL3, ind_a[vdp_a_count], vdp_a_count, vdp_a_x, 0, zimensample_1_image, zimensample_2_image, zimensample_3_image, zimensample_4_image, zimensample_5_image );	vdp_a_count++;	vdp_a_count %= 5;	vdp_a_x += 8; vdp_a_x %= 64; // @suppress("Symbol is not resolved")
 	ind_a[vdp_a_count] = ind; ind = VDP_BG( PLAN_A, PAL3, ind_a[vdp_a_count], vdp_a_count, vdp_a_x, 0, zimensample_1_image, zimensample_2_image, zimensample_3_image, zimensample_4_image, zimensample_5_image );	vdp_a_count++;	vdp_a_count %= 5;	vdp_a_x += 8; vdp_a_x %= 64; // @suppress("Symbol is not resolved")
@@ -144,12 +144,12 @@ datas game(datas Data) {
 
 	fadeIn( palette );
 
-	int walk_count = 0;
-	int fightMode = 0;
-	int fightModeTimer = 0;
+	s16 walk_count = 0;
+	s16 fightMode = 0;
+	s16 fightModeTimer = 0;
 
-	int bg_b_count = 0;
-	int bg_a_count = 0;
+	s16 bg_b_count = 0;
+	s16 bg_a_count = 0;
 
 	//ˆË—ŠlŠÖŒW
 	s16 Irainin_showed=0;
@@ -174,6 +174,7 @@ datas game(datas Data) {
 
 	int action = PLAYER_PUNCH;
 	int next_x = 0;
+	int damage = 1;
 
 	while ( TRUE ) { // @suppress("Symbol is not resolved")
 		bg_b_count += CAMERA_MOVE;
@@ -221,22 +222,27 @@ datas game(datas Data) {
 			if ( Data.hammer > 0 ) {
 				action = PLAYER_HAMMER;
 				fightModeTimer=30;
+				damage = 6;
 			}
 			else if ( Data.bucket > 0 ) {
 				action = PLAYER_BUCKET;
 				fightModeTimer=25;
+				damage = 6;
 			}
 			else if ( Data.bomb > 0 ) {
 				action = PLAYER_BOMB;
 				fightModeTimer=30;
+				damage = 6;
 			}
 			else if ( Data.saw > 0 ) {
 				action = PLAYER_SAW;
 				fightModeTimer=30;
+				damage = 6;
 			}
 			else {
 				action = PLAYER_PUNCH;
 				fightModeTimer=30;
+				damage = 1;
 			}
 		}
 
@@ -522,7 +528,7 @@ datas game(datas Data) {
 					  && Sozais[i].y <= PlayerData.y+24 && PlayerData.y+24 <= Sozais[i].y + Sozais[i].width
 					) {
 						// “–‚½‚Á‚½
-						Sozais[i].HP -= 1;
+						Sozais[i].HP -= damage;
 
 						if ( Sozais[i].HP <= 0 ) {
 							// ‰ó‚ê‚½
