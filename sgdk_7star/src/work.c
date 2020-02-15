@@ -208,6 +208,113 @@ datas work(datas Data) {
 				x = 30;
 			}
 
+			// 必要数の表示
+			if ( ( x == 0 && y == 10 ) ){
+				// ハンマー
+				text(  0,  5,3);	// water
+				text(-10, 12,3);	// wood
+				text(  0, 19,3);	// metal
+				text(-10, 26,3);	// stone
+			}
+			else if ( ( x == 0 && y == 15 ) ){
+				// バケツ
+				text(  0,  5,3);	// water
+				text(-20, 12,3);	// wood
+				text(  0, 19,3);	// metal
+				text(  0, 26,3);	// stone
+			}
+			else if ( ( x == 0 && y == 20 ) ) {
+				// 爆弾
+				text(  0,  5,3);	// water
+				text(-15, 12,3);	// wood
+				text(  0, 19,3);	// metal
+				text(-15, 26,3);	// stone
+			}
+			else if ( ( x == 0 && y == 25 ) ) {
+				// ノコギリ
+				text(  0,  5,3);	// water
+				text(-10, 12,3);	// wood
+				text(  0, 19,3);	// metal
+				text(-10, 26,3);	// stone
+			}
+			else if ( ( x == 10 && y == 10 ) ) {
+				// 椅子
+				text(  0,  5,3);	// water
+				text( -5, 12,3);	// wood
+				text(  0, 19,3);	// metal
+				text(  0, 26,3);	// stone
+			}
+			else if ( ( x == 10 && y == 15 ) ) {
+				// 机
+				text(  0,  5,3);	// water
+				text(-10, 12,3);	// wood
+				text(  0, 19,3);	// metal
+				text(  0, 26,3);	// stone
+			}
+			else if ( ( x == 10 && y == 20 ) ) {
+				// タンス
+				text(  0,  5,3);	// water
+				text( -5, 12,3);	// wood
+				text( -2, 19,3);	// metal
+				text(  0, 26,3);	// stone
+			}
+			else if ( ( x == 10 && y == 25 ) ) {
+				// レンガ
+				text(  0,  5,3);	// water
+				text(  0, 12,3);	// wood
+				text(  0, 19,3);	// metal
+				text( -5, 26,3);	// stone
+			}
+			else if ( ( x == 20 && y == 10 ) ) {
+				// 指輪
+				text(  0,  5,3);	// water
+				text(  0, 12,3);	// wood
+				text( -2, 19,3);	// metal
+				text(  0, 26,3);	// stone
+			}
+			else if ( ( x == 20 && y == 15 ) ) {
+				// 彫刻
+				text(  0,  5,3);	// water
+				text(  0, 12,3);	// wood
+				text(  0, 19,3);	// metal
+				text(-10, 26,3);	// stone
+			}
+			else if ( ( x == 20 && y == 20 ) ) {
+				// 木の家
+				text(  0,  5,3);	// water
+				text(-20, 12,3);	// wood
+				text( -2, 19,3);	// metal
+				text(  0, 26,3);	// stone
+			}
+			else if ( ( x == 20 && y == 25 ) ) {
+				// 石の家
+				text(  0,  5,3);	// water
+				text(  0, 12,3);	// wood
+				text( -2, 19,3);	// metal
+				text(-20, 26,3);	// stone
+			}
+			else if ( ( x == 30 && y == 10 ) ) {
+				// 木の豪邸
+				text(-10,  5,3);	// water
+				text(-20, 12,3);	// wood
+				text( -5, 19,3);	// metal
+				text(  0, 26,3);	// stone
+			}
+			else if ( ( x == 30 && y == 15 ) ) {
+				// 石の豪邸
+				text(-10,  5,3);	// water
+				text(  0, 12,3);	// wood
+				text( -5, 19,3);	// metal
+				text(-20, 26,3);	// stone
+			}
+			else if ( ( x == 30 && y == 20 ) ) {
+				// 水槽
+				text(-20,  5,3);	// water
+				text(  0, 12,3);	// wood
+				text(  0, 19,3);	// metal
+				text(  0, 26,3);	// stone
+			}
+
 			if (pad1 & BUTTON_START){ // @suppress("Symbol is not resolved")
 				// 購入
 				if((x==0 && y==10) && (Data.wood>=10 && Data.stone>=10)&& Data.hammer<1 ){//ハンマー
