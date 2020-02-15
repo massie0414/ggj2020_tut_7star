@@ -339,7 +339,7 @@ datas game(datas Data) {
 				case ITEM_ID_KI01:
 					// 木の苗
 					sprites[i+1] = SPR_addSprite(&ki01,Sozais[i].x-Camera.x,Sozais[i].y,TILE_ATTR(PAL1, TRUE, FALSE, FALSE)); // @suppress("Symbol is not resolved")
-					Sozais[i].width = 32;
+					Sozais[i].width = 16;
 					Sozais[i].water = 0;
 					Sozais[i].stone = 0;
 					Sozais[i].metal = 0;
@@ -349,7 +349,7 @@ datas game(datas Data) {
 				case ITEM_ID_KI02:
 					// 木（小）
 					sprites[i+1] = SPR_addSprite(&ki02,Sozais[i].x-Camera.x,Sozais[i].y,TILE_ATTR(PAL1, TRUE, FALSE, FALSE)); // @suppress("Symbol is not resolved")
-					Sozais[i].width = 32;
+					Sozais[i].width = 24;
 					Sozais[i].water = 0;
 					Sozais[i].stone = 0;
 					Sozais[i].metal = 0;
@@ -359,7 +359,7 @@ datas game(datas Data) {
 				case ITEM_ID_KI03:
 					// 木（中）
 					sprites[i+1] = SPR_addSprite(&ki03,Sozais[i].x-Camera.x,Sozais[i].y,TILE_ATTR(PAL1, TRUE, FALSE, FALSE)); // @suppress("Symbol is not resolved")
-					Sozais[i].width = 32;
+					Sozais[i].width = 48;
 					Sozais[i].water = 1;
 					Sozais[i].stone = 0;
 					Sozais[i].metal = 0;
@@ -369,7 +369,7 @@ datas game(datas Data) {
 				case ITEM_ID_KI04:
 					// 木（大）
 					sprites[i+1] = SPR_addSprite(&ki04,Sozais[i].x-Camera.x,Sozais[i].y,TILE_ATTR(PAL1, TRUE, FALSE, FALSE)); // @suppress("Symbol is not resolved")
-					Sozais[i].width = 32;
+					Sozais[i].width = 64;
 					Sozais[i].water = 5;
 					Sozais[i].stone = 0;
 					Sozais[i].metal = 0;
@@ -419,7 +419,7 @@ datas game(datas Data) {
 				case ITEM_ID_KOUMYAKU01:
 					// 鉱脈（小）
 					sprites[i+1] = SPR_addSprite(&koumyaku01,Sozais[i].x-Camera.x,Sozais[i].y,TILE_ATTR(PAL1, TRUE, FALSE, FALSE)); // @suppress("Symbol is not resolved")
-					Sozais[i].width = 32;
+					Sozais[i].width = 24;
 					Sozais[i].water = 0;
 					Sozais[i].stone = 0;
 					Sozais[i].metal = 5;
@@ -449,7 +449,7 @@ datas game(datas Data) {
 				case ITEM_ID_MIZU02:
 					// 池（大）
 					sprites[i+1] = SPR_addSprite(&mizu02,Sozais[i].x-Camera.x,Sozais[i].y,TILE_ATTR(PAL1, TRUE, FALSE, FALSE)); // @suppress("Symbol is not resolved")
-					Sozais[i].width = 32;
+					Sozais[i].width = 64;
 					Sozais[i].water = 20;
 					Sozais[i].stone = 1;
 					Sozais[i].metal = 0;
@@ -489,7 +489,7 @@ datas game(datas Data) {
 				case ITEM_ID_TETUKUZU01:
 					// 鉄くず
 					sprites[i+1] = SPR_addSprite(&tetukuzu01,Sozais[i].x-Camera.x,Sozais[i].y,TILE_ATTR(PAL1, TRUE, FALSE, FALSE)); // @suppress("Symbol is not resolved")
-					Sozais[i].width = 32;
+					Sozais[i].width = 16;
 					Sozais[i].water = 0;
 					Sozais[i].stone = 0;
 					Sozais[i].metal = 1;
