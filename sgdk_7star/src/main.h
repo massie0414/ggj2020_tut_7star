@@ -52,8 +52,7 @@
 #define ITEM_ID_S_MANSION 10	// Î‚Ì‹“@
 #define ITEM_ID_TANK 11	// …‘…
 
-//#define DEBT_NUM 10000	// Ø‹à‚ÌŠz
-#define DEBT_NUM 100	// Ø‹à‚ÌŠz
+#define DEBT_NUM 10000	// Ø‹à‚ÌŠz
 
 Sprite* sprites[SPRITE_NUM];
 

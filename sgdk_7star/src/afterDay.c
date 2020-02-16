@@ -146,7 +146,7 @@ datas afterDay(datas Data) {
 		VDP_waitVSync();
 	}
 
-	if ( Data.date >= 1 ) {
+	if ( Data.date >= 8 ) {
 		// タイムリミット
 		Data.gm = GAME_OVER;
 

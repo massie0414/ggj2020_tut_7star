@@ -171,17 +171,18 @@ datas game(datas Data) {
 
 	s16 Irainin_showed = 0;
 	struct irainin Irainin;
-	int irai_next_x = 400;	// 次の依頼人が表示される位置
+	s16 irai_next_x = 400;	// 次の依頼人が表示される位置
 
 	s16 completedSwitch = 0;
-
 	s16 coin_time=0;
-
-	int action = PLAYER_PUNCH;
-	int next_x = 0;	// 次の素材
-	int damage = 1;
+	s16 action = PLAYER_PUNCH;
+	s16 next_x = 0;	// 次の素材
+	s16 damage = 1;
 
 	while ( TRUE ) { // @suppress("Symbol is not resolved")
+
+		text( PlayerData.x, 30, 0 );
+
 		bg_b_count += CAMERA_MOVE;
 
 		// 背景B
@@ -215,39 +216,77 @@ datas game(datas Data) {
 		u16 pad1 = JOY_readJoypad(JOY_1);	// @suppress("Symbol is not resolved")
 
 		if( ( pad1 & BUTTON_A ) && fightMode == 0 ) {	// @suppress("Symbol is not resolved")
-			// 効果音（攻撃）
-			SND_startPlay_4PCM_ENV(
-				SE_Punch_8,
-				sizeof(SE_Punch_8),
-				SOUND_PCM_CH2,	// @suppress("Symbol is not resolved")
-				FALSE 			// @suppress("Symbol is not resolved")
-			);
 
 			fightMode=1;
 			if ( Data.hammer > 0 ) {
+				// ハンマー
 				action = PLAYER_HAMMER;
 				fightModeTimer=30;
-				damage = 6;
+				damage = 2;
+
+				// 効果音（攻撃）
+				SND_startPlay_4PCM_ENV(
+						SE_Hammer_8,
+						sizeof(SE_Hammer_8),
+						SOUND_PCM_CH4, 	// @suppress("Symbol is not resolved")
+						FALSE 			// @suppress("Symbol is not resolved")
+				);
 			}
 			else if ( Data.bucket > 0 ) {
+				// バケツ
 				action = PLAYER_BUCKET;
 				fightModeTimer=25;
-				damage = 6;
+				damage = 2;
+
+				// 効果音（攻撃）
+				SND_startPlay_4PCM_ENV(
+						SE_Punch_8,
+						sizeof(SE_Punch_8),
+						SOUND_PCM_CH4, 	// @suppress("Symbol is not resolved")
+						FALSE 			// @suppress("Symbol is not resolved")
+				);
 			}
 			else if ( Data.bomb > 0 ) {
+				// 爆弾
 				action = PLAYER_BOMB;
 				fightModeTimer=30;
-				damage = 6;
+				damage = 2;
+
+				// 効果音（攻撃）
+				SND_startPlay_4PCM_ENV(
+						SE_Explosion_8,
+						sizeof(SE_Explosion_8),
+						SOUND_PCM_CH4, 	// @suppress("Symbol is not resolved")
+						FALSE 			// @suppress("Symbol is not resolved")
+				);
 			}
 			else if ( Data.saw > 0 ) {
+				// ノコギリ
 				action = PLAYER_SAW;
 				fightModeTimer=30;
-				damage = 6;
+				damage = 2;
+
+				// 効果音（攻撃）
+				SND_startPlay_4PCM_ENV(
+						SE_Punch_8,
+						sizeof(SE_Punch_8),
+						SOUND_PCM_CH4, 	// @suppress("Symbol is not resolved")
+						FALSE 			// @suppress("Symbol is not resolved")
+				);
 			}
 			else {
+				// パンチ
 				action = PLAYER_PUNCH;
 				fightModeTimer=30;
 				damage = 1;
+
+				// 効果音（攻撃）
+				SND_startPlay_4PCM_ENV(
+					SE_Punch_8,
+					sizeof(SE_Punch_8),
+					SOUND_PCM_CH2,	// @suppress("Symbol is not resolved")
+					FALSE 			// @suppress("Symbol is not resolved")
+				);
 			}
 		}
 
@@ -534,18 +573,91 @@ datas game(datas Data) {
 					  && Sozais[i].y <= PlayerData.y+24 && PlayerData.y+24 <= Sozais[i].y + Sozais[i].width
 					) {
 						// 当たった
-						Sozais[i].HP -= damage;
+						switch ( Sozais[i].item_id ) {
+						case ITEM_ID_KI01:
+							// 木の苗
+						case ITEM_ID_KI02:
+							// 木（小）
+						case ITEM_ID_KI03:
+							// 木（中）
+						case ITEM_ID_KI04:
+							// 木（大）
+							if ( Data.saw >= 1 ) {
+								Sozais[i].HP -= ( damage * 3 );
+							}
+							else {
+								Sozais[i].HP -= damage;
+							}
+
+							break;
+						case ITEM_ID_KINNZANN01:
+							// 金山
+							if ( Data.bomb >= 1 ) {
+								Sozais[i].HP -= ( damage * 3 );
+							}
+							else {
+								// ノーダメージ
+							}
+
+							break;
+						case ITEM_ID_koori01:
+							// 氷（小）
+						case ITEM_ID_koori02:
+							// 氷（中）
+						case ITEM_ID_koori03:
+							// 氷（大）
+							if ( Data.hammer >= 1 ) {
+								Sozais[i].HP -= ( damage * 3 );
+							}
+							else {
+								Sozais[i].HP -= damage;
+							}
+
+							break;
+						case ITEM_ID_KOUMYAKU01:
+							// 鉱脈（小）
+						case ITEM_ID_KOUMYAKU02:
+							// 鉱脈（中）
+							if ( Data.hammer >= 1 ) {
+								Sozais[i].HP -= ( damage * 3 );
+							}
+							else {
+								Sozais[i].HP -= damage;
+							}
+
+							break;
+						case ITEM_ID_MIZU01:
+							// 池（小）
+						case ITEM_ID_MIZU02:
+							// 池（大）
+							if ( Data.bucket >= 1 ) {
+								Sozais[i].HP -= ( damage * 3 );
+							}
+							else {
+								// ノーダメージ
+							}
+
+							break;
+						case ITEM_ID_ROCK01:
+							// 岩（小）
+						case ITEM_ID_ROCK02:
+							// 岩（中）
+						case ITEM_ID_ROCK03:
+							// 岩（大）
+						case ITEM_ID_TETUKUZU01:
+							// 鉄くず
+							if ( Data.hammer >= 1 ) {
+								Sozais[i].HP -= ( damage * 3 );
+							}
+							else {
+								Sozais[i].HP -= damage;
+							}
+
+							break;
+						}
 
 						if ( Sozais[i].HP <= 0 ) {
 							// 壊れた
-
-							// 効果音（破壊）
-							SND_startPlay_4PCM_ENV(
-									SE_Explosion_8,
-									sizeof(SE_Explosion_8),
-									SOUND_PCM_CH4, 	// @suppress("Symbol is not resolved")
-									FALSE 			// @suppress("Symbol is not resolved")
-							);
 
 							Data.water += Sozais[i].water;
 							Data.stone += Sozais[i].stone;
@@ -576,7 +688,7 @@ datas game(datas Data) {
 			Irainin_showed = 1;
 
 			Irainin.item_id = (s16)( random() % 11 ) + 1;
-			Irainin.x = WIDTH + Camera.x + (s16)( random() % 128 );
+			Irainin.x = WIDTH + Camera.x + 64;
 			Irainin.y = 124;
 
 			Irainin.amount = 1;
@@ -782,7 +894,7 @@ datas game(datas Data) {
 		}
 
 		// 画面外にいったらリリース
-		if ( Irainin.x - Camera.x + PLAYER_WIDTH < 0){
+		if ( Irainin.x - Camera.x + PLAYER_WIDTH + 64 < 0){
 			SPR_releaseSprite(sprites[17]);
 			SPR_releaseSprite(sprites[19]);
 			completedSwitch = 0;
