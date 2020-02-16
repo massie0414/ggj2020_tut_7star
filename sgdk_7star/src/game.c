@@ -80,7 +80,7 @@ datas game(datas Data) {
 		SOZAI_SUU = 1;
 	}
 
-	s16 goal_in = 5000;
+	s16 goal_in = 3000;
 
 	// ‘fŞ‚Ì‰Šú‰»
 	struct sozai Sozais[SOZAI_SUU];
