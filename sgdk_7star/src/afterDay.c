@@ -136,10 +136,8 @@ datas afterDay(datas Data) {
 		) {
 			Data.gm = DAY;
 
-			fadeOut();
-
-			VDP_clearPlan(PLAN_A, TRUE); // @suppress("Symbol is not resolved")
-			VDP_clearPlan(PLAN_B, TRUE); // @suppress("Symbol is not resolved")
+			// 今日の稼ぎをいったんリセット
+			Data.addMoney = 0;
 
 			Data.date ++;
 
@@ -148,9 +146,6 @@ datas afterDay(datas Data) {
 
 		VDP_waitVSync();
 	}
-
-	// 今日の稼ぎをいったんリセット
-	Data.addMoney = 0;
 
     return Data;
 }

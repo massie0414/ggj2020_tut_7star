@@ -9,15 +9,10 @@ datas logo(datas Data){
     // VDPアクセス時の割り込みを無効にする
     SYS_disableInts();
 
-    u16 palette[64];
-
     //enum game_mode gm;
     Data.gm = LOGO;
 
     int count = 0;
-
-    // いったん暗くする
-	VDP_fadeOut(0,63,1,FALSE); // @suppress("Symbol is not resolved")
 
     u16 x = 12;
     u16 y = 6;
@@ -39,7 +34,7 @@ datas logo(datas Data){
 		tm
     );
 
-    // prepare palettes
+    u16 palette[64];
     memcpy(&palette[0], logo16.palette->data, 16 * 2);
     memcpy(&palette[16], logo16.palette->data, 16 * 2);
     memcpy(&palette[32], logo16.palette->data, 16 * 2);
@@ -60,15 +55,11 @@ datas logo(datas Data){
          || count > START
         ) {
             Data.gm = TITLE;
-
-            VDP_fadeOut(0, (4 * 16) - 1, 20, FALSE); // @suppress("Symbol is not resolved")
-
-            VDP_clearPlan(PLAN_A, TRUE); // @suppress("Symbol is not resolved")
-            VDP_clearPlan(PLAN_B, TRUE); // @suppress("Symbol is not resolved")
             break;
         }
 
         VDP_waitVSync();
     }
+
     return Data;
 }

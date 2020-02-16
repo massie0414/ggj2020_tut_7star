@@ -36,7 +36,10 @@ int main() {
             15    // Volume to set : 16 possible level from 0 (minimum) to 15 (maximum).
     );
 
-    SYS_enableInts();
+    // いったん暗くする
+	VDP_fadeOut(0,63,1,FALSE); // @suppress("Symbol is not resolved")
+
+	SYS_enableInts();
 
     Data.gm = LOGO;
 
@@ -67,6 +70,24 @@ int main() {
         	Data = howToPlay(Data);
         	break;
         }
+
+    	// 後処理
+
+    	// スプライトは先に消さないとフェードアウト時に残ったように見える
+    	s16 i = 0;
+    	for (i = 0; i < SPRITE_NUM; i++) {
+    		SPR_releaseSprite(sprites[i]);
+    	}
+    	SPR_update();
+
+    	fadeOut();
+
+    	VDP_clearPlan(PLAN_A, TRUE); // @suppress("Symbol is not resolved")
+    	VDP_clearPlan(PLAN_B, TRUE); // @suppress("Symbol is not resolved")
+    	VDP_setHorizontalScroll(PLAN_B, 0);
+    	VDP_setVerticalScroll(PLAN_B, 0);
+    	VDP_setHorizontalScroll(PLAN_A, 0);
+    	VDP_setVerticalScroll(PLAN_A, 0);
     }
 
 	return (0);

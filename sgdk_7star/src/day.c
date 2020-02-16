@@ -73,11 +73,11 @@ datas day(datas Data) {
 		|| count > WHAIT
 		) {
 			Data.gm = GAME;
-			fadeOut();
 			break;
 		}
 		VDP_waitVSync();
 	}
+
     return Data;
 }
 

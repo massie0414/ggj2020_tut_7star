@@ -18,8 +18,6 @@ datas title(datas Data) {
 			TRUE // @suppress("Symbol is not resolved")
 	);
 
-    u16 palette[64];
-
     //enum game_mode gm;
     Data.gm = TITLE;
 
@@ -51,7 +49,7 @@ datas title(datas Data) {
     ind = TILE_USERINDEX; // @suppress("Symbol is not resolved") // @suppress("Symbol is not resolved")
     ind = VDP_BG( PLAN_B, PAL2, ind, vdp_b_count++, vdp_b_x, 0, soradesu_1_image, soradesu_2_image, soradesu_3_image, soradesu_4_image, soradesu_5_image );	vdp_b_count %= 5;	vdp_b_x += 8; vdp_b_x %= 64; // @suppress("Symbol is not resolved")
 
-    // prepare palettes
+    u16 palette[64];
     memcpy(&palette[0], soradesu_1_image.palette->data, 16 * 2);
     memcpy(&palette[16], title_image.palette->data, 16 * 2);
     memcpy(&palette[32], soradesu_1_image.palette->data, 16 * 2);
@@ -144,15 +142,6 @@ datas title(datas Data) {
     if (SND_isPlaying_4PCM_ENV(SOUND_PCM_CH1_MSK)){ // @suppress("Symbol is not resolved")
         SND_stopPlay_4PCM_ENV(SOUND_PCM_CH1); // @suppress("Symbol is not resolved")
     }
-
-    // îwåiÉNÉäÉA
-    VDP_clearPlan(PLAN_A, TRUE); // @suppress("Symbol is not resolved")
-    VDP_clearPlan(PLAN_B, TRUE); // @suppress("Symbol is not resolved")
-	VDP_setHorizontalScroll(PLAN_B, 0);
-	VDP_setVerticalScroll(PLAN_B, 0);
-	VDP_setHorizontalScroll(PLAN_A, 0);
-	VDP_setVerticalScroll(PLAN_A, 0);
-    fadeOut();
 
     return Data;
 }

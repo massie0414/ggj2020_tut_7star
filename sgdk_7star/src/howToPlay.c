@@ -7,8 +7,6 @@ datas howToPlay(datas Data){
     // VDPアクセス時の割り込みを無効にする
     SYS_disableInts();
 
-    u16 palette[64];
-
     //enum game_mode gm;
     Data.gm = TITLE;
 
@@ -34,7 +32,7 @@ datas howToPlay(datas Data){
 		tm
     );
 
-    // prepare palettes
+    u16 palette[64];
     memcpy(&palette[0], how_to_play_image.palette->data, 16 * 2);
     memcpy(&palette[16], how_to_play_image.palette->data, 16 * 2);
     memcpy(&palette[32], how_to_play_image.palette->data, 16 * 2);
@@ -52,17 +50,12 @@ datas howToPlay(datas Data){
 
         u16 pad1 = JOY_readJoypad(JOY_1); // @suppress("Symbol is not resolved")
         if (pad1 & BUTTON_START) { // @suppress("Symbol is not resolved") // @suppress("Suggested parenthesis around expression")
-
             Data.gm = TITLE;
-
-            fadeOut();
-
-            VDP_clearPlan(PLAN_A, TRUE); // @suppress("Symbol is not resolved")
-            VDP_clearPlan(PLAN_B, TRUE); // @suppress("Symbol is not resolved")
             break;
         }
 
         VDP_waitVSync();
     }
+
     return Data;
 }

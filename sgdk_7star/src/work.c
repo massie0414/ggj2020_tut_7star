@@ -406,11 +406,8 @@ datas work(datas Data) {
 				}
 				else if(x==30 && y==25 ){
 					// ПoМы
-					VDP_clearPlan(PLAN_A, TRUE); // @suppress("Symbol is not resolved")
-					VDP_clearPlan(PLAN_B, TRUE); // @suppress("Symbol is not resolved")
 					Data.explore_mode=1;
 					Data.gm=GAME;
-					fadeOut();
 					break;
 				}
 			}
@@ -419,5 +416,6 @@ datas work(datas Data) {
 		VDP_drawText(">", x, y);
 		VDP_waitVSync();
 	}
+
 	return Data;
 }

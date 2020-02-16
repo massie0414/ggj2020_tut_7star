@@ -15,6 +15,7 @@
 #define SCROLL_DIFF 32
 #define SOZAI_SUU 3
 #define HUMMER_RANGE 48
+#define IRAININ_NUM 3
 
 #define PLAYER_WAIT 0
 #define PLAYER_WALK 1

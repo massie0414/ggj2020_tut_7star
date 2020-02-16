@@ -45,29 +45,24 @@ datas game(datas Data) {
 	VDP_setTextPlan(PLAN_WINDOW);
 	VDP_setTextPriority(TRUE); // @suppress("Symbol is not resolved")
 
+	// プレイヤーの初期化
 	struct playerScene PlayerData;
 	PlayerData.x=0;
 	PlayerData.y=122;
+
+	// カメラの初期化
 	struct camera Camera;
 	Camera.x=0;
 	Camera.y=122;
 
-	u16 NPCs[1][5]=
-	{
-			//アイテムID,個数,報酬,   X,   Y
-			{        1,  1,100, 400, 124}
-	};
-
+	// 素材の初期化
 	struct sozai Sozais[SOZAI_SUU];
 	for(s16 i=0;i<SOZAI_SUU;i++)
 	{
 		Sozais[i].showed=0;
 	}
-//	s16 next_sozai = SOZAI_SUU;
 
 	Data.gm = GAME;
-
-	u16 palette[128];
 
 	// BGM再生
 	SND_startPlay_4PCM_ENV(
@@ -77,6 +72,7 @@ datas game(datas Data) {
 		TRUE 			// @suppress("Symbol is not resolved")
 	);
 
+	u16 palette[64];
 	memcpy(&palette[0], NPC.palette->data, 16 * 2);
 	memcpy(&palette[16], rock01.palette->data, 16 * 2);
 	memcpy(&palette[32], soradesu_1_image.palette->data, 16 * 2);
@@ -152,25 +148,42 @@ datas game(datas Data) {
 	s16 bg_a_count = 0;
 
 	//依頼人関係
+	u16 NPCs[IRAININ_NUM][5]=
+	{
+			//アイテムID,個数,報酬,    X,   Y
+			{        1,  1,100,  400, 124},
+			{        2,  1,100,  500, 124},
+			{        3,  1,100,  600, 124},
+//			{        4,  1,100,  700, 124},
+//			{        5,  1,100,  800, 124},
+//			{        6,  1,100,  900, 124},
+//			{        7,  1,100, 1000, 124},
+//			{        8,  1,100, 1100, 124},
+//			{        9,  1,100, 1200, 124},
+//			{       10,  1,100, 1300, 124},
+//			{       11,  1,100, 1400, 124},
+	};
+
 	s16 Irainin_showed=0;
-	struct irainin Irainins[1];
-	for (s16 i = 0; i < 1; i++ ) {
+	struct irainin Irainins[IRAININ_NUM];
+	for (s16 i = 0; i < IRAININ_NUM; i++ ) {
 		Irainins[i].item_id = NPCs[i][0];
-		Irainins[i].amount = NPCs[i][1];
-		Irainins[i].reward = NPCs[i][2];
-		Irainins[i].x = NPCs[i][3];
-		Irainins[i].y = NPCs[i][4];
+		Irainins[i].amount  = NPCs[i][1];
+		Irainins[i].reward  = NPCs[i][2];
+		Irainins[i].x       = NPCs[i][3];
+		Irainins[i].y       = NPCs[i][4];
 	}
 	s16 completedSwitch = 0;
 
-	// コイン
-//	sprites[7]=SPR_addSprite(
-//			&jump_coin,
-//			350,
-//			0,
-//			TILE_ATTR(PAL0, TRUE, FALSE, FALSE) // @suppress("Symbol is not resolved")
-//	);
 	s16 coin_time=0;
+
+	//依頼人のフキダシ
+	sprites[19] = SPR_addSprite(
+			&fukidashi,
+			200,
+			100,
+			TILE_ATTR(PAL0, TRUE, FALSE, FALSE) // @suppress("Symbol is not resolved")
+	);
 
 	int action = PLAYER_PUNCH;
 	int next_x = 0;
@@ -339,7 +352,7 @@ datas game(datas Data) {
 				Sozais[i].x = WIDTH + Camera.x + (int)random() % 128;
 				Sozais[i].y = 150 + (int)random() % 24;
 
-				next_x = Sozais[i].x + Sozais[i].width;
+				next_x = Sozais[i].x + Sozais[i].width + 64;	// 64はバッファ
 
 				switch ( Sozais[i].item_id ) {
 				case ITEM_ID_KI01:
@@ -575,6 +588,14 @@ datas game(datas Data) {
 						TILE_ATTR(PAL0, TRUE, FALSE, FALSE) // @suppress("Symbol is not resolved")
 				);
 				Irainin_showed = 1;
+
+				//依頼人のフキダシ
+//				sprites[19] = SPR_addSprite(
+//						&fukidashi,
+//						Irainins[Data.date-1].x + 32,
+//						Irainins[Data.date-1].y - 32,
+//						TILE_ATTR(PAL0, TRUE, FALSE, FALSE) // @suppress("Symbol is not resolved")
+//				);
 			}
 			if ( Irainin_showed == 1 ) {
 				SPR_setPosition(
@@ -582,11 +603,18 @@ datas game(datas Data) {
 					Irainins[Data.date-1].x - Camera.x,	// カメラ移動を意識するため、毎フレーム処理
 					Irainins[Data.date-1].y
 				);
+
+//				SPR_setPosition(
+//					sprites[19],
+//					Irainins[Data.date-1].x + 32 - Camera.x,	// カメラ移動を意識するため、毎フレーム処理
+//					Irainins[Data.date-1].y - 32
+//				);
 			}
 
 			// 画面外にいったらリリース
 			if ( Irainins[Data.date-1].x - Camera.x + PLAYER_WIDTH < 0){
 				SPR_releaseSprite(sprites[17]);
+				SPR_releaseSprite(sprites[19]);
 			}
 
 			//プレイヤーの依頼人関係処理
@@ -651,20 +679,25 @@ datas game(datas Data) {
 					);
 
 					// コイン
-					SPR_setPosition(sprites[18],PlayerData.x,PlayerData.y);
-					SPR_setAnim(sprites[18],0);
+					sprites[18]=SPR_addSprite(
+							&jump_coin,
+							PlayerData.x,
+							PlayerData.y-32,
+							TILE_ATTR(PAL0, TRUE, FALSE, FALSE) // @suppress("Symbol is not resolved")
+					);
+				//	SPR_setAnim(sprites[18],0);
 					coin_time = 30;
 				}
 				completedSwitch = 1;
 			}
 
-			if ( coin_time > 1 ) {
+			// コイン
+			if ( coin_time >= 1 ) {
+				SPR_setPosition(sprites[18],PlayerData.x,PlayerData.y);
 				coin_time--;
-			}
-
-			if ( coin_time == 1 ) {
-				coin_time--;
-				SPR_setPosition(sprites[18],350,0);
+				if ( coin_time <= 0 ) {
+					SPR_releaseSprite(sprites[18]);
+				}
 			}
 		}
 
@@ -683,23 +716,6 @@ datas game(datas Data) {
 			break;
 		}
 	}
-
-    // 後処理
-	VDP_clearPlan(PLAN_A, TRUE); // @suppress("Symbol is not resolved")
-	VDP_clearPlan(PLAN_B, TRUE); // @suppress("Symbol is not resolved")
-	VDP_setHorizontalScroll(PLAN_B, 0);
-	VDP_setVerticalScroll(PLAN_B, 0);
-	VDP_setHorizontalScroll(PLAN_A, 0);
-	VDP_setVerticalScroll(PLAN_A, 0);
-
-	// スプライトの削除
-	s16 i = 0;
-	for (i = 0; i < SPRITE_NUM; i++) {
-		SPR_releaseSprite(sprites[i]);
-	}
-	SPR_update();
-
-	fadeOut();
 
     return Data;
 }
