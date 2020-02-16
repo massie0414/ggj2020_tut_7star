@@ -140,11 +140,21 @@ datas afterDay(datas Data) {
 			Data.addMoney = 0;
 
 			Data.date ++;
-
 			break;
 		}
 
 		VDP_waitVSync();
+	}
+
+	if ( Data.date >= 1 ) {
+		// タイムリミット
+		Data.gm = GAME_OVER;
+
+		// 後処理
+		// BGMストップ
+		if (SND_isPlaying_4PCM_ENV(SOUND_PCM_CH1_MSK)){ // @suppress("Symbol is not resolved")
+			SND_stopPlay_4PCM_ENV(SOUND_PCM_CH1); // @suppress("Symbol is not resolved")
+		}
 	}
 
     return Data;

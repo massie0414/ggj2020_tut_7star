@@ -805,23 +805,47 @@ datas game(datas Data) {
 		SPR_update();
 		VDP_waitVSync();
 
-		// デバッグコマンド
-		if ( ( pad1 & BUTTON_START || Camera.x>goal_in ) // @suppress("Suggested parenthesis around expression") // @suppress("Symbol is not resolved")
-			&& Data.explore_mode == 1
-		){
+		if ( Camera.x > goal_in
+		  && Data.explore_mode == 1
+		) {
 			Data.gm=AFTERDAY;
 			break;
 		}
-		if ( ( pad1 & BUTTON_START || Camera.x>goal_in ) && Data.explore_mode==0 ){ // @suppress("Symbol is not resolved") // @suppress("Suggested parenthesis around expression")
+		if ( Camera.x > goal_in
+		  && Data.explore_mode==0
+		) {
 			Data.gm=WORK;
 			break;
 		}
 
-		if ( Data.money >= DEBT_NUM ){ // @suppress("Symbol is not resolved") // @suppress("Suggested parenthesis around expression")
+		if ( Data.money >= DEBT_NUM ) {
 			// 借金返済
+			Data.gm = GAME_CLEAR;
+
+			// 後処理
+			// BGMストップ
+			if (SND_isPlaying_4PCM_ENV(SOUND_PCM_CH1_MSK)){ // @suppress("Symbol is not resolved")
+				SND_stopPlay_4PCM_ENV(SOUND_PCM_CH1); // @suppress("Symbol is not resolved")
+			}
+
+			break;
+		}
+
+		// デバッグコマンド
+		if (  pad1 & BUTTON_START // @suppress("Symbol is not resolved") // @suppress("Suggested parenthesis around expression")
+		  && Data.explore_mode == 1
+		) {
+			Data.gm=AFTERDAY;
+			break;
+		}
+		if (  pad1 & BUTTON_START // @suppress("Symbol is not resolved") // @suppress("Suggested parenthesis around expression")
+		  && Data.explore_mode==0
+		) {
 			Data.gm=WORK;
 			break;
 		}
+		// デバッグコマンド ここまで
+
 	}
 
     return Data;

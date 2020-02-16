@@ -69,6 +69,12 @@ int main() {
         case HOW_TO_PLAY:
         	Data = howToPlay(Data);
         	break;
+        case GAME_CLEAR:
+        	Data = gameClear(Data);
+        	break;
+        case GAME_OVER:
+        	Data = gameOver(Data);
+        	break;
         }
 
     	// å„èàóù

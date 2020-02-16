@@ -6,7 +6,7 @@
 #define PLAYER_WIDTH 48
 #define PLAYER_HEIGHT 48
 
-#define SPRITE_NUM 64
+#define SPRITE_NUM 80
 #define CAMERA_MOVE 1
 
 #define TOP_HEIGHT 124
@@ -52,7 +52,8 @@
 #define ITEM_ID_S_MANSION 10	// Î‚Ì‹“@
 #define ITEM_ID_TANK 11	// …‘…
 
-#define DEBT_NUM 10000	// Ø‹à‚ÌŠz
+//#define DEBT_NUM 10000	// Ø‹à‚ÌŠz
+#define DEBT_NUM 100	// Ø‹à‚ÌŠz
 
 Sprite* sprites[SPRITE_NUM];
 
@@ -65,6 +66,8 @@ enum game_mode {
 	WORK,
 	AFTERDAY,
 	HOW_TO_PLAY,
+	GAME_CLEAR,
+	GAME_OVER,
 };
 
 typedef struct
@@ -106,6 +109,8 @@ datas afterDay(datas Data);
 datas game(datas Data);
 datas work(datas Data);
 datas howToPlay(datas Data);
+datas gameClear(datas Data);
+datas gameOver(datas Data);
 void text( int num, int x, int y );
 void fadeIn( u16 palette[] );
 void fadeOut();
