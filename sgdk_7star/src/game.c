@@ -944,18 +944,18 @@ datas game(datas Data) {
 		}
 
 		// デバッグコマンド
-		if (  pad1 & BUTTON_START // @suppress("Symbol is not resolved") // @suppress("Suggested parenthesis around expression")
-		  && Data.explore_mode == 1
-		) {
-			Data.gm=AFTERDAY;
-			break;
-		}
-		if (  pad1 & BUTTON_START // @suppress("Symbol is not resolved") // @suppress("Suggested parenthesis around expression")
-		  && Data.explore_mode==0
-		) {
-			Data.gm=WORK;
-			break;
-		}
+//		if (  pad1 & BUTTON_START // @suppress("Symbol is not resolved") // @suppress("Suggested parenthesis around expression")
+//		  && Data.explore_mode == 1
+//		) {
+//			Data.gm=AFTERDAY;
+//			break;
+//		}
+//		if (  pad1 & BUTTON_START // @suppress("Symbol is not resolved") // @suppress("Suggested parenthesis around expression")
+//		  && Data.explore_mode==0
+//		) {
+//			Data.gm=WORK;
+//			break;
+//		}
 		// デバッグコマンド ここまで
 
 	}
