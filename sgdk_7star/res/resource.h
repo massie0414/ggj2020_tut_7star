@@ -4,6 +4,7 @@
 extern const u8 BGM_Main_8[468480];
 extern const u8 BGM_Sub_8[827904];
 extern const u8 BGM_short_8[445952];
+extern const u8 SE_Button_8[16384];
 extern const u8 SE_Explosion_8[62208];
 extern const u8 SE_Footstep_8[5120];
 extern const u8 SE_Footsteps_cave_8[124160];

@@ -178,12 +178,12 @@ datas game(datas Data) {
 	s16 coin_time=0;
 
 	//依頼人のフキダシ
-	sprites[19] = SPR_addSprite(
-			&fukidashi,
-			200,
-			100,
-			TILE_ATTR(PAL0, TRUE, FALSE, FALSE) // @suppress("Symbol is not resolved")
-	);
+//	sprites[19] = SPR_addSprite(
+//			&fukidashi,
+//			200,
+//			100,
+//			TILE_ATTR(PAL0, TRUE, FALSE, FALSE) // @suppress("Symbol is not resolved")
+//	);
 
 	int action = PLAYER_PUNCH;
 	int next_x = 0;
@@ -338,7 +338,8 @@ datas game(datas Data) {
 
 		// カメラの移動に合わせて、プレイヤーを移動する
 		SPR_setPosition(
-			sprites[0],PlayerData.x - Camera.x,
+			sprites[0],
+			PlayerData.x - Camera.x,
 			PlayerData.y
 		);
 
@@ -580,22 +581,23 @@ datas game(datas Data) {
 			// 帰りの処理 TODO 行きも依頼人はいる
 
 			//依頼人
-			if ( Camera.x >= 0 && Irainin_showed != 1 ) {
+			if ( Irainins[Data.date-1].x - Camera.x <= WIDTH && Irainin_showed != 1 ) {
+				Irainin_showed = 1;
+
 				sprites[17] = SPR_addSprite(
 						&NPC,
-						Irainins[Data.date-1].x,
+						Irainins[Data.date-1].x - Camera.x,
 						Irainins[Data.date-1].y,
 						TILE_ATTR(PAL0, TRUE, FALSE, FALSE) // @suppress("Symbol is not resolved")
 				);
-				Irainin_showed = 1;
 
 				//依頼人のフキダシ
-//				sprites[19] = SPR_addSprite(
-//						&fukidashi,
-//						Irainins[Data.date-1].x + 32,
-//						Irainins[Data.date-1].y - 32,
-//						TILE_ATTR(PAL0, TRUE, FALSE, FALSE) // @suppress("Symbol is not resolved")
-//				);
+				sprites[19] = SPR_addSprite(
+						&fukidashi,
+						Irainins[Data.date-1].x + 32 - Camera.x,
+						Irainins[Data.date-1].y - 32,
+						TILE_ATTR(PAL0, TRUE, FALSE, FALSE) // @suppress("Symbol is not resolved")
+				);
 			}
 			if ( Irainin_showed == 1 ) {
 				SPR_setPosition(
@@ -604,11 +606,11 @@ datas game(datas Data) {
 					Irainins[Data.date-1].y
 				);
 
-//				SPR_setPosition(
-//					sprites[19],
-//					Irainins[Data.date-1].x + 32 - Camera.x,	// カメラ移動を意識するため、毎フレーム処理
-//					Irainins[Data.date-1].y - 32
-//				);
+				SPR_setPosition(
+					sprites[19],
+					Irainins[Data.date-1].x + 32 - Camera.x,	// カメラ移動を意識するため、毎フレーム処理
+					Irainins[Data.date-1].y - 32
+				);
 			}
 
 			// 画面外にいったらリリース
@@ -625,7 +627,7 @@ datas game(datas Data) {
 			  && completedSwitch == 0
 			) {
 				// 依頼人と接触
-				Data.hammer = 1;
+			//	Data.hammer = 1;
 				s16 ans = 0;
 				switch ( Irainins[Data.date-1].item_id )
 				{
@@ -663,7 +665,7 @@ datas game(datas Data) {
 
 				if ( ans == 1 ) {
 					// 依頼人の欲しいものを持っていた
-					Data.hammer -= Irainins[Data.date-1].amount;
+				//	Data.hammer -= Irainins[Data.date-1].amount;
 					Data.money += Irainins[Data.date-1].reward;
 					Data.addMoney += Irainins[Data.date-1].reward;
 
@@ -672,8 +674,8 @@ datas game(datas Data) {
 
 					// 効果音（コイン）
 					SND_startPlay_4PCM_ENV(
-							SE_Explosion_8,
-							sizeof(SE_Explosion_8),
+							SE_Button_8,
+							sizeof(SE_Button_8),
 							SOUND_PCM_CH4,	// @suppress("Symbol is not resolved")
 							FALSE 			// @suppress("Symbol is not resolved")
 					);
@@ -681,19 +683,23 @@ datas game(datas Data) {
 					// コイン
 					sprites[18]=SPR_addSprite(
 							&jump_coin,
-							PlayerData.x,
-							PlayerData.y-32,
+							PlayerData.x + 16 - Camera.x,
+							PlayerData.y - 32,
 							TILE_ATTR(PAL0, TRUE, FALSE, FALSE) // @suppress("Symbol is not resolved")
 					);
 				//	SPR_setAnim(sprites[18],0);
-					coin_time = 30;
+					coin_time = 300;
 				}
 				completedSwitch = 1;
 			}
 
 			// コイン
 			if ( coin_time >= 1 ) {
-				SPR_setPosition(sprites[18],PlayerData.x,PlayerData.y);
+				SPR_setPosition(
+						sprites[18],
+						PlayerData.x + 16 - Camera.x,
+						PlayerData.y - 32
+				);
 				coin_time--;
 				if ( coin_time <= 0 ) {
 					SPR_releaseSprite(sprites[18]);
