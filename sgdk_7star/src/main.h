@@ -6,27 +6,55 @@
 #define PLAYER_WIDTH 48
 #define PLAYER_HEIGHT 48
 
-#define SPRITE_NUM 64
+#define SPRITE_NUM 7
 #define CAMERA_MOVE 1
 
 #define TOP_HEIGHT 124
 #define BOTTOM_HEIGHT 224-48
 #define CAMERA_SCROLL
 #define SCROLL_DIFF 32
-#define SOZAI_SUU 1
 #define HUMMER_RANGE 48
 
+#define PLAYER_WAIT 0
+#define PLAYER_WALK 1
+#define PLAYER_PUNCH 2
+#define PLAYER_HAMMER 3
+#define PLAYER_BUCKET 4
+#define PLAYER_BOMB 5
+#define PLAYER_SAW 6
+
+#define ITEM_ID_KI01 1
+#define ITEM_ID_KI02 2
+#define ITEM_ID_KI03 3
+#define ITEM_ID_KI04 4
+#define ITEM_ID_KINNZANN01 5
+#define ITEM_ID_koori01 6
+#define ITEM_ID_koori02 7
+#define ITEM_ID_koori03 8
+#define ITEM_ID_KOUMYAKU01 9
+#define ITEM_ID_KOUMYAKU02 10
+#define ITEM_ID_MIZU01 11
+#define ITEM_ID_MIZU02 12
+#define ITEM_ID_ROCK01 13
+#define ITEM_ID_ROCK02 14
+#define ITEM_ID_ROCK03 15
+#define ITEM_ID_TETUKUZU01 16
+
+#define ITEM_ID_CHAIR 1	// à÷éq
+#define ITEM_ID_DESK 2	// ä˜
+#define ITEM_ID_CHEST 3	// É^ÉìÉX
+#define ITEM_ID_BRICK 4	// ÇÍÇÒÇ™
+#define ITEM_ID_RING 5	// éwó÷
+#define ITEM_ID_SCULPTURE 6	// í§çè
+#define ITEM_ID_W_HOUSE 7	// ñÿÇÃâ∆
+#define ITEM_ID_S_HOUSE 8	// êŒÇÃâ∆
+#define ITEM_ID_W_MANSION 9	// ñÿÇÃçãì@
+#define ITEM_ID_S_MANSION 10	// êŒÇÃçãì@
+#define ITEM_ID_TANK 11	// êÖëÖ
+
+#define DEBT_NUM 10000	// éÿã‡ÇÃäz
+
 Sprite* sprites[SPRITE_NUM];
-
-// 0:player
-// 1:NPC
-// 2:ä‚1
-// 3:
-// 4:
-// 5:
-// 6:
-
-
 
 enum game_mode {
     LOGO,
@@ -36,6 +64,9 @@ enum game_mode {
     GAME,
 	WORK,
 	AFTERDAY,
+	HOW_TO_PLAY,
+	GAME_CLEAR,
+	GAME_OVER,
 };
 
 typedef struct
@@ -69,7 +100,6 @@ typedef struct
 	s16 addMoney;
 } datas;
 
-
 datas logo(datas Data);
 datas title(datas Data);
 datas init(datas Data);
@@ -77,6 +107,9 @@ datas day(datas Data);
 datas afterDay(datas Data);
 datas game(datas Data);
 datas work(datas Data);
+datas howToPlay(datas Data);
+datas gameClear(datas Data);
+datas gameOver(datas Data);
 void text( int num, int x, int y );
 void fadeIn( u16 palette[] );
 void fadeOut();
@@ -92,10 +125,10 @@ int VDP_BG( VDPPlan PLAN,
 		Image image4,
 		Image image5
 );
+float sqrt( float s );
 
 struct camera
 {
 	s16 x;
 	s16 y;
 };
-
