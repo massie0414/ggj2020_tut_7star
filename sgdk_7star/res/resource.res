@@ -15,7 +15,17 @@ WAV SE_Hammer_8 "sound/SE_Hammer_8.wav" 4PCM
 TILESET sjis_font "sjis_font.png" 0
 
 SPRITE Player "Picture/bouanim.png" 6 6 LZ4W 5 NONE SPRITE 100
-SPRITE fukidashi "Picture/fukidashi.png" 8 4 LZ4W 5 NONE SPRITE 100
+SPRITE fukidashi01 "Picture/fukidashi01.png" 8 4 LZ4W 5 NONE SPRITE 100
+SPRITE fukidashi02 "Picture/fukidashi02.png" 8 4 LZ4W 5 NONE SPRITE 100
+SPRITE fukidashi03 "Picture/fukidashi03.png" 8 4 LZ4W 5 NONE SPRITE 100
+SPRITE fukidashi04 "Picture/fukidashi04.png" 8 4 LZ4W 5 NONE SPRITE 100
+SPRITE fukidashi05 "Picture/fukidashi05.png" 8 4 LZ4W 5 NONE SPRITE 100
+SPRITE fukidashi06 "Picture/fukidashi06.png" 8 4 LZ4W 5 NONE SPRITE 100
+SPRITE fukidashi07 "Picture/fukidashi07.png" 8 4 LZ4W 5 NONE SPRITE 100
+SPRITE fukidashi08 "Picture/fukidashi08.png" 8 4 LZ4W 5 NONE SPRITE 100
+SPRITE fukidashi09 "Picture/fukidashi09.png" 8 4 LZ4W 5 NONE SPRITE 100
+SPRITE fukidashi10 "Picture/fukidashi10.png" 8 4 LZ4W 5 NONE SPRITE 100
+SPRITE fukidashi11 "Picture/fukidashi11.png" 8 4 LZ4W 5 NONE SPRITE 100
 SPRITE jump_coin "Picture/jump_coin.png" 1 4 LZ4W 5 NONE SPRITE 100
 SPRITE ki01 "Picture/ki01.png" 2 2 LZ4W 5 NONE SPRITE 100
 SPRITE ki02 "Picture/ki02.png" 3 3 LZ4W 5 NONE SPRITE 100

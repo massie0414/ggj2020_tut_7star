@@ -593,10 +593,10 @@ datas game(datas Data) {
 
 				//依頼人のフキダシ
 				sprites[19] = SPR_addSprite(
-						&fukidashi,
+						&fukidashi01,
 						Irainins[Data.date-1].x + 32 - Camera.x,
 						Irainins[Data.date-1].y - 32,
-						TILE_ATTR(PAL0, TRUE, FALSE, FALSE) // @suppress("Symbol is not resolved")
+						TILE_ATTR(PAL1, TRUE, FALSE, FALSE) // @suppress("Symbol is not resolved")
 				);
 			}
 			if ( Irainin_showed == 1 ) {
@@ -683,7 +683,7 @@ datas game(datas Data) {
 					// コイン
 					sprites[18]=SPR_addSprite(
 							&jump_coin,
-							PlayerData.x + 16 - Camera.x,
+							PlayerData.x + 20 - Camera.x,
 							PlayerData.y - 32,
 							TILE_ATTR(PAL0, TRUE, FALSE, FALSE) // @suppress("Symbol is not resolved")
 					);
@@ -697,7 +697,7 @@ datas game(datas Data) {
 			if ( coin_time >= 1 ) {
 				SPR_setPosition(
 						sprites[18],
-						PlayerData.x + 16 - Camera.x,
+						PlayerData.x + 20 - Camera.x,
 						PlayerData.y - 32
 				);
 				coin_time--;
