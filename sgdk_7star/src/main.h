@@ -14,7 +14,6 @@
 #define CAMERA_SCROLL
 #define SCROLL_DIFF 32
 #define HUMMER_RANGE 48
-#define IRAININ_NUM 3
 
 #define PLAYER_WAIT 0
 #define PLAYER_WALK 1
@@ -41,17 +40,21 @@
 #define ITEM_ID_ROCK03 15
 #define ITEM_ID_TETUKUZU01 16
 
+#define ITEM_ID_CHAIR 1	// 椅子
+#define ITEM_ID_DESK 2	// 机
+#define ITEM_ID_CHEST 3	// タンス
+#define ITEM_ID_BRICK 4	// れんが
+#define ITEM_ID_RING 5	// 指輪
+#define ITEM_ID_SCULPTURE 6	// 彫刻
+#define ITEM_ID_W_HOUSE 7	// 木の家
+#define ITEM_ID_S_HOUSE 8	// 石の家
+#define ITEM_ID_W_MANSION 9	// 木の豪邸
+#define ITEM_ID_S_MANSION 10	// 石の豪邸
+#define ITEM_ID_TANK 11	// 水槽
+
 #define DEBT_NUM 10000	// 借金の額
 
 Sprite* sprites[SPRITE_NUM];
-
-// 0:player
-// 1:NPC
-// 2:岩1
-// 3:
-// 4:
-// 5:
-// 6:
 
 enum game_mode {
     LOGO,

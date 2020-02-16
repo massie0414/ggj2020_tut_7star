@@ -153,12 +153,12 @@ datas game(datas Data) {
 	s16 bg_a_count = 0;
 
 	//依頼人関係
-	u16 NPCs[IRAININ_NUM][5]=
-	{
-			//アイテムID,個数,報酬,    X,   Y
-			{        1,  1,100,  400, 124},
-			{        2,  1,100,  500, 124},
-			{        3,  1,100,  600, 124},
+//	u16 NPCs[5]=
+//	{
+//			//アイテムID,個数,報酬,    X,   Y
+//			{        1,  1,100,  400, 124},
+//			{        2,  1,100,  500, 124},
+//			{        3,  1,100,  600, 124},
 //			{        4,  1,100,  700, 124},
 //			{        5,  1,100,  800, 124},
 //			{        6,  1,100,  900, 124},
@@ -167,23 +167,18 @@ datas game(datas Data) {
 //			{        9,  1,100, 1200, 124},
 //			{       10,  1,100, 1300, 124},
 //			{       11,  1,100, 1400, 124},
-	};
+//	};
 
-	s16 Irainin_showed=0;
-	struct irainin Irainins[IRAININ_NUM];
-	for (s16 i = 0; i < IRAININ_NUM; i++ ) {
-		Irainins[i].item_id = NPCs[i][0];
-		Irainins[i].amount  = NPCs[i][1];
-		Irainins[i].reward  = NPCs[i][2];
-		Irainins[i].x       = NPCs[i][3];
-		Irainins[i].y       = NPCs[i][4];
-	}
+	s16 Irainin_showed = 0;
+	struct irainin Irainin;
+	int irai_next_x = 400;	// 次の依頼人が表示される位置
+
 	s16 completedSwitch = 0;
 
 	s16 coin_time=0;
 
 	int action = PLAYER_PUNCH;
-	int next_x = 0;
+	int next_x = 0;	// 次の素材
 	int damage = 1;
 
 	while ( TRUE ) { // @suppress("Symbol is not resolved")
@@ -339,11 +334,6 @@ datas game(datas Data) {
 			PlayerData.x - Camera.x,
 			PlayerData.y
 		);
-
-		text(next_x, 30, 0);
-		text(Sozais[0].x, 30, 1);
-		text(Sozais[1].x, 30, 2);
-		text(Sozais[2].x, 30, 3);
 
 		// 素材
 		for ( s16 i = 0; i < SOZAI_SUU; i++ ) {
@@ -578,98 +568,201 @@ datas game(datas Data) {
 			}
 		}
 
+	//	text( irai_next_x, 30, 0 );
+
 		// 依頼人
-		if ( Data.explore_mode == 1 ) {
+	//	if ( Data.explore_mode == 1 ) {
 			// 帰りの処理 TODO 行きも依頼人はいる
 
 			//依頼人
-			if ( Irainins[Data.date-1].x - Camera.x <= WIDTH && Irainin_showed != 1 ) {
+			if ( irai_next_x <= WIDTH + Camera.x
+			  && Irainin_showed == 0
+			) {
+				// 生成
 				Irainin_showed = 1;
+
+				Irainin.item_id = (s16)( random() % 11 ) + 1;
+				Irainin.x = WIDTH + Camera.x + (s16)( random() % 128 );
+				Irainin.y = 124;
+
+				Irainin.amount = 1;
+
+				irai_next_x = Irainin.x + WIDTH;
 
 				sprites[17] = SPR_addSprite(
 						&NPC,
-						Irainins[Data.date-1].x - Camera.x,
-						Irainins[Data.date-1].y,
+						Irainin.x - Camera.x,
+						Irainin.y,
 						TILE_ATTR(PAL0, TRUE, FALSE, FALSE) // @suppress("Symbol is not resolved")
 				);
 
 				//依頼人のフキダシ
-				sprites[19] = SPR_addSprite(
-						&fukidashi01,
-						Irainins[Data.date-1].x + 32 - Camera.x,
-						Irainins[Data.date-1].y - 32,
-						TILE_ATTR(PAL1, TRUE, FALSE, FALSE) // @suppress("Symbol is not resolved")
-				);
+				switch ( Irainin.item_id ) {
+				case ITEM_ID_CHAIR:
+					// 椅子
+					sprites[19] = SPR_addSprite( &fukidashi01, Irainin.x + 32 - Camera.x, Irainin.y - 32, TILE_ATTR( PAL1, TRUE, FALSE, FALSE ) );	// @suppress("Symbol is not resolved")
+					Irainin.reward = 100;
+					break;
+				case ITEM_ID_DESK:
+					// 机
+					sprites[19] = SPR_addSprite( &fukidashi02, Irainin.x + 32 - Camera.x, Irainin.y - 32, TILE_ATTR( PAL1, TRUE, FALSE, FALSE ) );	// @suppress("Symbol is not resolved")
+					Irainin.reward = 300;
+					break;
+				case ITEM_ID_CHEST:
+					// タンス
+					sprites[19] = SPR_addSprite( &fukidashi03, Irainin.x + 32 - Camera.x, Irainin.y - 32, TILE_ATTR( PAL1, TRUE, FALSE, FALSE ) );	// @suppress("Symbol is not resolved")
+					Irainin.reward = 400;
+					break;
+				case ITEM_ID_BRICK:
+					// れんが
+					sprites[19] = SPR_addSprite( &fukidashi04, Irainin.x + 32 - Camera.x, Irainin.y - 32, TILE_ATTR( PAL1, TRUE, FALSE, FALSE ) );	// @suppress("Symbol is not resolved")
+					Irainin.reward = 100;
+					break;
+				case ITEM_ID_RING:
+					// 指輪
+					sprites[19] = SPR_addSprite( &fukidashi05, Irainin.x + 32 - Camera.x, Irainin.y - 32, TILE_ATTR( PAL1, TRUE, FALSE, FALSE ) );	// @suppress("Symbol is not resolved")
+					Irainin.reward = 100;
+					break;
+				case ITEM_ID_SCULPTURE:
+					// 彫刻
+					sprites[19] = SPR_addSprite( &fukidashi06, Irainin.x + 32 - Camera.x, Irainin.y - 32, TILE_ATTR( PAL1, TRUE, FALSE, FALSE ) );	// @suppress("Symbol is not resolved")
+					Irainin.reward = 300;
+					break;
+				case ITEM_ID_W_HOUSE:
+					// 木の家
+					sprites[19] = SPR_addSprite( &fukidashi07, Irainin.x + 32 - Camera.x, Irainin.y - 32, TILE_ATTR( PAL1, TRUE, FALSE, FALSE ) );	// @suppress("Symbol is not resolved")
+					Irainin.reward = 1000;
+					break;
+				case ITEM_ID_S_HOUSE:
+					// 石の家
+					sprites[19] = SPR_addSprite( &fukidashi08, Irainin.x + 32 - Camera.x, Irainin.y - 32, TILE_ATTR( PAL1, TRUE, FALSE, FALSE ) );	// @suppress("Symbol is not resolved")
+					Irainin.reward = 1000;
+					break;
+				case ITEM_ID_W_MANSION:
+					// 木の豪邸
+					sprites[19] = SPR_addSprite( &fukidashi09, Irainin.x + 32 - Camera.x, Irainin.y - 32, TILE_ATTR( PAL1, TRUE, FALSE, FALSE ) );	// @suppress("Symbol is not resolved")
+					Irainin.reward = 1500;
+					break;
+				case ITEM_ID_S_MANSION:
+					// 石の豪邸
+					sprites[19] = SPR_addSprite( &fukidashi10, Irainin.x + 32 - Camera.x, Irainin.y - 32, TILE_ATTR( PAL1, TRUE, FALSE, FALSE ) );	// @suppress("Symbol is not resolved")
+					Irainin.reward = 1500;
+					break;
+				case ITEM_ID_TANK:
+					// 水槽
+					sprites[19] = SPR_addSprite( &fukidashi11, Irainin.x + 32 - Camera.x, Irainin.y - 32, TILE_ATTR( PAL1, TRUE, FALSE, FALSE ) );	// @suppress("Symbol is not resolved")
+					Irainin.reward = 500;
+					break;
+				}
 			}
+
 			if ( Irainin_showed == 1 ) {
 				SPR_setPosition(
 					sprites[17],
-					Irainins[Data.date-1].x - Camera.x,	// カメラ移動を意識するため、毎フレーム処理
-					Irainins[Data.date-1].y
+					Irainin.x - Camera.x,	// カメラ移動を意識するため、毎フレーム処理
+					Irainin.y
 				);
 
 				SPR_setPosition(
 					sprites[19],
-					Irainins[Data.date-1].x + 32 - Camera.x,	// カメラ移動を意識するため、毎フレーム処理
-					Irainins[Data.date-1].y - 32
+					Irainin.x + 32 - Camera.x,	// カメラ移動を意識するため、毎フレーム処理
+					Irainin.y - 32
 				);
 			}
 
-			// 画面外にいったらリリース
-			if ( Irainins[Data.date-1].x - Camera.x + PLAYER_WIDTH < 0){
-				SPR_releaseSprite(sprites[17]);
-				SPR_releaseSprite(sprites[19]);
-			}
-
 			//プレイヤーの依頼人関係処理
-			if ( PlayerData.x > Irainins[Data.date-1].x-48
-			  && PlayerData.x < Irainins[Data.date-1].x+48
-			  && PlayerData.y > Irainins[Data.date-1].y-48
-			  && PlayerData.y < Irainins[Data.date-1].y+48
+			if ( Irainin.x - PLAYER_WIDTH  <= PlayerData.x && PlayerData.x <= Irainin.x + PLAYER_WIDTH
+			  && Irainin.y - PLAYER_HEIGHT <= PlayerData.y && PlayerData.y <= Irainin.y + PLAYER_HEIGHT
 			  && completedSwitch == 0
 			) {
 				// 依頼人と接触
-			//	Data.hammer = 1;
+				completedSwitch = 1;
 				s16 ans = 0;
-				switch ( Irainins[Data.date-1].item_id )
+				switch ( Irainin.item_id )
 				{
-					case 0:
+					case ITEM_ID_CHAIR:
 						// 椅子
-						ans = ( Data.chair >= Irainins[Data.date-1].amount? 1:0 );
+						if ( Data.chair >= Irainin.amount ) {
+							ans = ITEM_ID_CHAIR;
+							Data.chair -= Irainin.amount;
+						}
 						break;
-					case 1:
+					case ITEM_ID_DESK:
 						// 机
-						ans = ( Data.desk >= Irainins[Data.date-1].amount? 1:0 );
+						if ( Data.desk >= Irainin.amount ) {
+							ans = ITEM_ID_DESK;
+							Data.desk -= Irainin.amount;
+						}
 						break;
-					case 2:
-						// 彫刻
-						ans = ( Data.sculpture >= Irainins[Data.date-1].amount? 1:0 );
+					case ITEM_ID_CHEST:
+						// タンス
+						if ( Data.chest >= Irainin.amount ) {
+							ans = ITEM_ID_CHEST;
+							Data.chest -= Irainin.amount;
+						}
 						break;
-					case 3:
-						// 水槽
-						ans = ( Data.tank >= Irainins[Data.date-1].amount? 1:0 );
+					case ITEM_ID_BRICK:
+						// レンガ
+						if ( Data.brick >= Irainin.amount ) {
+							ans = ITEM_ID_BRICK;
+							Data.brick -= Irainin.amount;
+						}
 						break;
-					case 4:
+					case ITEM_ID_RING:
 						// 指輪
-						ans = ( Data.ring >= Irainins[Data.date-1].amount? 1:0 );
+						if ( Data.ring >= Irainin.amount ) {
+							ans = ITEM_ID_RING;
+							Data.ring -= Irainin.amount;
+						}
 						break;
-					case 5:
+					case ITEM_ID_SCULPTURE:
+						// 彫刻
+						if ( Data.sculpture >= Irainin.amount ) {
+							ans = ITEM_ID_SCULPTURE;
+							Data.sculpture -= Irainin.amount;
+						}
+						break;
+					case ITEM_ID_W_HOUSE:
+						// 木の家
+						if ( Data.wHouse >= Irainin.amount ) {
+							ans = ITEM_ID_W_HOUSE;
+							Data.wHouse -= Irainin.amount;
+						}
+						break;
+					case ITEM_ID_S_HOUSE:
 						// 石の家
-						ans = ( Data.sHouse >= Irainins[Data.date-1].amount? 1:0 );
+						if ( Data.sHouse >= Irainin.amount ) {
+							ans = ITEM_ID_S_HOUSE;
+							Data.sHouse -= Irainin.amount;
+						}
 						break;
-					case 6:
+					case ITEM_ID_W_MANSION:
 						// 木の豪邸
-						ans = ( Data.wMansion >= Irainins[Data.date-1].amount? 1:0 );
+						if ( Data.wMansion >= Irainin.amount ) {
+							ans = ITEM_ID_W_MANSION;
+							Data.wMansion -= Irainin.amount;
+						}
+						break;
+					case ITEM_ID_S_MANSION:
+						// 石の豪邸
+						if ( Data.sMansion >= Irainin.amount ) {
+							ans = ITEM_ID_S_MANSION;
+							Data.sMansion -= Irainin.amount;
+						}
+						break;
+					case ITEM_ID_TANK:
+						// 水槽
+						if ( Data.tank >= Irainin.amount ) {
+							ans = ITEM_ID_TANK;
+							Data.tank -= Irainin.amount;
+						}
 						break;
 				}
 
-				ans = 1;	// TODO デバッグ
-
-				if ( ans == 1 ) {
+				if ( ans >= 1 ) {
 					// 依頼人の欲しいものを持っていた
-				//	Data.hammer -= Irainins[Data.date-1].amount;
-					Data.money += Irainins[Data.date-1].reward;
-					Data.addMoney += Irainins[Data.date-1].reward;
+					Data.money += Irainin.reward;
+					Data.addMoney += Irainin.reward;
 
 					// 喜んでいるアニメーション
 					SPR_setAnim(sprites[17],1);
@@ -690,9 +783,16 @@ datas game(datas Data) {
 							TILE_ATTR(PAL0, TRUE, FALSE, FALSE) // @suppress("Symbol is not resolved")
 					);
 				//	SPR_setAnim(sprites[18],0);
-					coin_time = 300;
+					coin_time = 120;
 				}
-				completedSwitch = 1;
+			}
+
+			// 画面外にいったらリリース
+			if ( Irainin.x - Camera.x + PLAYER_WIDTH < 0){
+				SPR_releaseSprite(sprites[17]);
+				SPR_releaseSprite(sprites[19]);
+				completedSwitch = 0;
+				Irainin_showed = 0;
 			}
 
 			// コイン
@@ -707,7 +807,7 @@ datas game(datas Data) {
 					SPR_releaseSprite(sprites[18]);
 				}
 			}
-		}
+	//	}
 
 		SPR_update();
 		VDP_waitVSync();
