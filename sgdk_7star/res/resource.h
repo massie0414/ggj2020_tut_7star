@@ -1,15 +1,13 @@
 #ifndef _RES_RESOURCE_H_
 #define _RES_RESOURCE_H_
 
-extern const u8 BGM_Main_8[468480];
-extern const u8 BGM_Sub_8[827904];
-extern const u8 BGM_short_8[445952];
-extern const u8 SE_Button_8[16384];
-extern const u8 SE_Explosion_8[62208];
-extern const u8 SE_Footstep_8[5120];
-extern const u8 SE_Footsteps_cave_8[124160];
-extern const u8 SE_Punch_8[7680];
-extern const u8 SE_Hammer_8[23552];
+extern const u8 BGM_Main_8[410112];
+extern const u8 BGM_Sub_8[724480];
+extern const u8 SE_Button_8[14336];
+extern const u8 SE_Explosion_8[54528];
+extern const u8 SE_Footstep_8[4352];
+extern const u8 SE_Punch_8[6912];
+extern const u8 SE_Hammer_8[20480];
 extern const TileSet sjis_font;
 extern const SpriteDefinition Player;
 extern const SpriteDefinition fukidashi01;

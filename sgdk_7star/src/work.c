@@ -436,7 +436,9 @@ datas work(datas Data) {
 				text(  0, 26,3);	// stone
 			}
 
-			if (pad1 & BUTTON_START){ // @suppress("Symbol is not resolved")
+			if (pad1 & BUTTON_START // @suppress("Symbol is not resolved") // @suppress("Suggested parenthesis around expression")
+			 || pad1 & BUTTON_A // @suppress("Symbol is not resolved") // @suppress("Suggested parenthesis around expression")
+			){
 				// w“ü
 				if((x==0 && y==10) && (Data.wood>=10 && Data.stone>=10)&& Data.hammer<1 ){//ƒnƒ“ƒ}[
 					Data.wood-=10;

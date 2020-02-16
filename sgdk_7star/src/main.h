@@ -6,7 +6,7 @@
 #define PLAYER_WIDTH 48
 #define PLAYER_HEIGHT 48
 
-#define SPRITE_NUM 80
+#define SPRITE_NUM 7
 #define CAMERA_MOVE 1
 
 #define TOP_HEIGHT 124

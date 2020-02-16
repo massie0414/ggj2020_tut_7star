@@ -152,26 +152,10 @@ datas game(datas Data) {
 	s16 bg_b_count = 0;
 	s16 bg_a_count = 0;
 
-	//依頼人関係
-//	u16 NPCs[5]=
-//	{
-//			//アイテムID,個数,報酬,    X,   Y
-//			{        1,  1,100,  400, 124},
-//			{        2,  1,100,  500, 124},
-//			{        3,  1,100,  600, 124},
-//			{        4,  1,100,  700, 124},
-//			{        5,  1,100,  800, 124},
-//			{        6,  1,100,  900, 124},
-//			{        7,  1,100, 1000, 124},
-//			{        8,  1,100, 1100, 124},
-//			{        9,  1,100, 1200, 124},
-//			{       10,  1,100, 1300, 124},
-//			{       11,  1,100, 1400, 124},
-//	};
-
 	s16 Irainin_showed = 0;
 	struct irainin Irainin;
 	s16 irai_next_x = 400;	// 次の依頼人が表示される位置
+	Irainin.x = irai_next_x;	// いったん代入
 
 	s16 completedSwitch = 0;
 	s16 coin_time=0;
@@ -180,8 +164,6 @@ datas game(datas Data) {
 	s16 damage = 1;
 
 	while ( TRUE ) { // @suppress("Symbol is not resolved")
-
-		text( PlayerData.x, 30, 0 );
 
 		bg_b_count += CAMERA_MOVE;
 
@@ -228,7 +210,7 @@ datas game(datas Data) {
 				SND_startPlay_4PCM_ENV(
 						SE_Hammer_8,
 						sizeof(SE_Hammer_8),
-						SOUND_PCM_CH4, 	// @suppress("Symbol is not resolved")
+						SOUND_PCM_CH2, 	// @suppress("Symbol is not resolved")
 						FALSE 			// @suppress("Symbol is not resolved")
 				);
 			}
@@ -242,7 +224,7 @@ datas game(datas Data) {
 				SND_startPlay_4PCM_ENV(
 						SE_Punch_8,
 						sizeof(SE_Punch_8),
-						SOUND_PCM_CH4, 	// @suppress("Symbol is not resolved")
+						SOUND_PCM_CH2, 	// @suppress("Symbol is not resolved")
 						FALSE 			// @suppress("Symbol is not resolved")
 				);
 			}
@@ -256,7 +238,7 @@ datas game(datas Data) {
 				SND_startPlay_4PCM_ENV(
 						SE_Explosion_8,
 						sizeof(SE_Explosion_8),
-						SOUND_PCM_CH4, 	// @suppress("Symbol is not resolved")
+						SOUND_PCM_CH2, 	// @suppress("Symbol is not resolved")
 						FALSE 			// @suppress("Symbol is not resolved")
 				);
 			}
@@ -270,7 +252,7 @@ datas game(datas Data) {
 				SND_startPlay_4PCM_ENV(
 						SE_Punch_8,
 						sizeof(SE_Punch_8),
-						SOUND_PCM_CH4, 	// @suppress("Symbol is not resolved")
+						SOUND_PCM_CH2, 	// @suppress("Symbol is not resolved")
 						FALSE 			// @suppress("Symbol is not resolved")
 				);
 			}
@@ -695,7 +677,7 @@ datas game(datas Data) {
 
 			irai_next_x = Irainin.x + WIDTH;
 
-			sprites[17] = SPR_addSprite(
+			sprites[SOZAI_SUU+1] = SPR_addSprite(
 					&NPC,
 					Irainin.x - Camera.x,
 					Irainin.y,
@@ -706,57 +688,57 @@ datas game(datas Data) {
 			switch ( Irainin.item_id ) {
 			case ITEM_ID_CHAIR:
 				// 椅子
-				sprites[19] = SPR_addSprite( &fukidashi01, Irainin.x + 32 - Camera.x, Irainin.y - 32, TILE_ATTR( PAL1, TRUE, FALSE, FALSE ) );	// @suppress("Symbol is not resolved")
+				sprites[SOZAI_SUU+3] = SPR_addSprite( &fukidashi01, Irainin.x + 32 - Camera.x, Irainin.y - 32, TILE_ATTR( PAL1, TRUE, FALSE, FALSE ) );	// @suppress("Symbol is not resolved")
 				Irainin.reward = 100;
 				break;
 			case ITEM_ID_DESK:
 				// 机
-				sprites[19] = SPR_addSprite( &fukidashi02, Irainin.x + 32 - Camera.x, Irainin.y - 32, TILE_ATTR( PAL1, TRUE, FALSE, FALSE ) );	// @suppress("Symbol is not resolved")
+				sprites[SOZAI_SUU+3] = SPR_addSprite( &fukidashi02, Irainin.x + 32 - Camera.x, Irainin.y - 32, TILE_ATTR( PAL1, TRUE, FALSE, FALSE ) );	// @suppress("Symbol is not resolved")
 				Irainin.reward = 300;
 				break;
 			case ITEM_ID_CHEST:
 				// タンス
-				sprites[19] = SPR_addSprite( &fukidashi03, Irainin.x + 32 - Camera.x, Irainin.y - 32, TILE_ATTR( PAL1, TRUE, FALSE, FALSE ) );	// @suppress("Symbol is not resolved")
+				sprites[SOZAI_SUU+3] = SPR_addSprite( &fukidashi03, Irainin.x + 32 - Camera.x, Irainin.y - 32, TILE_ATTR( PAL1, TRUE, FALSE, FALSE ) );	// @suppress("Symbol is not resolved")
 				Irainin.reward = 400;
 				break;
 			case ITEM_ID_BRICK:
 				// れんが
-				sprites[19] = SPR_addSprite( &fukidashi04, Irainin.x + 32 - Camera.x, Irainin.y - 32, TILE_ATTR( PAL1, TRUE, FALSE, FALSE ) );	// @suppress("Symbol is not resolved")
+				sprites[SOZAI_SUU+3] = SPR_addSprite( &fukidashi04, Irainin.x + 32 - Camera.x, Irainin.y - 32, TILE_ATTR( PAL1, TRUE, FALSE, FALSE ) );	// @suppress("Symbol is not resolved")
 				Irainin.reward = 100;
 				break;
 			case ITEM_ID_RING:
 				// 指輪
-				sprites[19] = SPR_addSprite( &fukidashi05, Irainin.x + 32 - Camera.x, Irainin.y - 32, TILE_ATTR( PAL1, TRUE, FALSE, FALSE ) );	// @suppress("Symbol is not resolved")
+				sprites[SOZAI_SUU+3] = SPR_addSprite( &fukidashi05, Irainin.x + 32 - Camera.x, Irainin.y - 32, TILE_ATTR( PAL1, TRUE, FALSE, FALSE ) );	// @suppress("Symbol is not resolved")
 				Irainin.reward = 100;
 				break;
 			case ITEM_ID_SCULPTURE:
 				// 彫刻
-				sprites[19] = SPR_addSprite( &fukidashi06, Irainin.x + 32 - Camera.x, Irainin.y - 32, TILE_ATTR( PAL1, TRUE, FALSE, FALSE ) );	// @suppress("Symbol is not resolved")
+				sprites[SOZAI_SUU+3] = SPR_addSprite( &fukidashi06, Irainin.x + 32 - Camera.x, Irainin.y - 32, TILE_ATTR( PAL1, TRUE, FALSE, FALSE ) );	// @suppress("Symbol is not resolved")
 				Irainin.reward = 300;
 				break;
 			case ITEM_ID_W_HOUSE:
 				// 木の家
-				sprites[19] = SPR_addSprite( &fukidashi07, Irainin.x + 32 - Camera.x, Irainin.y - 32, TILE_ATTR( PAL1, TRUE, FALSE, FALSE ) );	// @suppress("Symbol is not resolved")
+				sprites[SOZAI_SUU+3] = SPR_addSprite( &fukidashi07, Irainin.x + 32 - Camera.x, Irainin.y - 32, TILE_ATTR( PAL1, TRUE, FALSE, FALSE ) );	// @suppress("Symbol is not resolved")
 				Irainin.reward = 1000;
 				break;
 			case ITEM_ID_S_HOUSE:
 				// 石の家
-				sprites[19] = SPR_addSprite( &fukidashi08, Irainin.x + 32 - Camera.x, Irainin.y - 32, TILE_ATTR( PAL1, TRUE, FALSE, FALSE ) );	// @suppress("Symbol is not resolved")
+				sprites[SOZAI_SUU+3] = SPR_addSprite( &fukidashi08, Irainin.x + 32 - Camera.x, Irainin.y - 32, TILE_ATTR( PAL1, TRUE, FALSE, FALSE ) );	// @suppress("Symbol is not resolved")
 				Irainin.reward = 1000;
 				break;
 			case ITEM_ID_W_MANSION:
 				// 木の豪邸
-				sprites[19] = SPR_addSprite( &fukidashi09, Irainin.x + 32 - Camera.x, Irainin.y - 32, TILE_ATTR( PAL1, TRUE, FALSE, FALSE ) );	// @suppress("Symbol is not resolved")
+				sprites[SOZAI_SUU+3] = SPR_addSprite( &fukidashi09, Irainin.x + 32 - Camera.x, Irainin.y - 32, TILE_ATTR( PAL1, TRUE, FALSE, FALSE ) );	// @suppress("Symbol is not resolved")
 				Irainin.reward = 1500;
 				break;
 			case ITEM_ID_S_MANSION:
 				// 石の豪邸
-				sprites[19] = SPR_addSprite( &fukidashi10, Irainin.x + 32 - Camera.x, Irainin.y - 32, TILE_ATTR( PAL1, TRUE, FALSE, FALSE ) );	// @suppress("Symbol is not resolved")
+				sprites[SOZAI_SUU+3] = SPR_addSprite( &fukidashi10, Irainin.x + 32 - Camera.x, Irainin.y - 32, TILE_ATTR( PAL1, TRUE, FALSE, FALSE ) );	// @suppress("Symbol is not resolved")
 				Irainin.reward = 1500;
 				break;
 			case ITEM_ID_TANK:
 				// 水槽
-				sprites[19] = SPR_addSprite( &fukidashi11, Irainin.x + 32 - Camera.x, Irainin.y - 32, TILE_ATTR( PAL1, TRUE, FALSE, FALSE ) );	// @suppress("Symbol is not resolved")
+				sprites[SOZAI_SUU+3] = SPR_addSprite( &fukidashi11, Irainin.x + 32 - Camera.x, Irainin.y - 32, TILE_ATTR( PAL1, TRUE, FALSE, FALSE ) );	// @suppress("Symbol is not resolved")
 				Irainin.reward = 500;
 				break;
 			}
@@ -764,21 +746,21 @@ datas game(datas Data) {
 
 		if ( Irainin_showed == 1 ) {
 			SPR_setPosition(
-				sprites[17],
+				sprites[SOZAI_SUU+1],
 				Irainin.x - Camera.x,	// カメラ移動を意識するため、毎フレーム処理
 				Irainin.y
 			);
 
 			SPR_setPosition(
-				sprites[19],
+				sprites[SOZAI_SUU+3],
 				Irainin.x + 32 - Camera.x,	// カメラ移動を意識するため、毎フレーム処理
 				Irainin.y - 32
 			);
 		}
 
 		//プレイヤーの依頼人関係処理
-		if ( Irainin.x - PLAYER_WIDTH  <= PlayerData.x && PlayerData.x <= Irainin.x + PLAYER_WIDTH
-		  && Irainin.y - PLAYER_HEIGHT <= PlayerData.y && PlayerData.y <= Irainin.y + PLAYER_HEIGHT
+		if ( Irainin.x - 24  <= PlayerData.x && PlayerData.x <= Irainin.x + 24
+		  && Irainin.y - 24 <= PlayerData.y && PlayerData.y <= Irainin.y + 24
 		  && completedSwitch == 0
 		) {
 			// 依頼人と接触
@@ -871,7 +853,7 @@ datas game(datas Data) {
 				Data.addMoney += Irainin.reward;
 
 				// 喜んでいるアニメーション
-				SPR_setAnim(sprites[17],1);
+				SPR_setAnim(sprites[SOZAI_SUU+1],1);
 
 				// 効果音（コイン）
 				SND_startPlay_4PCM_ENV(
@@ -882,21 +864,21 @@ datas game(datas Data) {
 				);
 
 				// コイン
-				sprites[18]=SPR_addSprite(
+				sprites[SOZAI_SUU+2]=SPR_addSprite(
 						&jump_coin,
 						PlayerData.x + 20 - Camera.x,
 						PlayerData.y - 32,
 						TILE_ATTR(PAL0, TRUE, FALSE, FALSE) // @suppress("Symbol is not resolved")
 				);
-			//	SPR_setAnim(sprites[18],0);
+			//	SPR_setAnim(sprites[SOZAI_SUU+2],0);
 				coin_time = 120;
 			}
 		}
 
 		// 画面外にいったらリリース
 		if ( Irainin.x - Camera.x + PLAYER_WIDTH + 64 < 0){
-			SPR_releaseSprite(sprites[17]);
-			SPR_releaseSprite(sprites[19]);
+			SPR_releaseSprite(sprites[SOZAI_SUU+1]);
+			SPR_releaseSprite(sprites[SOZAI_SUU+3]);
 			completedSwitch = 0;
 			Irainin_showed = 0;
 		}
@@ -904,13 +886,13 @@ datas game(datas Data) {
 		// コイン
 		if ( coin_time >= 1 ) {
 			SPR_setPosition(
-					sprites[18],
+					sprites[SOZAI_SUU+2],
 					PlayerData.x + 20 - Camera.x,
 					PlayerData.y - 32
 			);
 			coin_time--;
 			if ( coin_time <= 0 ) {
-				SPR_releaseSprite(sprites[18]);
+				SPR_releaseSprite(sprites[SOZAI_SUU+2]);
 			}
 		}
 
