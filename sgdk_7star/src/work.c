@@ -173,6 +173,127 @@ datas work(datas Data) {
 		text(Data.sMansion, 36,17);
 		text(Data.tank    , 36,22);
 
+		// w“ü‚Å‚«‚é‚©‚Ç‚¤‚©
+		if ( ( Data.wood >= 10 && Data.stone >= 10 ) ) {
+			// ƒnƒ“ƒ}[
+		    VDP_drawText("!", 1, 10);
+		}
+		else {
+			VDP_drawText(" ", 1, 10);
+		}
+
+		if ( Data.wood >= 20 ){
+			// ƒoƒPƒc
+		    VDP_drawText("!", 1, 15);
+		}
+		else {
+			VDP_drawText(" ", 1, 15);
+		}
+
+		if ( Data.wood >= 15 && Data.stone >= 15 ) {
+			// ”š’e
+		    VDP_drawText("!", 1, 20);
+		}
+		else {
+			VDP_drawText(" ", 1, 20);
+		}
+
+		if ( Data.wood >= 10 && Data.stone >= 10 ) {
+			// ƒmƒRƒMƒŠ
+		    VDP_drawText("!", 1, 25);
+		}
+		else {
+			VDP_drawText(" ", 1, 25);
+		}
+
+		if ( Data.wood >= 5 ) {
+			// ˆÖq
+		    VDP_drawText("!", 11, 10);
+		}
+		else {
+			VDP_drawText(" ", 11, 10);
+		}
+
+		if ( Data.wood >= 10 ) {
+			// Š÷
+		    VDP_drawText("!", 11, 15);
+		}
+		else {
+			VDP_drawText(" ", 11, 15);
+		}
+
+		if ( Data.wood >= 5 && Data.metal >= 2 ) {
+			// ƒ^ƒ“ƒX
+		    VDP_drawText("!", 11, 20);
+		}
+		else {
+			VDP_drawText(" ", 11, 20);
+		}
+
+		if ( Data.stone >= 5 ) {
+			// ƒŒƒ“ƒK
+		    VDP_drawText("!", 11, 25);
+		}
+		else {
+			VDP_drawText(" ", 11, 25);
+		}
+
+		if ( Data.metal >= 2 ) {
+			// w—Ö
+		    VDP_drawText("!", 21, 10);
+		}
+		else {
+			VDP_drawText(" ", 21, 10);
+		}
+
+		if ( Data.stone >= 10 ) {
+			// ’¤
+		    VDP_drawText("!", 21, 15);
+		}
+		else {
+			VDP_drawText(" ", 21, 15);
+		}
+
+		if ( Data.wood >= 20 && Data.metal >= 2 ) {
+			// –Ø‚Ì‰Æ
+		    VDP_drawText("!", 21, 20);
+		}
+		else {
+			VDP_drawText(" ", 21, 20);
+		}
+
+		if ( Data.stone >= 20 && Data.metal >= 2 ) {
+			// Î‚Ì‰Æ
+		    VDP_drawText("!", 21, 25);
+		}
+		else {
+			VDP_drawText(" ", 21, 25);
+		}
+
+		if ( Data.wood >= 20 && Data.metal >= 5 ) {
+			// –Ø‚Ì‹“@
+		    VDP_drawText("!", 31, 10);
+		}
+		else {
+			VDP_drawText(" ", 31, 10);
+		}
+
+		if ( Data.stone >= 20 && Data.metal >= 5 && Data.water >= 10 ) {
+			// Î‚Ì‹“@
+		    VDP_drawText("!", 31, 15);
+		}
+		else {
+			VDP_drawText(" ", 31, 15);
+		}
+
+		if ( Data.water >= 20 ) {
+			// …‘…
+		    VDP_drawText("!", 31, 20);
+		}
+		else {
+			VDP_drawText(" ", 31, 20);
+		}
+
 		pad1 = JOY_readJoypad(JOY_1); // @suppress("Symbol is not resolved")
 		if (pad0 != pad1) {
 			pad0 = pad1;
