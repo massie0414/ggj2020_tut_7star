@@ -3,8 +3,6 @@
 #include "resource.h"
 #include "main.h"
 
-s16 goal_in=5000;
-
 struct playerScene
 {
 	s16 x;
@@ -34,7 +32,6 @@ struct irainin
 	s16 y;
 };
 
-
 datas game(datas Data) {
 
 	SYS_disableInts();
@@ -55,13 +52,6 @@ datas game(datas Data) {
 	Camera.x=0;
 	Camera.y=122;
 
-	// 素材の初期化
-	struct sozai Sozais[SOZAI_SUU];
-	for(s16 i=0;i<SOZAI_SUU;i++)
-	{
-		Sozais[i].showed=0;
-	}
-
 	Data.gm = GAME;
 
 	// BGM再生
@@ -78,11 +68,26 @@ datas game(datas Data) {
 	memcpy(&palette[32], soradesu_1_image.palette->data, 16 * 2);
 	memcpy(&palette[48], zimensample_1_image.palette->data, 16 * 2);
 
+	s16 SOZAI_SUU = 3;
+
 	// 行きか帰りか
 	if ( Data.explore_mode == 1 ) {
 		// 帰り
 		memcpy(&palette[32], sorayuugata_image.palette->data, 16 * 2);
 		memcpy(&palette[48], zimenyuugata_image.palette->data, 16 * 2);
+
+		// 帰りは素材数を少なくする
+		SOZAI_SUU = 1;
+	}
+
+	s16 goal_in = 5000;
+
+	// 素材の初期化
+	struct sozai Sozais[SOZAI_SUU];
+	for(s16 i=0;i<SOZAI_SUU;i++)
+	{
+		Sozais[i].showed=0;
+		Sozais[i].x=0;
 	}
 
 	// プレイヤー
@@ -176,14 +181,6 @@ datas game(datas Data) {
 	s16 completedSwitch = 0;
 
 	s16 coin_time=0;
-
-	//依頼人のフキダシ
-//	sprites[19] = SPR_addSprite(
-//			&fukidashi,
-//			200,
-//			100,
-//			TILE_ATTR(PAL0, TRUE, FALSE, FALSE) // @suppress("Symbol is not resolved")
-//	);
 
 	int action = PLAYER_PUNCH;
 	int next_x = 0;
@@ -343,17 +340,20 @@ datas game(datas Data) {
 			PlayerData.y
 		);
 
+		text(next_x, 30, 0);
+		text(Sozais[0].x, 30, 1);
+		text(Sozais[1].x, 30, 2);
+		text(Sozais[2].x, 30, 3);
+
 		// 素材
 		for ( s16 i = 0; i < SOZAI_SUU; i++ ) {
 
 			// 生成
 			if ( Sozais[i].showed == 0 && next_x < WIDTH + Camera.x ) {
 
-				Sozais[i].item_id = (int)random() % 16 + 1;
-				Sozais[i].x = WIDTH + Camera.x + (int)random() % 128;
-				Sozais[i].y = 150 + (int)random() % 24;
-
-				next_x = Sozais[i].x + Sozais[i].width + 64;	// 64はバッファ
+				Sozais[i].item_id = (s16)( random() % 16 ) + 1;
+				Sozais[i].x = WIDTH + Camera.x + (s16)( random() % 128 );
+				Sozais[i].y = 150 + (s16)( random() % 24 );
 
 				switch ( Sozais[i].item_id ) {
 				case ITEM_ID_KI01:
@@ -518,6 +518,8 @@ datas game(datas Data) {
 					break;
 				}
 				Sozais[i].showed = 1;
+
+				next_x = Sozais[i].x + Sozais[i].width + 32;	// 32はバッファ
 			}
 
 			if ( Sozais[i].showed == 1 ) {

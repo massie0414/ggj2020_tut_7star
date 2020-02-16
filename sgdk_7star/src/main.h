@@ -13,7 +13,6 @@
 #define BOTTOM_HEIGHT 224-48
 #define CAMERA_SCROLL
 #define SCROLL_DIFF 32
-#define SOZAI_SUU 3
 #define HUMMER_RANGE 48
 #define IRAININ_NUM 3
 
