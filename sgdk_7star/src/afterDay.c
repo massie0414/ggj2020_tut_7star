@@ -12,7 +12,7 @@ datas afterDay(datas Data) {
 
 	VDP_setWindowHPos(FALSE, 0); // @suppress("Symbol is not resolved")
 	VDP_setWindowVPos(FALSE, 0); // @suppress("Symbol is not resolved")
-	VDP_setTextPlan(PLAN_A);
+	VDP_setTextPlan(PLAN_A); // @suppress("Symbol is not resolved")
 	VDP_setTextPriority(TRUE); // @suppress("Symbol is not resolved")
 
     Data.gm = AFTERDAY;
